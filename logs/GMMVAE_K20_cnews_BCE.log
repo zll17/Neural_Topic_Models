@@ -1,0 +1,263 @@
+GMMVAE(
+  (fc1): Linear(in_features=16599, out_features=1024, bias=True)
+  (mus): ModuleList(
+    (0): Linear(in_features=1024, out_features=20, bias=True)
+    (1): Linear(in_features=1024, out_features=20, bias=True)
+    (2): Linear(in_features=1024, out_features=20, bias=True)
+    (3): Linear(in_features=1024, out_features=20, bias=True)
+    (4): Linear(in_features=1024, out_features=20, bias=True)
+    (5): Linear(in_features=1024, out_features=20, bias=True)
+    (6): Linear(in_features=1024, out_features=20, bias=True)
+  )
+  (log_vars): ModuleList(
+    (0): Linear(in_features=1024, out_features=20, bias=True)
+    (1): Linear(in_features=1024, out_features=20, bias=True)
+    (2): Linear(in_features=1024, out_features=20, bias=True)
+    (3): Linear(in_features=1024, out_features=20, bias=True)
+    (4): Linear(in_features=1024, out_features=20, bias=True)
+    (5): Linear(in_features=1024, out_features=20, bias=True)
+    (6): Linear(in_features=1024, out_features=20, bias=True)
+  )
+  (wght_comps): Linear(in_features=7, out_features=1, bias=True)
+  (fc4): Linear(in_features=20, out_features=20, bias=True)
+  (fc5): Linear(in_features=20, out_features=1024, bias=True)
+  (fc6): Linear(in_features=1024, out_features=16599, bias=True)
+)
+==============================Loss==============================
+Epoch[1/70], Step [100/352], Reconst Loss: 59.4638, KL Div: 19.6443
+Epoch[1/70], Step [200/352], Reconst Loss: 50.6744, KL Div: 2.0558
+Epoch[1/70], Step [300/352], Reconst Loss: 50.4688, KL Div: 0.1393
+Epoch[2/70], Step [100/352], Reconst Loss: 49.6678, KL Div: 0.0426
+Epoch[2/70], Step [200/352], Reconst Loss: 49.2231, KL Div: 0.0293
+Epoch[2/70], Step [300/352], Reconst Loss: 49.2039, KL Div: 0.0133
+Epoch[3/70], Step [100/352], Reconst Loss: 47.6498, KL Div: 0.0111
+Epoch[3/70], Step [200/352], Reconst Loss: 49.4485, KL Div: 0.0128
+Epoch[3/70], Step [300/352], Reconst Loss: 48.8126, KL Div: 0.0052
+Epoch[4/70], Step [100/352], Reconst Loss: 49.4307, KL Div: 0.0060
+Epoch[4/70], Step [200/352], Reconst Loss: 49.4126, KL Div: 0.0058
+Epoch[4/70], Step [300/352], Reconst Loss: 50.3372, KL Div: 0.0065
+Epoch[5/70], Step [100/352], Reconst Loss: 49.7371, KL Div: 0.0037
+Epoch[5/70], Step [200/352], Reconst Loss: 49.5828, KL Div: 0.0046
+Epoch[5/70], Step [300/352], Reconst Loss: 49.5138, KL Div: 0.0038
+Epoch[6/70], Step [100/352], Reconst Loss: 50.1701, KL Div: 0.0039
+Epoch[6/70], Step [200/352], Reconst Loss: 50.7029, KL Div: 0.0044
+Epoch[6/70], Step [300/352], Reconst Loss: 49.3298, KL Div: 0.0047
+Epoch[7/70], Step [100/352], Reconst Loss: 49.6981, KL Div: 0.0046
+Epoch[7/70], Step [200/352], Reconst Loss: 50.1309, KL Div: 0.0056
+Epoch[7/70], Step [300/352], Reconst Loss: 49.5651, KL Div: 0.0071
+Epoch[8/70], Step [100/352], Reconst Loss: 48.6245, KL Div: 0.0071
+Epoch[8/70], Step [200/352], Reconst Loss: 49.8356, KL Div: 0.0105
+Epoch[8/70], Step [300/352], Reconst Loss: 49.4923, KL Div: 0.0133
+Epoch[9/70], Step [100/352], Reconst Loss: 48.4266, KL Div: 0.1810
+Epoch[9/70], Step [200/352], Reconst Loss: 49.3318, KL Div: 0.2330
+Epoch[9/70], Step [300/352], Reconst Loss: 48.6316, KL Div: 0.3154
+Epoch[10/70], Step [100/352], Reconst Loss: 47.7874, KL Div: 0.3630
+Epoch[10/70], Step [200/352], Reconst Loss: 47.9350, KL Div: 0.4489
+Epoch[10/70], Step [300/352], Reconst Loss: 49.5988, KL Div: 0.4202
+Epoch[11/70], Step [100/352], Reconst Loss: 47.9450, KL Div: 0.5388
+Epoch[11/70], Step [200/352], Reconst Loss: 47.9907, KL Div: 0.3874
+Epoch[11/70], Step [300/352], Reconst Loss: 47.7327, KL Div: 0.3922
+Epoch[12/70], Step [100/352], Reconst Loss: 48.0631, KL Div: 0.4826
+Epoch[12/70], Step [200/352], Reconst Loss: 48.3423, KL Div: 0.5726
+Epoch[12/70], Step [300/352], Reconst Loss: 48.1616, KL Div: 0.3977
+Epoch[13/70], Step [100/352], Reconst Loss: 48.3097, KL Div: 0.5789
+Epoch[13/70], Step [200/352], Reconst Loss: 47.8992, KL Div: 0.6045
+Epoch[13/70], Step [300/352], Reconst Loss: 47.9309, KL Div: 0.5537
+Epoch[14/70], Step [100/352], Reconst Loss: 48.1187, KL Div: 0.5751
+Epoch[14/70], Step [200/352], Reconst Loss: 47.0766, KL Div: 0.6804
+Epoch[14/70], Step [300/352], Reconst Loss: 47.2135, KL Div: 0.6214
+Epoch[15/70], Step [100/352], Reconst Loss: 48.1154, KL Div: 0.6394
+Epoch[15/70], Step [200/352], Reconst Loss: 47.7069, KL Div: 0.7326
+Epoch[15/70], Step [300/352], Reconst Loss: 47.8875, KL Div: 0.8181
+Epoch[16/70], Step [100/352], Reconst Loss: 47.5276, KL Div: 0.7230
+Epoch[16/70], Step [200/352], Reconst Loss: 47.5998, KL Div: 0.8378
+Epoch[16/70], Step [300/352], Reconst Loss: 47.8087, KL Div: 0.8728
+Epoch[17/70], Step [100/352], Reconst Loss: 47.9033, KL Div: 0.8244
+Epoch[17/70], Step [200/352], Reconst Loss: 47.5219, KL Div: 0.9328
+Epoch[17/70], Step [300/352], Reconst Loss: 47.7352, KL Div: 0.8979
+Epoch[18/70], Step [100/352], Reconst Loss: 48.3391, KL Div: 1.0113
+Epoch[18/70], Step [200/352], Reconst Loss: 47.2256, KL Div: 1.0530
+Epoch[18/70], Step [300/352], Reconst Loss: 47.1459, KL Div: 1.1672
+Epoch[19/70], Step [100/352], Reconst Loss: 47.6482, KL Div: 1.1231
+Epoch[19/70], Step [200/352], Reconst Loss: 47.1770, KL Div: 1.2059
+Epoch[19/70], Step [300/352], Reconst Loss: 47.3511, KL Div: 1.3062
+Epoch[20/70], Step [100/352], Reconst Loss: 46.9937, KL Div: 1.2047
+Epoch[20/70], Step [200/352], Reconst Loss: 47.2912, KL Div: 1.2719
+Epoch[20/70], Step [300/352], Reconst Loss: 44.8977, KL Div: 1.4622
+Epoch[21/70], Step [100/352], Reconst Loss: 44.2480, KL Div: 1.5163
+Epoch[21/70], Step [200/352], Reconst Loss: 45.6179, KL Div: 1.4514
+Epoch[21/70], Step [300/352], Reconst Loss: 44.9531, KL Div: 1.6880
+Epoch[22/70], Step [100/352], Reconst Loss: 46.0278, KL Div: 1.8915
+Epoch[22/70], Step [200/352], Reconst Loss: 45.4273, KL Div: 1.6985
+Epoch[22/70], Step [300/352], Reconst Loss: 44.6310, KL Div: 1.9630
+Epoch[23/70], Step [100/352], Reconst Loss: 44.5283, KL Div: 2.1179
+Epoch[23/70], Step [200/352], Reconst Loss: 44.2664, KL Div: 2.0674
+Epoch[23/70], Step [300/352], Reconst Loss: 43.9787, KL Div: 2.1256
+Epoch[24/70], Step [100/352], Reconst Loss: 44.2487, KL Div: 2.2790
+Epoch[24/70], Step [200/352], Reconst Loss: 43.3844, KL Div: 2.1846
+Epoch[24/70], Step [300/352], Reconst Loss: 45.1188, KL Div: 2.1992
+Epoch[25/70], Step [100/352], Reconst Loss: 43.4639, KL Div: 2.4353
+Epoch[25/70], Step [200/352], Reconst Loss: 43.9289, KL Div: 2.5621
+Epoch[25/70], Step [300/352], Reconst Loss: 42.8520, KL Div: 2.4620
+Epoch[26/70], Step [100/352], Reconst Loss: 43.6485, KL Div: 2.5644
+Epoch[26/70], Step [200/352], Reconst Loss: 42.9290, KL Div: 2.5985
+Epoch[26/70], Step [300/352], Reconst Loss: 42.9711, KL Div: 2.6871
+Epoch[27/70], Step [100/352], Reconst Loss: 42.7878, KL Div: 2.8931
+Epoch[27/70], Step [200/352], Reconst Loss: 43.2692, KL Div: 2.7156
+Epoch[27/70], Step [300/352], Reconst Loss: 41.9779, KL Div: 2.7152
+Epoch[28/70], Step [100/352], Reconst Loss: 43.4326, KL Div: 2.7973
+Epoch[28/70], Step [200/352], Reconst Loss: 41.6288, KL Div: 2.9169
+Epoch[28/70], Step [300/352], Reconst Loss: 41.8296, KL Div: 2.8243
+Epoch[29/70], Step [100/352], Reconst Loss: 42.0926, KL Div: 2.9858
+Epoch[29/70], Step [200/352], Reconst Loss: 42.6606, KL Div: 2.9050
+Epoch[29/70], Step [300/352], Reconst Loss: 42.8162, KL Div: 3.0277
+Epoch[30/70], Step [100/352], Reconst Loss: 41.5193, KL Div: 3.0027
+Epoch[30/70], Step [200/352], Reconst Loss: 41.9142, KL Div: 3.1385
+Epoch[30/70], Step [300/352], Reconst Loss: 42.3386, KL Div: 3.2282
+Epoch[31/70], Step [100/352], Reconst Loss: 42.3544, KL Div: 3.2378
+Epoch[31/70], Step [200/352], Reconst Loss: 42.0514, KL Div: 3.1089
+Epoch[31/70], Step [300/352], Reconst Loss: 41.8529, KL Div: 3.1387
+Epoch[32/70], Step [100/352], Reconst Loss: 42.0834, KL Div: 3.3341
+Epoch[32/70], Step [200/352], Reconst Loss: 41.9888, KL Div: 3.2867
+Epoch[32/70], Step [300/352], Reconst Loss: 41.9093, KL Div: 3.3763
+Epoch[33/70], Step [100/352], Reconst Loss: 41.6867, KL Div: 3.4364
+Epoch[33/70], Step [200/352], Reconst Loss: 41.7441, KL Div: 3.4416
+Epoch[33/70], Step [300/352], Reconst Loss: 41.4720, KL Div: 3.4624
+Epoch[34/70], Step [100/352], Reconst Loss: 40.8758, KL Div: 3.4088
+Epoch[34/70], Step [200/352], Reconst Loss: 40.2297, KL Div: 3.5289
+Epoch[34/70], Step [300/352], Reconst Loss: 40.3211, KL Div: 3.5646
+Epoch[35/70], Step [100/352], Reconst Loss: 40.6710, KL Div: 3.4934
+Epoch[35/70], Step [200/352], Reconst Loss: 40.1009, KL Div: 3.5820
+Epoch[35/70], Step [300/352], Reconst Loss: 40.8150, KL Div: 3.6652
+Epoch[36/70], Step [100/352], Reconst Loss: 40.2288, KL Div: 3.7983
+Epoch[36/70], Step [200/352], Reconst Loss: 41.5509, KL Div: 3.6045
+Epoch[36/70], Step [300/352], Reconst Loss: 40.2119, KL Div: 3.8150
+Epoch[37/70], Step [100/352], Reconst Loss: 40.6295, KL Div: 3.6124
+Epoch[37/70], Step [200/352], Reconst Loss: 40.3352, KL Div: 3.8920
+Epoch[37/70], Step [300/352], Reconst Loss: 41.0419, KL Div: 3.7564
+Epoch[38/70], Step [100/352], Reconst Loss: 40.7861, KL Div: 3.8339
+Epoch[38/70], Step [200/352], Reconst Loss: 40.1954, KL Div: 3.9922
+Epoch[38/70], Step [300/352], Reconst Loss: 39.8164, KL Div: 3.8509
+Epoch[39/70], Step [100/352], Reconst Loss: 39.7408, KL Div: 3.9200
+Epoch[39/70], Step [200/352], Reconst Loss: 40.1403, KL Div: 3.9143
+Epoch[39/70], Step [300/352], Reconst Loss: 40.0546, KL Div: 3.9836
+Epoch[40/70], Step [100/352], Reconst Loss: 40.0330, KL Div: 3.9535
+Epoch[40/70], Step [200/352], Reconst Loss: 39.8274, KL Div: 4.0214
+Epoch[40/70], Step [300/352], Reconst Loss: 40.3533, KL Div: 4.0925
+Epoch[41/70], Step [100/352], Reconst Loss: 39.9330, KL Div: 4.2003
+Epoch[41/70], Step [200/352], Reconst Loss: 38.7125, KL Div: 4.2507
+Epoch[41/70], Step [300/352], Reconst Loss: 39.7201, KL Div: 4.0636
+Epoch[42/70], Step [100/352], Reconst Loss: 40.3868, KL Div: 4.2730
+Epoch[42/70], Step [200/352], Reconst Loss: 39.3134, KL Div: 4.1540
+Epoch[42/70], Step [300/352], Reconst Loss: 39.9305, KL Div: 4.2359
+Epoch[43/70], Step [100/352], Reconst Loss: 39.2186, KL Div: 4.1701
+Epoch[43/70], Step [200/352], Reconst Loss: 39.4837, KL Div: 4.3636
+Epoch[43/70], Step [300/352], Reconst Loss: 39.4486, KL Div: 4.2109
+Epoch[44/70], Step [100/352], Reconst Loss: 39.3167, KL Div: 4.3109
+Epoch[44/70], Step [200/352], Reconst Loss: 38.9464, KL Div: 4.3009
+Epoch[44/70], Step [300/352], Reconst Loss: 39.4890, KL Div: 4.4438
+Epoch[45/70], Step [100/352], Reconst Loss: 39.4066, KL Div: 4.4818
+Epoch[45/70], Step [200/352], Reconst Loss: 39.2187, KL Div: 4.4987
+Epoch[45/70], Step [300/352], Reconst Loss: 39.0196, KL Div: 4.5492
+Epoch[46/70], Step [100/352], Reconst Loss: 39.3815, KL Div: 4.4554
+Epoch[46/70], Step [200/352], Reconst Loss: 38.9519, KL Div: 4.5527
+Epoch[46/70], Step [300/352], Reconst Loss: 39.2123, KL Div: 4.6463
+Epoch[47/70], Step [100/352], Reconst Loss: 39.1130, KL Div: 4.6402
+Epoch[47/70], Step [200/352], Reconst Loss: 39.0909, KL Div: 4.7465
+Epoch[47/70], Step [300/352], Reconst Loss: 39.2599, KL Div: 4.6411
+Epoch[48/70], Step [100/352], Reconst Loss: 40.0876, KL Div: 4.6717
+Epoch[48/70], Step [200/352], Reconst Loss: 38.1970, KL Div: 4.7051
+Epoch[48/70], Step [300/352], Reconst Loss: 37.5385, KL Div: 4.6433
+Epoch[49/70], Step [100/352], Reconst Loss: 38.6443, KL Div: 4.8317
+Epoch[49/70], Step [200/352], Reconst Loss: 39.0869, KL Div: 4.6979
+Epoch[49/70], Step [300/352], Reconst Loss: 38.0638, KL Div: 4.8119
+Epoch[50/70], Step [100/352], Reconst Loss: 38.5029, KL Div: 4.8306
+Epoch[50/70], Step [200/352], Reconst Loss: 37.7537, KL Div: 4.7725
+Epoch[50/70], Step [300/352], Reconst Loss: 37.5013, KL Div: 4.8451
+Epoch[51/70], Step [100/352], Reconst Loss: 38.1992, KL Div: 4.9431
+Epoch[51/70], Step [200/352], Reconst Loss: 38.7238, KL Div: 4.8656
+Epoch[51/70], Step [300/352], Reconst Loss: 37.9147, KL Div: 4.9099
+Epoch[52/70], Step [100/352], Reconst Loss: 37.9032, KL Div: 5.0313
+Epoch[52/70], Step [200/352], Reconst Loss: 38.2972, KL Div: 4.8361
+Epoch[52/70], Step [300/352], Reconst Loss: 38.7334, KL Div: 5.1853
+Epoch[53/70], Step [100/352], Reconst Loss: 37.0468, KL Div: 4.8626
+Epoch[53/70], Step [200/352], Reconst Loss: 37.8608, KL Div: 4.9565
+Epoch[53/70], Step [300/352], Reconst Loss: 38.8411, KL Div: 4.9350
+Epoch[54/70], Step [100/352], Reconst Loss: 38.5316, KL Div: 5.0891
+Epoch[54/70], Step [200/352], Reconst Loss: 38.4691, KL Div: 4.9613
+Epoch[54/70], Step [300/352], Reconst Loss: 38.5914, KL Div: 5.1250
+Epoch[55/70], Step [100/352], Reconst Loss: 37.2689, KL Div: 5.1653
+Epoch[55/70], Step [200/352], Reconst Loss: 37.7695, KL Div: 5.0211
+Epoch[55/70], Step [300/352], Reconst Loss: 38.0942, KL Div: 4.8583
+Epoch[56/70], Step [100/352], Reconst Loss: 37.9442, KL Div: 5.0207
+Epoch[56/70], Step [200/352], Reconst Loss: 37.5930, KL Div: 5.0423
+Epoch[56/70], Step [300/352], Reconst Loss: 37.6315, KL Div: 5.1615
+Epoch[57/70], Step [100/352], Reconst Loss: 37.2716, KL Div: 5.2539
+Epoch[57/70], Step [200/352], Reconst Loss: 37.5687, KL Div: 5.2758
+Epoch[57/70], Step [300/352], Reconst Loss: 37.6004, KL Div: 5.0952
+Epoch[58/70], Step [100/352], Reconst Loss: 37.4723, KL Div: 5.3270
+Epoch[58/70], Step [200/352], Reconst Loss: 37.3664, KL Div: 5.3668
+Epoch[58/70], Step [300/352], Reconst Loss: 38.1299, KL Div: 5.2975
+Epoch[59/70], Step [100/352], Reconst Loss: 36.6565, KL Div: 5.4373
+Epoch[59/70], Step [200/352], Reconst Loss: 37.2942, KL Div: 5.3346
+Epoch[59/70], Step [300/352], Reconst Loss: 37.4611, KL Div: 5.2099
+Epoch[60/70], Step [100/352], Reconst Loss: 37.4744, KL Div: 5.4628
+Epoch[60/70], Step [200/352], Reconst Loss: 37.9801, KL Div: 5.2188
+Epoch[60/70], Step [300/352], Reconst Loss: 37.1368, KL Div: 5.2588
+Epoch[61/70], Step [100/352], Reconst Loss: 37.2940, KL Div: 5.2329
+Epoch[61/70], Step [200/352], Reconst Loss: 38.1775, KL Div: 5.1809
+Epoch[61/70], Step [300/352], Reconst Loss: 37.8329, KL Div: 5.3604
+Epoch[62/70], Step [100/352], Reconst Loss: 38.3179, KL Div: 5.3078
+Epoch[62/70], Step [200/352], Reconst Loss: 37.4252, KL Div: 5.3000
+Epoch[62/70], Step [300/352], Reconst Loss: 37.2711, KL Div: 5.3603
+Epoch[63/70], Step [100/352], Reconst Loss: 37.3036, KL Div: 5.3689
+Epoch[63/70], Step [200/352], Reconst Loss: 36.8518, KL Div: 5.5050
+Epoch[63/70], Step [300/352], Reconst Loss: 37.8347, KL Div: 5.5482
+Epoch[64/70], Step [100/352], Reconst Loss: 37.2349, KL Div: 5.3245
+Epoch[64/70], Step [200/352], Reconst Loss: 37.1066, KL Div: 5.5032
+Epoch[64/70], Step [300/352], Reconst Loss: 36.7869, KL Div: 5.6290
+Epoch[65/70], Step [100/352], Reconst Loss: 36.2810, KL Div: 5.6304
+Epoch[65/70], Step [200/352], Reconst Loss: 37.2750, KL Div: 5.4473
+Epoch[65/70], Step [300/352], Reconst Loss: 37.1657, KL Div: 5.3836
+Epoch[66/70], Step [100/352], Reconst Loss: 36.5507, KL Div: 5.5214
+Epoch[66/70], Step [200/352], Reconst Loss: 37.0524, KL Div: 5.6663
+Epoch[66/70], Step [300/352], Reconst Loss: 37.4196, KL Div: 5.6833
+Epoch[67/70], Step [100/352], Reconst Loss: 36.8337, KL Div: 5.6464
+Epoch[67/70], Step [200/352], Reconst Loss: 37.0185, KL Div: 5.5109
+Epoch[67/70], Step [300/352], Reconst Loss: 36.9561, KL Div: 5.5843
+Epoch[68/70], Step [100/352], Reconst Loss: 36.2966, KL Div: 5.6442
+Epoch[68/70], Step [200/352], Reconst Loss: 36.0826, KL Div: 5.5285
+Epoch[68/70], Step [300/352], Reconst Loss: 35.9106, KL Div: 5.6435
+Epoch[69/70], Step [100/352], Reconst Loss: 36.1222, KL Div: 5.6365
+Epoch[69/70], Step [200/352], Reconst Loss: 36.2037, KL Div: 5.6522
+Epoch[69/70], Step [300/352], Reconst Loss: 36.5076, KL Div: 5.6096
+Epoch[70/70], Step [100/352], Reconst Loss: 37.6436, KL Div: 5.7662
+Epoch[70/70], Step [200/352], Reconst Loss: 35.8742, KL Div: 5.6296
+Epoch[70/70], Step [300/352], Reconst Loss: 37.0720, KL Div: 5.6558
+============================================================
+
+Topics:
+['米兰', '交战', '英媒', '评分', '并列', '获好评', '处子', '高分', '记录', 'AC', '客场', '里昂', '梅开二度', '绝杀', '意甲', '擒', '超值', '联赛杯', '球', '刺']+++$+++cv:0.3777124517077224
+['查询', '开通', '初试', '研究生', '系统', '成绩', '录取', '3月', '公布', '吉林大学', '分数线', '最低', '考研', '中科院', '硕士', '中国人民大学', '高考', '陆续', '师范学院', '7月']+++$+++cv:0.33726411486850416
+['新', '公布', '协议', '刺客', '名单', '最新', '公开', '信条', '视频', '达成', '报道', '获', '法', '首', '细节', '官方', '支', '确认', '宣传', '今日']+++$+++cv:0.39105011220747055
+['组', '图', '窈窕', '洋装', '大方', '甜蜜', '背', '出席', '秀', '同场', '亮相', '显', '豹纹', '身材', 'DJ', '笑容', '林忆莲', '帅气', '尽显', '肌肤']+++$+++cv:0.40695783333934965
+['刺客', '称', '信条', '永远', '科隆', '游戏', '蝙蝠侠', '最新', '谈', '分析', '关系', '发表', '专家', '声明', '毁灭公爵', '同盟', '宋祖德', '希望', '图文', '荣誉']+++$+++cv:0.5550467108615464
+['居', '折', '畦', '香花', '平起', '顺义', '可享', '享', '售', '阙', '上国', '京汉', '房山', '西单', '鸿', '凯旋门', '居在', '折上', '通州', '青山']+++$+++cv:0.40974810076870816
+['刺客', '称', '信条', '永远', '科隆', '最新', '分析', '蝙蝠侠', '游戏', '发表', '谈', '毁灭公爵', '专家', '关系', '希望', '视频', '荣誉', '声明', '宋祖德', '图文']+++$+++cv:0.5324127672067192
+['刺客', '信条', '公布', '最新', '新', '视频', '公开', '永远', '科隆', '兄弟会', '称', '报道', '协议', '荣誉', '官方', '细节', '毁灭公爵', '透露', '希望', '欣赏']+++$+++cv:0.3943766131742201
+['称', '游戏', '军', '专家', '评论', '蝙蝠侠', '永远', '姚明', '火箭', '骑士', '阿帅', '图文', '分析', '分', '美国', '谈', '关系', '交易', '刺客', '太空']+++$+++cv:0.4760456598031991
+['新', '公布', '协议', '名单', '刺客', '最新', '公开', '获', '达成', '信条', '报道', '首', '视频', '批', '支', '法', '战况', '细节', '正式', '宣传']+++$+++cv:0.4128324502866243
+['称', '刺客', '游戏', '永远', '蝙蝠侠', '分析', '专家', '科隆', '谈', '评论', '关系', '图文', '信条', '发表', '姚明', '美国', '希望', '毁灭公爵', '声明', '禅师']+++$+++cv:0.5522486524060605
+['刺客', '称', '信条', '永远', '科隆', '最新', '游戏', '分析', '蝙蝠侠', '谈', '宋祖德', '毁灭公爵', '关系', '发表', '声明', '专家', '希望', '同盟', '视频', '图文']+++$+++cv:0.5100400891875936
+['死', '伤', '连撞', '酒后', '砍', '司机', '驾驶', '逃逸', '被判', '车', '持刀', '驾车', '出租车', '顶', '捅', '拽', '哥', '无证', '死刑', '警车']+++$+++cv:0.43308962645738003
+['新', '公布', '协议', '名单', '刺客', '最新', '公开', '获', '达成', '报道', '首', '信条', '批', '法', '视频', '支', '战况', '细节', '确认', '宣传']+++$+++cv:0.43176562182888817
+['新', '公布', '刺客', '最新', '协议', '名单', '信条', '公开', '视频', '报道', '达成', '获', '细节', '官方', '法', '支', '首', '今日', '兄弟会', '宣传']+++$+++cv:0.39588594017535433
+['刺客', '称', '信条', '永远', '最新', '科隆', '游戏', '分析', '蝙蝠侠', '视频', '公布', '毁灭公爵', '谈', '关系', '宋祖德', '声明', '发表', '荣誉', '专家', '希望']+++$+++cv:0.4980366556851427
+['称', '刺客', '永远', '游戏', '信条', '分析', '蝙蝠侠', '专家', '科隆', '谈', '关系', '最新', '发表', '图文', '希望', '姚明', '评论', '声明', '孙悦', '美国']+++$+++cv:0.5174692540717636
+['新', '公布', '刺客', '协议', '最新', '名单', '信条', '公开', '视频', '报道', '获', '达成', '首', '兄弟会', '法', '细节', '支', '官方', '框架', '确认']+++$+++cv:0.4048414992721196
+['沪', '评', '指', '冲高', '回落', '午', '收', '双双', '两市', '跌', '上涨', '下挫', '收盘', '低', '绿', '全线', '下跌', '早', '震荡', '盘']+++$+++cv:0.5845088225645763
+['刺客', '称', '信条', '永远', '最新', '科隆', '游戏', '分析', '蝙蝠侠', '谈', '发表', '关系', '视频', '声明', '毁灭公爵', '希望', '专家', '公布', '荣誉', '宋祖德']+++$+++cv:0.4980366556851427
+c_v for $GMMVAE_K20_cnews_BCE$: 0.45596848157790426
+c_uci for $GMMVAE_K20_cnews_BCE$: -6.075747184554698
+c_npmi for $GMMVAE_K20_cnews_BCE$: -0.1836821726681681
+t_div for $GMMVAE_K20_cnews_BCE$: 0.4375
