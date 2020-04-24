@@ -14,7 +14,9 @@ import gensim
 from sklearn.metrics.cluster import normalized_mutual_info_score
 from data import *
 from utils import *
-from vae import VAE
+from mixvae import MIXVAE
+from gensim.models import CoherenceModel
+
 
 parser = argparse.ArgumentParser(description='Neural Topic Model')
 
@@ -26,8 +28,9 @@ parser.add_argument('--batch_size',type=int,default=512,help='Batch Size')
 parser.add_argument('--gpu',type=str,default='0',help='GPU device e.g 1')
 parser.add_argument('--ratio',type=float,default=1.0,help='Ratio of the train data for actual use')
 parser.add_argument('--use_stopwords',type=bool,default=True,help='Whether to use stopwords or not')
-parser.add_argument('--bkpt_continue',type=bool,default=False,help='Whether to load the trained model and continue to train')
+parser.add_argument('--bkpt_continue',action='store_true',help='Whether to load the trained model and continue to train')
 parser.add_argument('--hdim',type=int,default=1024,help='The dimension of the hidden layer')
+parser.add_argument('--n_clust',type=int,default=10,help='The # of the VAEs to adopt (or the # of clusters)')
 
 args = parser.parse_args()
 
@@ -41,11 +44,12 @@ ratio = args.ratio
 use_stopwords = args.use_stopwords
 bkpt_continue = args.bkpt_continue
 hdim = args.hdim
+n_clust = min(args.n_clust,30) # cannot more than 30 vaes
 print('bkpt:',bkpt_continue)
 
-model_name = 'VAE'
+model_name = 'MIXVAE'
 msg = 'BCE'
-run_name = '{}_K{}_{}_{}'.format(model_name,n_topic,taskname,msg)
+run_name = '{}_K{}_C{}_{}_{}'.format(model_name,n_topic,n_clust,taskname,msg)
 
 
 # Device configuration
@@ -59,7 +63,7 @@ train_loader,vocab,txtDocs = get_batch(taskname,use_stopwords,batch_size)
 # Hyper-parameters
 learning_rate = 1e-3
 
-model = VAE(bow_size=len(vocab),h_dim=hdim,z_dim=n_topic).to(device)
+model = MIXVAE(bow_size=len(vocab),h_dim=hdim,z_dim=n_topic,n_clust=n_clust).to(device)
 #model = nn.DataParallel(model)
 if bkpt_continue:
     print('Loading parameters of the model...')
@@ -101,6 +105,73 @@ def show_topics(model=model, n_topic=n_topic, topK=20, showWght=False,fix_topic=
             topics.append([vocab.id2token[idx] for idx in indices[fix_topic]])
     return topics
 
+def evaluate_topic_quality(topics_text,epoch=0,verbose=False):
+    global txtDocs
+    global vocab
+    global taskname
+    global logger
+    # Computing the C_V score
+    cv_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_v')
+    cv_coherence_score = cv_coherence_model.get_coherence_per_topic()
+    cv_coherence_avg = cv_coherence_model.get_coherence()
+    
+    # Computing Topic Diversity score
+    topic_diversity = calc_topic_diversity(topics_text)
+    
+    # Computing the C_W2V score
+    
+    try:
+        if os.path.exists('data/{}/{}_embeddings.txt'.format(taskname,taskname)):
+            keyed_vectors = gensim.models.KeyedVectors.load_word2vec_format('data/{}/{}_embeddings.txt'.format(taskname,taskname),binary=False)
+            w2v_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_w2v',keyed_vectors=keyed_vectors)
+        else:
+            w2v_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_w2v')
+        w2v_coherence_score = w2v_coherence_model.get_coherence_per_topic()
+        w2v_coherence_avg = w2v_coherence_model.get_coherence()
+    except:
+        #In case of OOV Error
+        w2v_coherence_score = cv_coherence_score
+        w2v_coherence_avg = cv_coherence_avg
+    
+    
+    # Computing the C_UCI score
+    c_uci_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_uci')
+    c_uci_coherence_score = c_uci_coherence_model.get_coherence_per_topic()
+    c_uci_coherence_avg = c_uci_coherence_model.get_coherence()
+    
+    # Computing the C_NPMI score
+    c_npmi_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_npmi')
+    c_npmi_coherence_score = c_npmi_coherence_model.get_coherence_per_topic()
+    c_npmi_coherence_avg = c_npmi_coherence_model.get_coherence()
+    
+    
+    if verbose:
+        logger.write('Topics:\n')
+    
+        for tp,cv,w2v in zip(topics_text,cv_coherence_score,w2v_coherence_score):
+            print('{}+++$+++cv:{}+++$+++w2v:{}'.format(tp,cv,w2v))
+            logger.write('{}+++$+++cv:{}+++$+++w2v:{}\n'.format(str(tp),cv,w2v))
+    
+    if epoch>0:
+        print('Epoch:{}'.format(epoch))
+        logger.write('Epoch:{}\n'.format(epoch))
+    print('c_v for ${}$: {}'.format(run_name,cv_coherence_avg))
+    logger.write('c_v for ${}$: {}\n'.format(run_name, cv_coherence_avg))
+    
+    print('c_w2v for ${}$: {}'.format(run_name,w2v_coherence_avg))
+    logger.write('c_w2v for ${}$: {}\n'.format(run_name, w2v_coherence_avg))
+    
+    print('c_uci for ${}$: {}'.format(run_name,c_uci_coherence_avg))
+    logger.write('c_uci for ${}$: {}\n'.format(run_name, c_uci_coherence_avg))
+    
+    print('c_npmi for ${}$: {}'.format(run_name,c_npmi_coherence_avg))
+    logger.write('c_npmi for ${}$: {}\n'.format(run_name, c_npmi_coherence_avg))
+    
+    print('t_div for ${}$: {}'.format(run_name,topic_diversity))
+    logger.write('t_div for ${}$: {}\n'.format(run_name, topic_diversity))
+
+    return cv_coherence_avg,w2v_coherence_avg,topic_diversity
+ 
 
 print('Start training...')
 def train(model, data_loader, num_epochs):
@@ -109,16 +180,18 @@ def train(model, data_loader, num_epochs):
     kl_loss = []
     logger.write('='*30+'Loss'+'='*30+'\n')
     L = len(data_loader)
+    cv_lst,w2v_lst,td_lst = [],[],[]
     for epoch in range(num_epochs):
         for i, x in enumerate(data_loader):
             # Customized Train Process
             # Forward pass
             x = x.to(device)
-            x_reconst, mu, log_var = model(x)
+            x_reconst, mus, logvars,assign_p = model(x)
 
             # Compute reconstruction loss and kl divergence
             reconst_loss = F.binary_cross_entropy(x_reconst, x, reduction='sum')
-            kl_div = - 0.5 * torch.sum(1 + log_var - mu.pow(2) - log_var.exp())
+            kl_div = sum([- 0.5 * torch.sum(1 + log_var - mu.pow(2) - log_var.exp()) for mu,log_var in zip(mus,logvars)])
+            #kl_div = torch.tensor([- 0.5 * torch.sum(1 + log_var - mu.pow(2) - log_var.exp()) for mu,log_var in zip(mus,logvars)])
 
             # Backprop and optimize
             loss = reconst_loss + kl_div
@@ -139,15 +212,26 @@ def train(model, data_loader, num_epochs):
             if i>=int(L*ratio):
                 break
         if (epoch+1)%10==0:
-            topic_text = show_topics(model)
+            topics_text = show_topics(model)
             print('Epoch {}:'.format(epoch))
-            for tp in topic_text:
+            for tp in topics_text:
                 print(tp)
+                logger.write(str(tp)+'\n')
+            cv,w2v,td = evaluate_topic_quality(topics_text,epoch=(epoch+1))
+            cv_lst.append((epoch+1,cv))
+            w2v_lst.append((epoch+1,w2v))
+            td_lst.append((epoch+1,td))
     logger.write('='*60+'\n\n')
-    return rec_loss,kl_loss
+    return rec_loss,kl_loss,cv_lst,w2v_lst,td_lst
 
 
-rec_loss,kl_loss = train(model ,train_loader, num_epochs=num_epochs)
+rec_loss,kl_loss,cv_lst,w2v_lst,td_lst = train(model ,train_loader, num_epochs=num_epochs)
+logger.write('#rec_loss: {}\n'.format(rec_loss))
+logger.write('#kl_div: {}\n'.format(kl_loss))
+logger.write('#cv_lst: {}\n'.format(cv_lst))
+logger.write('#w2v_lst: {}\n'.format(w2v_lst))
+logger.write('#td_lst: {}\n'.format(td_lst))
+
 
 model.eval()
 
@@ -156,14 +240,33 @@ if isinstance(model,nn.DataParallel):
 torch.save(model.state_dict(), 'ckpt/{}.model'.format(run_name))
 print('model saved')
 
-plt.figure(figsize=(12,4))
-plt.subplot(1,2,1)
-plt.title('Reconstrurec_loss for {} {} topics'.format(taskname,n_topic))
+# Draw loss curves and score curves
+plt.figure(figsize=(12,8))
+plt.suptitle(run_name)
+
+plt.subplot(2,2,1)
+plt.title('Reconstruct Loss for {} {} topics'.format(taskname,n_topic))
 plt.plot(list(range(len(rec_loss))),rec_loss)
 
-plt.subplot(1,2,2)
+plt.subplot(2,2,2)
 plt.title('KL Divergence for {} {} topics'.format(taskname,n_topic))
 plt.plot(list(range(len(kl_loss))),kl_loss)
+
+plt.subplot(2,3,4)
+plt.title('Cv score')
+plt.plot(*list(zip(*cv_lst)))
+plt.xlabel('epoch')
+
+plt.subplot(2,3,5)
+plt.title('w2v score')
+plt.plot(*list(zip(*w2v_lst)))
+plt.xlabel('epoch')
+
+plt.subplot(2,3,6)
+plt.title('TD score')
+plt.plot(*list(zip(*td_lst)))
+plt.xlabel('epoch')
+
 plt.savefig('logs/{}.png'.format(run_name))
 
 import jieba
@@ -179,67 +282,10 @@ def infer_topic_tensor(bow,model):
 #infer_topic('你或许需要做个核磁共振',model)
 #infer_topic_tensor(next(iter(train_loader)),model)
 
+# Evaluate the Model with Topic Coherence
 topics_text=show_topics()
 
-# Evaluate the Model with Topic Coherence
-from gensim.models import CoherenceModel
-
-# Computing the C_V score
-cv_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_v')
-cv_coherence_score = cv_coherence_model.get_coherence_per_topic()
-cv_coherence_avg = cv_coherence_model.get_coherence()
-
-# Computing Topic Diversity score
-topic_diversity = calc_topic_diversity(topics_text)
-
-# Computing the C_W2V score
-
-try:
-    if os.path.exists('data/{}/{}_embeddings.txt'.format(taskname,taskname)):
-        keyed_vectors = gensim.models.KeyedVectors.load_word2vec_format('data/{}/{}_embeddings.txt'.format(taskname,taskname),binary=False)
-        w2v_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_w2v',keyed_vectors=keyed_vectors)
-    else:
-        w2v_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_w2v')
-    w2v_coherence_score = w2v_coherence_model.get_coherence_per_topic()
-    w2v_coherence_avg = w2v_coherence_model.get_coherence()
-except:
-    #In case of OOV Error
-    w2v_coherence_score = cv_coherence_score
-    w2v_coherence_avg = cv_coherence_avg
-
-
-# Computing the C_UCI score
-c_uci_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_uci')
-c_uci_coherence_score = c_uci_coherence_model.get_coherence_per_topic()
-c_uci_coherence_avg = c_uci_coherence_model.get_coherence()
-
-# Computing the C_NPMI score
-c_npmi_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_npmi')
-c_npmi_coherence_score = c_npmi_coherence_model.get_coherence_per_topic()
-c_npmi_coherence_avg = c_npmi_coherence_model.get_coherence()
-
-
-logger.write('Topics:\n')
-
-for tp,cv,w2v in zip(topics_text,cv_coherence_score,w2v_coherence_score):
-    print('{}+++$+++cv:{}+++$+++w2v:{}'.format(tp,cv,w2v))
-    logger.write('{}+++$+++cv:{}+++$+++w2v:{}\n'.format(str(tp),cv,w2v))
-
-print('c_v for ${}$: {}'.format(run_name,cv_coherence_avg))
-logger.write('c_v for ${}$: {}\n'.format(run_name, cv_coherence_avg))
-
-print('c_w2v for ${}$: {}'.format(run_name,w2v_coherence_avg))
-logger.write('c_w2v for ${}$: {}\n'.format(run_name, w2v_coherence_avg))
-
-print('c_uci for ${}$: {}'.format(run_name,c_uci_coherence_avg))
-logger.write('c_uci for ${}$: {}\n'.format(run_name, c_uci_coherence_avg))
-
-print('c_npmi for ${}$: {}'.format(run_name,c_npmi_coherence_avg))
-logger.write('c_npmi for ${}$: {}\n'.format(run_name, c_npmi_coherence_avg))
-
-print('t_div for ${}$: {}'.format(run_name,topic_diversity))
-logger.write('t_div for ${}$: {}\n'.format(run_name, topic_diversity))
-
+evaluate_topic_quality(topics_text,epoch=num_epochs,verbose=True)
 
 logger.close()
 exit(0)

@@ -63,15 +63,20 @@ def build_bow(doc_path,bow_path='bows.pkl',voc_path='vocab.pkl',stopwords=None,n
         stopwords = set([line.strip('\n') for line in open(stopwords,'r',encoding='utf-8').readlines()])
     with open(doc_path,'r',encoding='utf-8') as rfp:
         docs = [re.sub('\W+', ' ', line.strip('\n')).replace("_", ' ') for line in rfp]
-        docs = [[w for w in line.split() if (w.strip()!='') and (not (w.strip().isdigit()))] for line in docs]
+        wordPat = re.compile(r'\w+')
+        docs = [[w for w in line.split() if (w.strip()!='') and (not (w.strip().isdigit())) and re.match(wordPat,w.strip())] for line in docs]
         txtDocs = docs[:]
         flat_docs = [w for doc in docs for w in doc]
         cnter = Counter(flat_docs)
         filt, L = [], len(flat_docs)
+        tmpfile = []
+        '''
         for w,c in cnter.items():
             if (c<no_below) or (c>=L*no_above):
                 filt.append(w)
+        '''
         filt = set(filt)
+        print('The words below would be dropped out:',filt)
         docs = [[w for w in doc if (w not in filt)] for doc in docs]
         if stopwords!=None:
             print('Removing stopwords ...')
@@ -125,7 +130,7 @@ class BOWDataset(Dataset):
         return torch.from_numpy(bow).float()
 
 
-def get_batch(taskname,use_stopwords=True,batch_size=128):
+def get_batch(taskname,use_stopwords=True,batch_size=128,shuffle=False):
     print('Taskname:{}'.format(taskname))
     doc_path = os.path.join('data',taskname,'{}_clean_cut_lines.txt'.format(taskname))
     bow_path = os.path.join('data',taskname,'{}_bows.pkl'.format(taskname))
@@ -133,9 +138,8 @@ def get_batch(taskname,use_stopwords=True,batch_size=128):
     stopwords = os.path.join('data','stopwords.txt') if use_stopwords==True else None
     bows,voc,txtDocs = build_bow(doc_path,bow_path,voc_path,stopwords)
     dataset = BOWDataset(bow_path,len(voc))
-    dataloader = DataLoader(dataset,batch_size=batch_size,shuffle=True,num_workers=8)
+    dataloader = DataLoader(dataset,batch_size=batch_size,shuffle=shuffle,num_workers=8)
     return dataloader,voc,txtDocs
-
 
 if __name__ == '__main__':
     import argparse
@@ -143,6 +147,7 @@ if __name__ == '__main__':
     parser.add_argument('--taskname',type=str,default='sohu100k',help='Taskname e.g sohu100k')
     parser.add_argument('--no_below',type=int,default=10,help='The lower bound of count for words to keep, e.g 10')
     parser.add_argument('--no_above',type=float,default=0.3,help='The ratio of upper bound of count for words to keep, e.g 0.3')
+    parser.add_argument('--shuffle',type=bool,default=False,help='Whether to shuffle the data')
     args = parser.parse_args()
     taskname = args.taskname
     no_below = args.no_below

@@ -1,5 +1,6 @@
 import os
 import re
+import math
 import pickle
 import torch
 import torch.nn as nn
@@ -7,14 +8,16 @@ import torch.nn.functional as F
 import torchvision
 from torchvision import transforms
 from torch.utils.data import Dataset,DataLoader
+from torch.utils.tensorboard import SummaryWriter
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
 import gensim
-from sklearn.metrics.cluster import normalized_mutual_info_score
+from sklearn.manifold import TSNE
+from munkres import Munkres
 from data import *
 from utils import *
-from vae import VAE
+from vade import VaDE  #,lossfun
 
 parser = argparse.ArgumentParser(description='Neural Topic Model')
 
@@ -22,13 +25,12 @@ parser = argparse.ArgumentParser(description='Neural Topic Model')
 parser.add_argument('--taskname', type=str,default='sub',help='Name of the task e.g subX')
 parser.add_argument('--n_topic', type=int,default=20,help='Number of the topics')
 parser.add_argument('--num_epochs',type=int,default=2,help='Num of epochs')
-parser.add_argument('--batch_size',type=int,default=512,help='Batch Size')
+parser.add_argument('--batch_size',type=int,default=1,help='Batch Size')
 parser.add_argument('--gpu',type=str,default='0',help='GPU device e.g 1')
 parser.add_argument('--ratio',type=float,default=1.0,help='Ratio of the train data for actual use')
 parser.add_argument('--use_stopwords',type=bool,default=True,help='Whether to use stopwords or not')
 parser.add_argument('--bkpt_continue',type=bool,default=False,help='Whether to load the trained model and continue to train')
-parser.add_argument('--hdim',type=int,default=1024,help='The dimension of the hidden layer')
-
+parser.add_argument('--pretrain',type=str,default=None)
 args = parser.parse_args()
 
 os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
@@ -40,10 +42,10 @@ batch_size = args.batch_size
 ratio = args.ratio
 use_stopwords = args.use_stopwords
 bkpt_continue = args.bkpt_continue
-hdim = args.hdim
+pretrain = args.pretrain if args.pretrain!=None else 'premodel/VaDE_{}_K{}_params.pth'.format(taskname,n_topic)
 print('bkpt:',bkpt_continue)
 
-model_name = 'VAE'
+model_name = 'VaDE'
 msg = 'BCE'
 run_name = '{}_K{}_{}_{}'.format(model_name,n_topic,taskname,msg)
 
@@ -52,6 +54,52 @@ run_name = '{}_K{}_{}_{}'.format(model_name,n_topic,taskname,msg)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(device)
 
+def _reparameterize(mu, logvar):
+    """Reparameterization trick.
+    """
+    std = torch.exp(0.5 * logvar)
+    eps = torch.randn_like(std)
+    z = mu + eps * std
+    return z
+
+
+def lossfun(model, x, recon_x, mu, logvar):
+    batch_size = x.size(0)
+            
+    # Compute gamma ( q(c|x) )
+    z = _reparameterize(mu, logvar).unsqueeze(1)
+    #print('z:',z)
+    h = z - model.mu
+    #print('h1:',h)
+    h = torch.exp(-0.5 * torch.sum((h * h / model.logvar.exp()), dim=2))
+    #print('h2:',h)
+    # Same as `torch.sqrt(torch.prod(model.logvar.exp(), dim=1))`
+    #print('model.logvar:',model.logvar)
+    #print('torch.sum(0.5 * model.logvar, dim=1).exp():',torch.sum(0.5 * model.logvar, dim=1).exp())
+    #print('torch.sqrt(torch.prod(model.logvar.exp(), dim=1)):',torch.sqrt(torch.prod(model.logvar.exp(), dim=1)))
+    h = h / torch.sum(0.5 * model.logvar, dim=1).exp()
+    #print('h3:',h)
+    p_z_given_c = h / (2 * math.pi)
+    #print('p(z|c):',p_z_given_c)
+    p_z_c = p_z_given_c * model.weights
+    #print('p_z_c:',p_z_c)
+    gamma = p_z_c / torch.sum(p_z_c, dim=1, keepdim=True)
+    #print('gamma:',gamma)
+
+    h = logvar.exp().unsqueeze(1) + (mu.unsqueeze(1) - model.mu).pow(2)
+    #print('h4:',h)
+    h = torch.sum(model.logvar + h / model.logvar.exp(), dim=2)
+    #print('h5:',h)
+    loss = F.binary_cross_entropy(recon_x, x, reduction='sum')
+    #print('loss1:',loss)
+    loss2 = 0.5 * torch.sum(gamma * h) \
+        - torch.sum(gamma * torch.log(model.weights + 1e-9)) \
+        + torch.sum(gamma * torch.log(gamma + 1e-9)) \
+        - 0.5 * torch.sum(1 + logvar)
+    #print('loss2:',loss2)
+    loss += loss2
+    loss = loss / batch_size
+    return loss
 
 print('Loading train_data ...')
 train_loader,vocab,txtDocs = get_batch(taskname,use_stopwords,batch_size)
@@ -59,13 +107,17 @@ train_loader,vocab,txtDocs = get_batch(taskname,use_stopwords,batch_size)
 # Hyper-parameters
 learning_rate = 1e-3
 
-model = VAE(bow_size=len(vocab),h_dim=hdim,z_dim=n_topic).to(device)
+model = VaDE(n_classes=n_topic,data_dim=len(vocab),latent_dim=n_topic).to(device)
+model = model.to(device)
+if pretrain:
+    model.load_state_dict(torch.load(pretrain))
 #model = nn.DataParallel(model)
 if bkpt_continue:
     print('Loading parameters of the model...')
     model.load_state_dict(torch.load('ckpt/{}.model'.format(run_name)))
 #model = model.module
-optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+optimizer = torch.optim.Adadelta(model.parameters(), lr=learning_rate)
+lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer,step_size=10,gamma=0.9)
 
 if bkpt_continue:
     logger = open('logs/{}.log'.format(run_name),'a',encoding='utf-8')
@@ -75,16 +127,16 @@ else:
     logger.write(str(model)+'\n')
 
 
-def show_topics(model=model, n_topic=n_topic, topK=20, showWght=False,fix_topic=None,hasLabel=False):
+def show_topics(model=model, n_topic=n_topic, topK=20, showWght=False,fix_topic=None):
     global vocab
     if isinstance(model,nn.DataParallel):
         model = model.module
     topics = []
-    idxes = torch.eye(n_topic).cuda()
-    if hasLabel:
-        word_dists = model.decode(idxes,idxes)
+    if fix_topic!=None:
+        idxes = model.mu[fix_topic].unsqueeze(0).to(device)
     else:
-        word_dists = model.decode(idxes)
+        idxes = model.mu.to(device)
+    word_dists = model.decode(idxes)
     vals,indices = torch.topk(word_dists,topK,dim=1)
     vals = vals.cpu().tolist()
     indices = indices.cpu().tolist()
@@ -103,51 +155,54 @@ def show_topics(model=model, n_topic=n_topic, topK=20, showWght=False,fix_topic=
 
 
 print('Start training...')
-def train(model, data_loader, num_epochs):
+def train(model, data_loader, num_epochs,writer):
     model.train()
-    rec_loss = []
-    kl_loss = []
     logger.write('='*30+'Loss'+'='*30+'\n')
-    L = len(data_loader)
     for epoch in range(num_epochs):
+        total_loss = 0
         for i, x in enumerate(data_loader):
             # Customized Train Process
             # Forward pass
             x = x.to(device)
             x_reconst, mu, log_var = model(x)
+            '''
+            print('step ',i)
+            print('before bp,model._pi:',model._pi)
+            print('model.mu:',model.mu)
+            print('before bp,x[0]:',x[0])
+            print('before bp,x_reconst[0]:',x_reconst[0])
+            '''
+            #loss = F.binary_cross_entropy(x_reconst,x,reduction='sum')
+            loss = lossfun(model,x,x_reconst,mu,log_var)
+            #print('loss:',loss.item())
+            total_loss += loss.item()
 
-            # Compute reconstruction loss and kl divergence
-            reconst_loss = F.binary_cross_entropy(x_reconst, x, reduction='sum')
-            kl_div = - 0.5 * torch.sum(1 + log_var - mu.pow(2) - log_var.exp())
-
-            # Backprop and optimize
-            loss = reconst_loss + kl_div
-            #loss = reconst_loss
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
+            #print('after bp,model._pi:',model._pi)
 
             if (i+1) % 100 == 0:
-                print("Epoch[{}/{}], Step [{}/{}], Reconst Loss: {:.4f}, KL Div: {:.4f}" 
-                       .format(epoch+1, num_epochs, i+1, len(data_loader), reconst_loss.item()/batch_size, kl_div.item()/batch_size))
+                print("Epoch[{}/{}], Step [{}/{}], Loss: {:.8f}" 
+                       .format(epoch+1, num_epochs, i+1, len(data_loader), loss.item()/batch_size))
 
-                logger.write("Epoch[{}/{}], Step [{}/{}], Reconst Loss: {:.4f}, KL Div: {:.4f}\n".format(epoch+1, num_epochs, i+1, len(data_loader), reconst_loss.item()/batch_size, kl_div.item()/batch_size))
-                rec_loss.append(reconst_loss.item()/batch_size)
-                kl_loss.append(kl_div.item()/batch_size)
+                logger.write("Epoch[{}/{}], Step [{}/{}], Loss: {:.8f}\n".format(epoch+1, num_epochs, i+1, len(data_loader), loss.item()/batch_size))
                 torch.save(model.state_dict(), 'ckpt/{}.model'.format(run_name))
+        print('==Epoch{},Loss:{}'.format(epoch,total_loss/len(data_loader)))
+        writer.add_scalar('Loss/train',total_loss/len(data_loader),epoch)
 
-            if i>=int(L*ratio):
-                break
         if (epoch+1)%10==0:
             topic_text = show_topics(model)
             print('Epoch {}:'.format(epoch))
             for tp in topic_text:
                 print(tp)
+        #lr_scheduler.step()
     logger.write('='*60+'\n\n')
-    return rec_loss,kl_loss
+    return 
 
-
-rec_loss,kl_loss = train(model ,train_loader, num_epochs=num_epochs)
+writer = SummaryWriter()
+train(model ,train_loader, num_epochs=num_epochs,writer=writer)
+writer.close()
 
 model.eval()
 
@@ -155,16 +210,6 @@ if isinstance(model,nn.DataParallel):
     model = model.module
 torch.save(model.state_dict(), 'ckpt/{}.model'.format(run_name))
 print('model saved')
-
-plt.figure(figsize=(12,4))
-plt.subplot(1,2,1)
-plt.title('Reconstrurec_loss for {} {} topics'.format(taskname,n_topic))
-plt.plot(list(range(len(rec_loss))),rec_loss)
-
-plt.subplot(1,2,2)
-plt.title('KL Divergence for {} {} topics'.format(taskname,n_topic))
-plt.plot(list(range(len(kl_loss))),kl_loss)
-plt.savefig('logs/{}.png'.format(run_name))
 
 import jieba
 
@@ -517,3 +562,4 @@ print('Coherence Score (c_npmi) for f-VAE (Conditional): ',c_npmi_coherence_ntm)
 logger.write('Coherence Score (c_npmi) for f-VAE (Conditional): {}\n'.format(c_npmi_coherence_ntm))
 
 logger.close()
+

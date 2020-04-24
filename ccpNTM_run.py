@@ -27,8 +27,6 @@ parser.add_argument('--gpu',type=str,default='0',help='GPU device e.g 1')
 parser.add_argument('--ratio',type=float,default=1.0,help='Ratio of the train data for actual use')
 parser.add_argument('--use_stopwords',type=bool,default=True,help='Whether to use stopwords or not')
 parser.add_argument('--bkpt_continue',type=bool,default=False,help='Whether to load the trained model and continue to train')
-parser.add_argument('--hdim',type=int,default=1024,help='The dimension of the hidden layer')
-
 args = parser.parse_args()
 
 os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
@@ -40,10 +38,9 @@ batch_size = args.batch_size
 ratio = args.ratio
 use_stopwords = args.use_stopwords
 bkpt_continue = args.bkpt_continue
-hdim = args.hdim
 print('bkpt:',bkpt_continue)
 
-model_name = 'VAE'
+model_name = 'ccpVAE'
 msg = 'BCE'
 run_name = '{}_K{}_{}_{}'.format(model_name,n_topic,taskname,msg)
 
@@ -59,7 +56,7 @@ train_loader,vocab,txtDocs = get_batch(taskname,use_stopwords,batch_size)
 # Hyper-parameters
 learning_rate = 1e-3
 
-model = VAE(bow_size=len(vocab),h_dim=hdim,z_dim=n_topic).to(device)
+model = VAE(bow_size=len(vocab),h_dim=1024,z_dim=n_topic).to(device)
 #model = nn.DataParallel(model)
 if bkpt_continue:
     print('Loading parameters of the model...')
