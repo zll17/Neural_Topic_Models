@@ -16,13 +16,15 @@ from gensim.corpora import Dictionary
 
 
 class DocDataset(Dataset):
-    def __init__(self,taskname,txtPath=None,tokenizer=None,stopwords=None,no_below=5,no_above=0.3,hasLable=False,rebuild=True):
+    def __init__(self,taskname,txtPath=None,tokenizer=None,stopwords=None,no_below=5,no_above=0.3,hasLable=False,rebuild=False):
         txtPath = os.path.join('data',f'{taskname}_lines.txt') if txtPath==None else txtPath
         tmpDir = os.path.join('data',taskname)
         self.txtLines = [line.strip('\n') for line in open(txtPath,'r',encoding='utf-8')]
+        self.dictionary = None
+        self.bows,self.docs = None,None
         if not os.path.exists(tmpDir):
             os.mkdir(tmpDir)
-        if not rebuild and os.path.exits(os.path.join(tmpDir,'corpus.mm')):
+        if not rebuild and os.path.exists(os.path.join(tmpDir,'corpus.mm')):
             self.bows = gensim.corpora.MmCorpus(os.path.join(tmpDir,'corpus.mm'))
             self.dictionary = Dictionary.load_from_text(os.path.join(tmpDir,'dict.txt'))
             self.docs = pickle.load(open(os.path.join(tmpDir,'docs.pkl'),'rb'))

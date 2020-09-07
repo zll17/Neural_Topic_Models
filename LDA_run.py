@@ -23,6 +23,7 @@ parser.add_argument('--num_iters',type=int,default=100,help='Number of iteration
 parser.add_argument('--n_topic',type=int,default=20,help='Num of topics')
 parser.add_argument('--bkpt_continue',type=bool,default=False,help='Whether to load a trained model as initialization and continue training.')
 parser.add_argument('--use_tfidf',type=bool,default=False,help='Whether to use the tfidf feature for the BOW input')
+parser.add_argument('--rebuild',type=bool,default=False,help='Whether to rebuild the corpus, such as tokenization, build dict etc.(default True)')
 
 args = parser.parse_args()
 
@@ -34,56 +35,65 @@ n_topic = args.n_topic
 n_cpu = cpu_count()-2 if cpu_count()>2 else 2
 bkpt_continue = args.bkpt_continue
 use_tfidf = args.use_tfidf
+rebuild = args.rebuild
 
-docSet = DocDataset(taskname,no_below=no_below,no_above=no_above)
+def main():
+    docSet = DocDataset(taskname,no_below=no_below,no_above=no_above,rebuild=rebuild)
 
-model_name = 'LDA'
-msg = 'bow'
-run_name= '{}_K{}_{}_{}'.format(model_name,n_topic,taskname,msg)
-if not os.path.exists('logs'):
-    os.mkdir('logs')
-if not os.path.exists('ckpt'):
-    os.mkdir('ckpt')
-logging.basicConfig(filename=f'logs/{run_name}.log',level=logging.INFO,format='%(asctime) - %(message)s')
-logger = logging.getLogger(__name__)
-
-
-if bkpt_continue:
-    lda_model = gensim.models.ldamodel.LdaModel.load('ckpt/{}.model'.format(run_name))
-
-
-# Training
-print('Start Training ...')
-
-if use_tfidf:
-    tfidf = TfidfModel(docSet.bows)
-    corpus_tfidf = tfidf[docSet.bows]
-    #lda_model = LdaMulticore(corpus_tfidf,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters,workers=n_cpu,minimum_probability=0.0)
-    lda_model = LdaModel(corpus_tfidf,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters)
-else:
-    #lda_model = LdaMulticore(bows,num_topics=n_topic,id2word=id2word,alpha='asymmetric',passes=num_iters,workers=n_cpu)
-    lda_model = LdaModel(docSet.bows,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters)
-
-lda_model.save('ckpt/{}.model'.format(run_name))
+    model_name = 'LDA'
+    msg = 'bow' if not use_tfidf else 'tfidf'
+    run_name= '{}_K{}_{}_{}'.format(model_name,n_topic,taskname,msg)
+    if not os.path.exists('logs'):
+        os.mkdir('logs')
+    if not os.path.exists('ckpt'):
+        os.mkdir('ckpt')
+    loghandler = [logging.FileHandler(filename=f'logs/{run_name}.log',encoding="utf-8")]
+    logging.basicConfig(level=logging.INFO,format='%(asctime)s - %(message)s',handlers=loghandler)
+    logger = logging.getLogger(__name__)
 
 
-# Evaluation
-topic_words = get_topic_words(model=lda_model,n_topic=n_topic,topn=15,vocab=docSet.dictionary)
+    if bkpt_continue:
+        print('loading model ckpt ...')
+        lda_model = gensim.models.ldamodel.LdaModel.load('ckpt/{}.model'.format(run_name))
 
-cv_score, w2v_score, c_uci_score, c_npmi_score = calc_topic_coherence(topic_words,docs=docSet.docs,dictionary=docSet.dictionary)
 
-topic_diversity = calc_topic_diversity(topic_words)
+    # Training
+    print('Start Training ...')
 
-result_dict = {'cv':cv_score,'w2v':w2v_score,'c_uci':c_uci_score,'c_npmi':c_npmi_score}
-logger.info('Topics:')
+    if use_tfidf:
+        tfidf = TfidfModel(docSet.bows)
+        corpus_tfidf = tfidf[docSet.bows]
+        lda_model = LdaMulticore(corpus_tfidf,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters,workers=n_cpu,minimum_probability=0.0)
+        #lda_model = LdaModel(corpus_tfidf,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters)
+    else:
+        lda_model = LdaMulticore(docSet.bows,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters,workers=n_cpu)
+        #lda_model = LdaModel(docSet.bows,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters)
 
-for idx,words in enumerate(topic_words):
-    logger.info(f'#{idx:>3d}:{words}')
-    print(f'#{idx:>3d}:{words}')
+    lda_model.save('ckpt/{}.model'.format(run_name))
 
-for measure,score in result_dict.items():
-    logger.info(f'{measure} score: {score}')
-    print(f'{measure} score: {score}')
 
-logger.info(f'topic diversity: {topic_diversity}')
-print(f'topic diversity: {topic_diversity}')
+    # Evaluation
+    print('Evaluation ...')
+    topic_words = get_topic_words(model=lda_model,n_topic=n_topic,topn=15,vocab=docSet.dictionary)
+
+
+    cv_score, w2v_score, c_uci_score, c_npmi_score = calc_topic_coherence(topic_words,docs=docSet.docs,dictionary=docSet.dictionary)
+
+    topic_diversity = calc_topic_diversity(topic_words)
+
+    result_dict = {'cv':cv_score,'w2v':w2v_score,'c_uci':c_uci_score,'c_npmi':c_npmi_score}
+    logger.info('Topics:')
+
+    for idx,words in enumerate(topic_words):
+        logger.info(f'##{idx:>3d}:{words}')
+        print(f'##{idx:>3d}:{words}')
+
+    for measure,score in result_dict.items():
+        logger.info(f'{measure} score: {score}')
+        print(f'{measure} score: {score}')
+
+    logger.info(f'topic diversity: {topic_diversity}')
+    print(f'topic diversity: {topic_diversity}')
+
+if __name__ == '__main__':
+    main()
