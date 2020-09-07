@@ -6,144 +6,84 @@ import re
 import gensim
 import pickle
 import argparse
-from gensim import corpora,models
-from gensim.models import CoherenceModel
-from data import *
+import logging
 from utils import *
+from gensim.models import LdaModel,TfidfModel
+from gensim.models.ldamulticore import LdaMulticore
+from gensim.models.coherencemodel import CoherenceModel
+from dataLoader import DocDataset
 from multiprocessing import cpu_count
 
 
-
-parser = argparse.ArgumentParser('Help to build the BOW file')
-parser.add_argument('--taskname',type=str,default='sohu100k',help='Taskname e.g sohu100k')
-parser.add_argument('--no_below',type=int,default=10,help='The lower bound of count for words to keep, e.g 10')
+parser = argparse.ArgumentParser('LDA topic model')
+parser.add_argument('--taskname',type=str,default='cnews10k',help='Taskname e.g cnews10k')
+parser.add_argument('--no_below',type=int,default=5,help='The lower bound of count for words to keep, e.g 10')
 parser.add_argument('--no_above',type=float,default=0.3,help='The ratio of upper bound of count for words to keep, e.g 0.3')
-parser.add_argument('--num_epochs',type=int,default=100,help='Number of epochs (set to 100 as default, but 1000+ is recommended.)')
+parser.add_argument('--num_iters',type=int,default=100,help='Number of iterations (set to 100 as default, but 1000+ is recommended.)')
 parser.add_argument('--n_topic',type=int,default=20,help='Num of topics')
-parser.add_argument('--bkpt_continue',type=bool,default=False,help='Whether to load the trained model and continue training.')
+parser.add_argument('--bkpt_continue',type=bool,default=False,help='Whether to load a trained model as initialization and continue training.')
 parser.add_argument('--use_tfidf',type=bool,default=False,help='Whether to use the tfidf feature for the BOW input')
-
 
 args = parser.parse_args()
 
 taskname = args.taskname
 no_below = args.no_below
 no_above = args.no_above
-num_epochs = args.num_epochs
+num_iters = args.num_iters
 n_topic = args.n_topic
-n_cpu = cpu_count()-2
+n_cpu = cpu_count()-2 if cpu_count()>2 else 2
 bkpt_continue = args.bkpt_continue
 use_tfidf = args.use_tfidf
 
-doc_path = os.path.join('data',taskname,'{}_clean_cut_lines.txt'.format(taskname))
-bow_path = os.path.join('data',taskname,'{}_bows.pkl'.format(taskname))
-voc_path = os.path.join('data',taskname,'{}_vocab.pkl'.format(taskname))
-stopwords = os.path.join('data','stopwords.txt')
-
-bows,vocab,txtDocs = build_bow(doc_path,bow_path,voc_path,stopwords,no_below,no_above,False)
-
+docSet = DocDataset(taskname,no_below=no_below,no_above=no_above)
 
 model_name = 'LDA'
 msg = 'bow'
 run_name= '{}_K{}_{}_{}'.format(model_name,n_topic,taskname,msg)
+if not os.path.exists('logs'):
+    os.mkdir('logs')
+if not os.path.exists('ckpt'):
+    os.mkdir('ckpt')
+logging.basicConfig(filename=f'logs/{run_name}.log',level=logging.INFO,format='%(asctime) - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 if bkpt_continue:
-    lda_model = models.ldamodel.LdaModel.load('ckpt/{}.model'.format(run_name))
-    logger = open('logs/{}.log'.format(run_name),'a',encoding='utf-8')
-else:
-    logger = open('logs/{}.log'.format(run_name),'w',encoding='utf-8')
+    lda_model = gensim.models.ldamodel.LdaModel.load('ckpt/{}.model'.format(run_name))
 
 
-
-
+# Training
 print('Start Training ...')
 
 if use_tfidf:
-    tfidf = models.TfidfModel(bows)
-    corpus_tfidf = tfidf[bows]
-    lda_model = gensim.models.LdaMulticore(corpus_tfidf,num_topics=n_topic,id2word=vocab.id2token,passes=num_epochs,workers=n_cpu,minimum_probability=0.0)
+    tfidf = TfidfModel(docSet.bows)
+    corpus_tfidf = tfidf[docSet.bows]
+    #lda_model = LdaMulticore(corpus_tfidf,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters,workers=n_cpu,minimum_probability=0.0)
+    lda_model = LdaModel(corpus_tfidf,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters)
 else:
-    lda_model = gensim.models.LdaMulticore(bows,num_topics=n_topic,id2word=vocab.id2token,passes=num_epochs,workers=n_cpu,minimum_probability=0.0)
+    #lda_model = LdaMulticore(bows,num_topics=n_topic,id2word=id2word,alpha='asymmetric',passes=num_iters,workers=n_cpu)
+    lda_model = LdaModel(docSet.bows,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters)
 
 lda_model.save('ckpt/{}.model'.format(run_name))
 
 
-# Show Topics
-def show_topics(model=lda_model,topn=20,n_topic=10,fix_topic=None,showWght=False):
-    global vocab
-    topics = []
-    def show_one_tp(tp_idx):
-        if showWght:
-            return [(vocab.id2token[t[0]],t[1]) for t in lda_model.get_topic_terms(tp_idx)]
-        else:
-            return [vocab.id2token[t[0]] for t in lda_model.get_topic_terms(tp_idx)]
-    if fix_topic is None:
-        for i in range(n_topic):
-            topics.append(show_one_tp(i))
-    else:
-        topics.append(show_one_tp(fix_topic))
-    return topics
+# Evaluation
+topic_words = get_topic_words(model=lda_model,n_topic=n_topic,topn=15,vocab=docSet.dictionary)
 
-topics_text=show_topics()
+cv_score, w2v_score, c_uci_score, c_npmi_score = calc_topic_coherence(topic_words,docs=docSet.docs,dictionary=docSet.dictionary)
 
+topic_diversity = calc_topic_diversity(topic_words)
 
-# Evaluate the Model with Topic Coherence
+result_dict = {'cv':cv_score,'w2v':w2v_score,'c_uci':c_uci_score,'c_npmi':c_npmi_score}
+logger.info('Topics:')
 
-# Computing the C_V score
-cv_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_v')
-cv_coherence_score = cv_coherence_model.get_coherence_per_topic()
-cv_coherence_avg = cv_coherence_model.get_coherence()
+for idx,words in enumerate(topic_words):
+    logger.info(f'#{idx:>3d}:{words}')
+    print(f'#{idx:>3d}:{words}')
 
-# Computing Topic Diversity score
-topic_diversity = calc_topic_diversity(topics_text)
+for measure,score in result_dict.items():
+    logger.info(f'{measure} score: {score}')
+    print(f'{measure} score: {score}')
 
-# Computing the C_W2V score
-try:
-    if os.path.exists('data/{}/{}_embeddings.txt'.format(taskname,taskname)):
-        keyed_vectors = gensim.models.KeyedVectors.load_word2vec_format('data/{}/{}_embeddings.txt'.format(taskname,taskname),binary=False)
-        w2v_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_w2v',keyed_vectors=keyed_vectors)
-    else:
-        w2v_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_w2v')
-    w2v_coherence_score = w2v_coherence_model.get_coherence_per_topic()
-    w2v_coherence_avg = w2v_coherence_model.get_coherence()
-except:
-    #In case of OOV Error
-    w2v_coherence_score = cv_coherence_score
-    w2v_coherence_avg = cv_coherence_avg
-
-# Computing the C_UCI score
-c_uci_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_uci')
-c_uci_coherence_score = c_uci_coherence_model.get_coherence_per_topic()
-c_uci_coherence_avg = c_uci_coherence_model.get_coherence()
-
-# Computing the C_NPMI score
-c_npmi_coherence_model = CoherenceModel(topics=topics_text,texts=txtDocs,dictionary=vocab,coherence='c_npmi')
-c_npmi_coherence_score = c_npmi_coherence_model.get_coherence_per_topic()
-c_npmi_coherence_avg = c_npmi_coherence_model.get_coherence()
-
-
-logger.write('Topics:\n')
-
-for tp,cv,w2v in zip(topics_text,cv_coherence_score,w2v_coherence_score):
-    print('{}+++$+++cv:{}+++$+++w2v:{}'.format(tp,cv,w2v))
-    logger.write('{}+++$+++cv:{}+++$+++w2v:{}\n'.format(str(tp),cv,w2v))
-
-print('c_v for ${}$: {}'.format(run_name,cv_coherence_avg))
-logger.write('c_v for ${}$: {}\n'.format(run_name, cv_coherence_avg))
-
-print('c_w2v for ${}$: {}'.format(run_name,w2v_coherence_avg))
-logger.write('c_w2v for ${}$: {}\n'.format(run_name, w2v_coherence_avg))
-
-print('c_uci for ${}$: {}'.format(run_name,c_uci_coherence_avg))
-logger.write('c_uci for ${}$: {}\n'.format(run_name, c_uci_coherence_avg))
-
-print('c_npmi for ${}$: {}'.format(run_name,c_npmi_coherence_avg))
-logger.write('c_npmi for ${}$: {}\n'.format(run_name, c_npmi_coherence_avg))
-
-print('t_div for ${}$: {}'.format(run_name,topic_diversity))
-logger.write('t_div for ${}$: {}\n'.format(run_name, topic_diversity))
-
-
-logger.close()
-
+logger.info(f'topic diversity: {topic_diversity}')
+print(f'topic diversity: {topic_diversity}')
