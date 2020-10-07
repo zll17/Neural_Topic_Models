@@ -1,0 +1,1214 @@
+2020-10-04 23:43:42,952 - using asymmetric alpha [0.06572011, 0.05757743, 0.05123006, 0.046143204, 0.041975297, 0.03849795, 0.03555267, 0.033026017, 0.030834667, 0.028916024, 0.027222162, 0.025715766, 0.02436735, 0.023153296, 0.022054477, 0.021055227, 0.020142604, 0.019305805, 0.018535761, 0.017824791, 0.017166348, 0.016554816, 0.015985357, 0.01545377, 0.014956401, 0.01449005, 0.014051901, 0.0136394715, 0.013250562, 0.012883216, 0.0125356885, 0.012206418, 0.011894002, 0.01159718, 0.01131481, 0.011045866, 0.010789409, 0.010544591, 0.010310636, 0.010086837, 0.009872547, 0.009667174, 0.00947017, 0.0092810355, 0.0090993075, 0.008924561, 0.008756397, 0.008594455, 0.008438394, 0.008287899]
+2020-10-04 23:43:42,952 - using symmetric eta at 0.02
+2020-10-04 23:43:42,955 - using serial LDA version on this node
+2020-10-04 23:43:42,988 - running online LDA training, 50 topics, 100 passes over the supplied corpus of 9444 documents, updating every 12000 documents, evaluating every ~9444 documents, iterating 50x with a convergence threshold of 0.001000
+2020-10-04 23:43:42,991 - training LDA model using 6 processes
+2020-10-04 23:43:43,102 - PROGRESS: pass 0, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:43:43,153 - PROGRESS: pass 0, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:43:43,185 - PROGRESS: pass 0, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:43:43,213 - PROGRESS: pass 0, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:43:43,251 - PROGRESS: pass 0, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:43:52,627 - topic #49 (0.008): 0.133*"1" + 0.124*"0" + 0.114*"2" + 0.037*"Q1" + 0.036*"3" + 0.016*"4" + 0.008*"July" + 0.008*"2010" + 0.007*"3." + 0.007*"Jan-Mar"
+2020-10-04 23:43:52,627 - topic #48 (0.008): 0.021*"1" + 0.020*"2" + 0.015*"0" + 0.014*"10" + 0.011*"3" + 0.010*"" + 0.010*"5" + 0.009*"4" + 0.008*"7" + 0.008*"8"
+2020-10-04 23:43:52,627 - topic #2 (0.051): 0.029*"Q4" + 0.028*"Q2" + 0.025*"Q1" + 0.023*"2012" + 0.023*"Q3" + 0.015*"2011" + 0.013*"May" + 0.012*"Oct" + 0.011*"Mar" + 0.010*"Jul"
+2020-10-04 23:43:52,628 - topic #1 (0.058): 0.759*"" + 0.007*"1st" + 0.003*"0" + 0.002*"2009" + 0.002*"2010/11" + 0.002*"1" + 0.002*"2011/12" + 0.002*"Year" + 0.002*"2012/13" + 0.002*"2009/10"
+2020-10-04 23:43:52,628 - topic #0 (0.066): 0.045*"2013" + 0.023*"13" + 0.020*"2012" + 0.019*"2014" + 0.015*"2011" + 0.014*"2010" + 0.014*"Mar" + 0.014*"Dec" + 0.013*"06" + 0.012*"2009"
+2020-10-04 23:43:52,630 - topic diff=27.899189, rho=1.000000
+2020-10-04 23:43:53,909 - -3.983 per-word bound, 15.8 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:43:53,936 - PROGRESS: pass 1, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:43:53,979 - PROGRESS: pass 1, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:43:54,029 - PROGRESS: pass 1, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:43:54,079 - PROGRESS: pass 1, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:43:54,140 - PROGRESS: pass 1, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:43:56,000 - topic #49 (0.008): 0.185*"1" + 0.165*"0" + 0.159*"2" + 0.054*"3" + 0.033*"Q1" + 0.025*"4" + 0.014*"I" + 0.009*"3." + 0.008*"2010" + 0.008*"2009"
+2020-10-04 23:43:56,000 - topic #48 (0.008): 0.011*"West" + 0.011*"South" + 0.009*"East" + 0.009*"2006/07" + 0.009*"2007/08" + 0.009*"2008/09" + 0.009*"2005/06" + 0.009*"1" + 0.009*"2004/05" + 0.009*"2009/10"
+2020-10-04 23:43:56,000 - topic #2 (0.051): 0.026*"Q4" + 0.026*"2012" + 0.025*"Q2" + 0.023*"Q1" + 0.021*"Q3" + 0.016*"2011" + 0.012*"May" + 0.012*"Oct" + 0.010*"Mar" + 0.010*"Jul"
+2020-10-04 23:43:56,001 - topic #1 (0.058): 0.833*"" + 0.007*"1st" + 0.002*"0" + 0.002*"2009" + 0.002*"2010/11" + 0.002*"2011/12" + 0.002*"2012/13" + 0.002*"2013/14" + 0.002*"1" + 0.001*"2009/10"
+2020-10-04 23:43:56,001 - topic #0 (0.066): 0.047*"2013" + 0.023*"2014" + 0.023*"2012" + 0.020*"13" + 0.015*"2011" + 0.013*"2010" + 0.013*"Mar" + 0.013*"Dec" + 0.010*"May" + 0.010*"2009"
+2020-10-04 23:43:56,003 - topic diff=1.482755, rho=0.385701
+2020-10-04 23:43:56,795 - -3.460 per-word bound, 11.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:43:56,817 - PROGRESS: pass 2, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:43:56,852 - PROGRESS: pass 2, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:43:56,889 - PROGRESS: pass 2, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:43:56,934 - PROGRESS: pass 2, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:43:56,994 - PROGRESS: pass 2, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:43:58,357 - topic #49 (0.008): 0.210*"1" + 0.185*"0" + 0.181*"2" + 0.068*"3" + 0.033*"4" + 0.028*"Q1" + 0.019*"I" + 0.009*"IV" + 0.009*"3." + 0.008*"2012"
+2020-10-04 23:43:58,357 - topic #48 (0.008): 0.022*"2010/11" + 0.022*"2009/10" + 0.020*"2008/09" + 0.019*"2011/12" + 0.017*"2007/08" + 0.016*"2012/13" + 0.016*"2006/07" + 0.013*"2004/05" + 0.013*"2005/06" + 0.012*"2013/14"
+2020-10-04 23:43:58,357 - topic #2 (0.051): 0.025*"Q4" + 0.025*"Q2" + 0.025*"2012" + 0.022*"Q1" + 0.020*"Q3" + 0.015*"2011" + 0.012*"May" + 0.011*"Oct" + 0.010*"Mar" + 0.009*"Jul"
+2020-10-04 23:43:58,358 - topic #1 (0.058): 0.879*"" + 0.007*"1st" + 0.002*"0" + 0.002*"2009" + 0.001*"2010/11" + 0.001*"2012/13" + 0.001*"1" + 0.001*"2011/12" + 0.001*"2013/14" + 0.001*"May"
+2020-10-04 23:43:58,358 - topic #0 (0.066): 0.046*"2013" + 0.024*"2014" + 0.023*"2012" + 0.017*"13" + 0.013*"2011" + 0.012*"Dec" + 0.011*"2010" + 0.011*"Mar" + 0.009*"2015" + 0.009*"Nov"
+2020-10-04 23:43:58,360 - topic diff=1.528095, rho=0.359861
+2020-10-04 23:43:59,131 - -3.272 per-word bound, 9.7 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:43:59,154 - PROGRESS: pass 3, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:43:59,191 - PROGRESS: pass 3, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:43:59,274 - PROGRESS: pass 3, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:43:59,326 - PROGRESS: pass 3, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:43:59,397 - PROGRESS: pass 3, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:00,626 - topic #49 (0.008): 0.224*"1" + 0.197*"0" + 0.194*"2" + 0.076*"3" + 0.038*"4" + 0.025*"Q1" + 0.021*"I" + 0.010*"IV" + 0.009*"3." + 0.008*"2013"
+2020-10-04 23:44:00,626 - topic #48 (0.008): 0.027*"2010/11" + 0.026*"2009/10" + 0.024*"2008/09" + 0.023*"2011/12" + 0.020*"2012/13" + 0.019*"2007/08" + 0.018*"2006/07" + 0.015*"2013/14" + 0.015*"2004/05" + 0.015*"2005/06"
+2020-10-04 23:44:00,626 - topic #2 (0.051): 0.024*"Q4" + 0.024*"Q2" + 0.023*"2012" + 0.021*"Q1" + 0.019*"Q3" + 0.014*"2011" + 0.011*"Oct" + 0.011*"May" + 0.009*"Mar" + 0.009*"Jul"
+2020-10-04 23:44:00,626 - topic #1 (0.058): 0.909*"" + 0.008*"1st" + 0.002*"0" + 0.002*"2009" + 0.001*"1" + 0.001*"May" + 0.001*"Nov" + 0.001*"2012/13" + 0.001*"Dec" + 0.001*"2010/11"
+2020-10-04 23:44:00,626 - topic #0 (0.066): 0.041*"2013" + 0.022*"2014" + 0.020*"2012" + 0.014*"13" + 0.011*"2011" + 0.010*"Dec" + 0.010*"2010" + 0.010*"Mar" + 0.008*"2015" + 0.008*"Oct"
+2020-10-04 23:44:00,629 - topic diff=1.577652, rho=0.338604
+2020-10-04 23:44:01,490 - -3.156 per-word bound, 8.9 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:01,515 - PROGRESS: pass 4, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:01,565 - PROGRESS: pass 4, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:01,619 - PROGRESS: pass 4, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:01,673 - PROGRESS: pass 4, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:01,743 - PROGRESS: pass 4, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:03,035 - topic #49 (0.008): 0.232*"1" + 0.203*"0" + 0.201*"2" + 0.082*"3" + 0.042*"4" + 0.022*"I" + 0.022*"Q1" + 0.010*"IV" + 0.009*"3." + 0.007*"2013"
+2020-10-04 23:44:03,036 - topic #48 (0.008): 0.030*"2010/11" + 0.028*"2009/10" + 0.026*"2008/09" + 0.026*"2011/12" + 0.022*"2012/13" + 0.020*"2007/08" + 0.019*"2006/07" + 0.016*"2013/14" + 0.015*"2004/05" + 0.015*"2005/06"
+2020-10-04 23:44:03,036 - topic #2 (0.051): 0.023*"Q4" + 0.022*"Q2" + 0.021*"2012" + 0.020*"Q1" + 0.018*"Q3" + 0.013*"2011" + 0.011*"la" + 0.010*"de" + 0.010*"Oct" + 0.010*"Satisfacció"
+2020-10-04 23:44:03,036 - topic #1 (0.058): 0.927*"" + 0.008*"1st" + 0.002*"0" + 0.001*"2009" + 0.001*"1" + 0.001*"May" + 0.001*"Nov" + 0.001*"Dec" + 0.001*"Oct" + 0.001*"Mar"
+2020-10-04 23:44:03,036 - topic #0 (0.066): 0.035*"2013" + 0.019*"2014" + 0.017*"2012" + 0.012*"13" + 0.010*"C" + 0.009*"2011" + 0.009*"Dec" + 0.008*"B" + 0.008*"Mar" + 0.008*"D"
+2020-10-04 23:44:03,039 - topic diff=1.586112, rho=0.320717
+2020-10-04 23:44:03,801 - -3.076 per-word bound, 8.4 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:03,823 - PROGRESS: pass 5, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:03,862 - PROGRESS: pass 5, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:03,905 - PROGRESS: pass 5, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:03,954 - PROGRESS: pass 5, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:04,021 - PROGRESS: pass 5, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:05,128 - topic #49 (0.008): 0.237*"1" + 0.207*"0" + 0.206*"2" + 0.086*"3" + 0.044*"4" + 0.023*"I" + 0.020*"Q1" + 0.010*"IV" + 0.009*"3." + 0.007*"2013"
+2020-10-04 23:44:05,129 - topic #48 (0.008): 0.032*"2010/11" + 0.030*"2009/10" + 0.027*"2011/12" + 0.027*"2008/09" + 0.023*"2012/13" + 0.021*"2007/08" + 0.019*"2006/07" + 0.017*"2013/14" + 0.016*"2004/05" + 0.016*"2005/06"
+2020-10-04 23:44:05,129 - topic #2 (0.051): 0.022*"Q4" + 0.021*"Q2" + 0.019*"Q1" + 0.018*"2012" + 0.017*"Q3" + 0.014*"de" + 0.014*"la" + 0.013*"Satisfacció" + 0.013*"amb" + 0.013*"FY15"
+2020-10-04 23:44:05,129 - topic #1 (0.058): 0.940*"" + 0.008*"1st" + 0.002*"0" + 0.001*"2009" + 0.001*"May" + 0.001*"Nov" + 0.001*"Dec" + 0.001*"Oct" + 0.001*"1" + 0.001*"Mar"
+2020-10-04 23:44:05,129 - topic #0 (0.066): 0.030*"2013" + 0.016*"2014" + 0.014*"2012" + 0.012*"C" + 0.010*"D" + 0.010*"B" + 0.010*"13" + 0.010*"s" + 0.009*"E" + 0.009*"A"
+2020-10-04 23:44:05,132 - topic diff=1.548633, rho=0.305395
+2020-10-04 23:44:05,970 - -3.018 per-word bound, 8.1 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:05,994 - PROGRESS: pass 6, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:06,035 - PROGRESS: pass 6, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:06,078 - PROGRESS: pass 6, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:06,130 - PROGRESS: pass 6, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:06,234 - PROGRESS: pass 6, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:07,197 - topic #49 (0.008): 0.241*"1" + 0.210*"2" + 0.210*"0" + 0.089*"3" + 0.046*"4" + 0.023*"I" + 0.018*"Q1" + 0.011*"IV" + 0.009*"3." + 0.007*"2013"
+2020-10-04 23:44:07,197 - topic #48 (0.008): 0.033*"2010/11" + 0.031*"2009/10" + 0.028*"2011/12" + 0.028*"2008/09" + 0.024*"2012/13" + 0.022*"2007/08" + 0.020*"2006/07" + 0.018*"2013/14" + 0.016*"2004/05" + 0.016*"2005/06"
+2020-10-04 23:44:07,198 - topic #2 (0.051): 0.020*"Q4" + 0.020*"Q2" + 0.019*"de" + 0.017*"Q1" + 0.017*"FY15" + 0.017*"la" + 0.016*"Satisfacció" + 0.016*"amb" + 0.016*"Q3" + 0.016*"2012"
+2020-10-04 23:44:07,198 - topic #1 (0.058): 0.948*"" + 0.008*"1st" + 0.001*"0" + 0.001*"2009" + 0.001*"Nov" + 0.001*"Dec" + 0.001*"Oct" + 0.001*"May" + 0.001*"Mar" + 0.001*"1"
+2020-10-04 23:44:07,198 - topic #0 (0.066): 0.024*"2013" + 0.014*"C" + 0.014*"2014" + 0.012*"D" + 0.012*"2012" + 0.011*"B" + 0.011*"s" + 0.011*"E" + 0.010*"A" + 0.009*"2016."
+2020-10-04 23:44:07,201 - topic diff=1.473360, rho=0.292078
+2020-10-04 23:44:07,928 - -2.974 per-word bound, 7.9 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:07,953 - PROGRESS: pass 7, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:07,998 - PROGRESS: pass 7, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:08,040 - PROGRESS: pass 7, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:08,097 - PROGRESS: pass 7, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:08,160 - PROGRESS: pass 7, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:09,208 - topic #49 (0.008): 0.244*"1" + 0.213*"2" + 0.211*"0" + 0.091*"3" + 0.048*"4" + 0.023*"I" + 0.017*"Q1" + 0.011*"IV" + 0.009*"3." + 0.007*"2013"
+2020-10-04 23:44:09,208 - topic #48 (0.008): 0.034*"2010/11" + 0.031*"2009/10" + 0.028*"2011/12" + 0.028*"2008/09" + 0.024*"2012/13" + 0.022*"2007/08" + 0.020*"2006/07" + 0.018*"2013/14" + 0.017*"2004/05" + 0.016*"2005/06"
+2020-10-04 23:44:09,208 - topic #2 (0.051): 0.023*"de" + 0.022*"FY15" + 0.020*"la" + 0.019*"Satisfacció" + 0.019*"amb" + 0.019*"Q4" + 0.018*"Q2" + 0.016*"FY16" + 0.016*"Q1" + 0.015*"FY14"
+2020-10-04 23:44:09,208 - topic #1 (0.058): 0.954*"" + 0.008*"1st" + 0.001*"0" + 0.001*"2009" + 0.001*"Nov" + 0.001*"Dec" + 0.001*"Oct" + 0.001*"May" + 0.001*"Mar" + 0.001*"Jun"
+2020-10-04 23:44:09,209 - topic #0 (0.066): 0.020*"2013" + 0.016*"C" + 0.013*"D" + 0.012*"B" + 0.012*"E" + 0.012*"A" + 0.012*"s" + 0.011*"2014" + 0.010*"2016." + 0.009*"2012"
+2020-10-04 23:44:09,211 - topic diff=1.371371, rho=0.280364
+2020-10-04 23:44:09,917 - -2.941 per-word bound, 7.7 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:09,947 - PROGRESS: pass 8, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:09,996 - PROGRESS: pass 8, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:10,052 - PROGRESS: pass 8, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:10,107 - PROGRESS: pass 8, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:10,173 - PROGRESS: pass 8, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:11,281 - topic #49 (0.008): 0.246*"1" + 0.215*"2" + 0.212*"0" + 0.093*"3" + 0.050*"4" + 0.024*"I" + 0.016*"Q1" + 0.011*"IV" + 0.009*"3." + 0.007*"2013"
+2020-10-04 23:44:11,282 - topic #48 (0.008): 0.034*"2010/11" + 0.032*"2009/10" + 0.029*"2011/12" + 0.029*"2008/09" + 0.025*"2012/13" + 0.022*"2007/08" + 0.020*"2006/07" + 0.018*"2013/14" + 0.017*"2004/05" + 0.017*"2005/06"
+2020-10-04 23:44:11,282 - topic #2 (0.051): 0.028*"de" + 0.026*"FY15" + 0.023*"la" + 0.022*"Satisfacció" + 0.022*"amb" + 0.019*"FY14" + 0.018*"FY16" + 0.017*"Q4" + 0.017*"Q2" + 0.017*"Q5"
+2020-10-04 23:44:11,282 - topic #1 (0.058): 0.958*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Dec" + 0.001*"Oct" + 0.001*"2009" + 0.001*"May" + 0.001*"Mar" + 0.001*"Jun"
+2020-10-04 23:44:11,282 - topic #0 (0.066): 0.017*"C" + 0.016*"2013" + 0.014*"D" + 0.013*"B" + 0.013*"E" + 0.013*"A" + 0.012*"s" + 0.011*"2016." + 0.010*"Jul-Sept" + 0.010*"2003-08"
+2020-10-04 23:44:11,285 - topic diff=1.253829, rho=0.269955
+2020-10-04 23:44:12,284 - -2.916 per-word bound, 7.5 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:12,307 - PROGRESS: pass 9, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:12,350 - PROGRESS: pass 9, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:12,393 - PROGRESS: pass 9, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:12,447 - PROGRESS: pass 9, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:12,514 - PROGRESS: pass 9, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:13,533 - topic #49 (0.008): 0.248*"1" + 0.216*"2" + 0.212*"0" + 0.095*"3" + 0.051*"4" + 0.024*"I" + 0.014*"Q1" + 0.011*"IV" + 0.009*"3." + 0.006*"2013"
+2020-10-04 23:44:13,533 - topic #48 (0.008): 0.035*"2010/11" + 0.032*"2009/10" + 0.029*"2011/12" + 0.029*"2008/09" + 0.025*"2012/13" + 0.023*"2007/08" + 0.021*"2006/07" + 0.019*"2013/14" + 0.017*"2004/05" + 0.017*"2005/06"
+2020-10-04 23:44:13,534 - topic #2 (0.051): 0.032*"de" + 0.029*"FY15" + 0.026*"la" + 0.024*"Satisfacció" + 0.024*"amb" + 0.023*"FY14" + 0.021*"FY16" + 0.018*"Q5" + 0.018*"Q6" + 0.015*"Q4"
+2020-10-04 23:44:13,534 - topic #1 (0.058): 0.961*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"May" + 0.001*"Mar" + 0.001*"2009" + 0.001*"Jun"
+2020-10-04 23:44:13,534 - topic #0 (0.066): 0.018*"C" + 0.015*"D" + 0.014*"B" + 0.014*"E" + 0.014*"A" + 0.013*"2013" + 0.013*"s" + 0.012*"2016." + 0.010*"Jul-Sept" + 0.010*"2003-08"
+2020-10-04 23:44:13,536 - topic diff=1.134131, rho=0.260625
+2020-10-04 23:44:14,303 - -2.896 per-word bound, 7.4 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:14,326 - PROGRESS: pass 10, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:14,403 - PROGRESS: pass 10, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:14,480 - PROGRESS: pass 10, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:14,546 - PROGRESS: pass 10, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:14,611 - PROGRESS: pass 10, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:15,638 - topic #49 (0.008): 0.249*"1" + 0.218*"2" + 0.212*"0" + 0.096*"3" + 0.052*"4" + 0.024*"I" + 0.013*"Q1" + 0.011*"IV" + 0.009*"3." + 0.006*"2013"
+2020-10-04 23:44:15,639 - topic #48 (0.008): 0.035*"2010/11" + 0.032*"2009/10" + 0.029*"2011/12" + 0.029*"2008/09" + 0.025*"2012/13" + 0.023*"2007/08" + 0.021*"2006/07" + 0.019*"2013/14" + 0.017*"2004/05" + 0.017*"2005/06"
+2020-10-04 23:44:15,639 - topic #2 (0.051): 0.035*"de" + 0.032*"FY15" + 0.028*"la" + 0.026*"Satisfacció" + 0.026*"amb" + 0.026*"FY14" + 0.022*"FY16" + 0.020*"Q5" + 0.019*"Q6" + 0.016*"feina"
+2020-10-04 23:44:15,639 - topic #1 (0.058): 0.964*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"May" + 0.001*"Mar" + 0.001*"Jun" + 0.001*"Jul"
+2020-10-04 23:44:15,639 - topic #0 (0.066): 0.019*"C" + 0.016*"D" + 0.015*"B" + 0.014*"E" + 0.014*"A" + 0.014*"s" + 0.013*"2016." + 0.011*"2013" + 0.011*"Jul-Sept" + 0.010*"2003-08"
+2020-10-04 23:44:15,641 - topic diff=1.014546, rho=0.252201
+2020-10-04 23:44:16,349 - -2.880 per-word bound, 7.4 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:16,373 - PROGRESS: pass 11, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:16,411 - PROGRESS: pass 11, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:16,450 - PROGRESS: pass 11, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:16,494 - PROGRESS: pass 11, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:16,554 - PROGRESS: pass 11, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:17,438 - topic #49 (0.008): 0.251*"1" + 0.219*"2" + 0.213*"0" + 0.097*"3" + 0.053*"4" + 0.024*"I" + 0.012*"Q1" + 0.011*"IV" + 0.009*"3." + 0.006*"2013"
+2020-10-04 23:44:17,439 - topic #48 (0.008): 0.035*"2010/11" + 0.033*"2009/10" + 0.030*"2011/12" + 0.029*"2008/09" + 0.025*"2012/13" + 0.023*"2007/08" + 0.021*"2006/07" + 0.019*"2013/14" + 0.017*"2004/05" + 0.017*"2005/06"
+2020-10-04 23:44:17,439 - topic #2 (0.051): 0.038*"de" + 0.035*"FY15" + 0.030*"la" + 0.029*"FY14" + 0.028*"Satisfacció" + 0.028*"amb" + 0.024*"FY16" + 0.022*"Q5" + 0.021*"Q6" + 0.017*"feina"
+2020-10-04 23:44:17,439 - topic #1 (0.058): 0.966*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"May" + 0.001*"Mar" + 0.001*"Jul" + 0.001*"Jun"
+2020-10-04 23:44:17,439 - topic #0 (0.066): 0.019*"C" + 0.017*"D" + 0.015*"B" + 0.015*"E" + 0.015*"A" + 0.014*"s" + 0.013*"2016." + 0.011*"Jul-Sept" + 0.011*"2003-08" + 0.011*"1998-02"
+2020-10-04 23:44:17,442 - topic diff=0.902802, rho=0.244543
+2020-10-04 23:44:18,296 - -2.867 per-word bound, 7.3 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:18,322 - PROGRESS: pass 12, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:18,372 - PROGRESS: pass 12, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:18,416 - PROGRESS: pass 12, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:18,467 - PROGRESS: pass 12, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:18,542 - PROGRESS: pass 12, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:19,760 - topic #49 (0.008): 0.252*"1" + 0.220*"2" + 0.213*"0" + 0.098*"3" + 0.053*"4" + 0.024*"I" + 0.011*"Q1" + 0.011*"IV" + 0.009*"3." + 0.006*"2013"
+2020-10-04 23:44:19,760 - topic #48 (0.008): 0.035*"2010/11" + 0.033*"2009/10" + 0.030*"2011/12" + 0.030*"2008/09" + 0.025*"2012/13" + 0.023*"2007/08" + 0.021*"2006/07" + 0.019*"2013/14" + 0.017*"2004/05" + 0.017*"2005/06"
+2020-10-04 23:44:19,760 - topic #2 (0.051): 0.040*"de" + 0.037*"FY15" + 0.031*"FY14" + 0.031*"la" + 0.030*"Satisfacció" + 0.030*"amb" + 0.025*"FY16" + 0.023*"Q5" + 0.022*"Q6" + 0.018*"feina"
+2020-10-04 23:44:19,761 - topic #1 (0.058): 0.967*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"May" + 0.001*"Mar" + 0.001*"Jul" + 0.001*"Jun"
+2020-10-04 23:44:19,761 - topic #0 (0.066): 0.020*"C" + 0.018*"D" + 0.015*"B" + 0.015*"E" + 0.015*"A" + 0.014*"s" + 0.014*"2016." + 0.011*"Jul-Sept" + 0.011*"F" + 0.011*"2003-08"
+2020-10-04 23:44:19,763 - topic diff=0.799205, rho=0.237544
+2020-10-04 23:44:20,518 - -2.858 per-word bound, 7.2 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:20,543 - PROGRESS: pass 13, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:20,587 - PROGRESS: pass 13, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:20,687 - PROGRESS: pass 13, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:20,739 - PROGRESS: pass 13, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:20,816 - PROGRESS: pass 13, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:22,073 - topic #49 (0.008): 0.254*"1" + 0.221*"2" + 0.213*"0" + 0.099*"3" + 0.054*"4" + 0.024*"I" + 0.011*"IV" + 0.010*"Q1" + 0.009*"3." + 0.006*"2009"
+2020-10-04 23:44:22,073 - topic #48 (0.008): 0.036*"2010/11" + 0.033*"2009/10" + 0.030*"2011/12" + 0.030*"2008/09" + 0.025*"2012/13" + 0.023*"2007/08" + 0.021*"2006/07" + 0.019*"2013/14" + 0.017*"2004/05" + 0.017*"2005/06"
+2020-10-04 23:44:22,073 - topic #2 (0.051): 0.042*"de" + 0.039*"FY15" + 0.034*"FY14" + 0.032*"la" + 0.031*"Satisfacció" + 0.031*"amb" + 0.026*"FY16" + 0.024*"Q5" + 0.023*"Q6" + 0.018*"feina"
+2020-10-04 23:44:22,073 - topic #1 (0.058): 0.968*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"May" + 0.001*"Mar" + 0.001*"Jul" + 0.001*"Jun"
+2020-10-04 23:44:22,074 - topic #0 (0.066): 0.020*"C" + 0.019*"D" + 0.016*"B" + 0.015*"E" + 0.015*"A" + 0.014*"s" + 0.014*"2016." + 0.012*"F" + 0.011*"Jul-Sept" + 0.011*"2003-08"
+2020-10-04 23:44:22,076 - topic diff=0.704207, rho=0.231113
+2020-10-04 23:44:22,762 - -2.850 per-word bound, 7.2 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:22,784 - PROGRESS: pass 14, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:22,820 - PROGRESS: pass 14, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:22,861 - PROGRESS: pass 14, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:22,912 - PROGRESS: pass 14, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:22,975 - PROGRESS: pass 14, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:24,006 - topic #49 (0.008): 0.255*"1" + 0.223*"2" + 0.212*"0" + 0.100*"3" + 0.054*"4" + 0.024*"I" + 0.011*"IV" + 0.009*"Q1" + 0.009*"3." + 0.006*"2009"
+2020-10-04 23:44:24,007 - topic #48 (0.008): 0.036*"2010/11" + 0.033*"2009/10" + 0.030*"2011/12" + 0.030*"2008/09" + 0.025*"2012/13" + 0.023*"2007/08" + 0.021*"2006/07" + 0.019*"2013/14" + 0.017*"2004/05" + 0.017*"2005/06"
+2020-10-04 23:44:24,007 - topic #2 (0.051): 0.044*"de" + 0.040*"FY15" + 0.035*"FY14" + 0.033*"la" + 0.032*"Satisfacció" + 0.032*"amb" + 0.027*"FY16" + 0.024*"Q5" + 0.023*"Q6" + 0.019*"feina"
+2020-10-04 23:44:24,007 - topic #1 (0.058): 0.969*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"May" + 0.001*"Mar" + 0.001*"Jul" + 0.001*"Kick-off"
+2020-10-04 23:44:24,007 - topic #0 (0.066): 0.020*"C" + 0.020*"D" + 0.016*"B" + 0.016*"E" + 0.016*"A" + 0.015*"s" + 0.014*"2016." + 0.012*"F" + 0.012*"Jul-Sept" + 0.011*"2003-08"
+2020-10-04 23:44:24,009 - topic diff=0.618460, rho=0.225177
+2020-10-04 23:44:24,715 - -2.844 per-word bound, 7.2 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:24,737 - PROGRESS: pass 15, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:24,775 - PROGRESS: pass 15, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:24,814 - PROGRESS: pass 15, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:24,861 - PROGRESS: pass 15, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:24,923 - PROGRESS: pass 15, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:26,052 - topic #49 (0.008): 0.256*"1" + 0.224*"2" + 0.212*"0" + 0.100*"3" + 0.055*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.008*"Q1" + 0.006*"2009"
+2020-10-04 23:44:26,052 - topic #48 (0.008): 0.036*"2010/11" + 0.033*"2009/10" + 0.030*"2011/12" + 0.030*"2008/09" + 0.026*"2012/13" + 0.023*"2007/08" + 0.021*"2006/07" + 0.019*"2013/14" + 0.017*"2004/05" + 0.017*"2005/06"
+2020-10-04 23:44:26,053 - topic #2 (0.051): 0.045*"de" + 0.041*"FY15" + 0.037*"FY14" + 0.034*"la" + 0.032*"Satisfacció" + 0.032*"amb" + 0.028*"FY16" + 0.025*"Q5" + 0.024*"Q6" + 0.019*"feina"
+2020-10-04 23:44:26,053 - topic #1 (0.058): 0.970*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"May" + 0.001*"Mar" + 0.001*"Kick-off" + 0.001*"Jul"
+2020-10-04 23:44:26,053 - topic #0 (0.066): 0.020*"D" + 0.020*"C" + 0.016*"B" + 0.016*"E" + 0.016*"A" + 0.015*"s" + 0.014*"2016." + 0.013*"F" + 0.012*"Jul-Sept" + 0.012*"S"
+2020-10-04 23:44:26,055 - topic diff=0.541102, rho=0.219677
+2020-10-04 23:44:26,864 - -2.839 per-word bound, 7.2 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:26,888 - PROGRESS: pass 16, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:26,932 - PROGRESS: pass 16, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:26,979 - PROGRESS: pass 16, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:27,024 - PROGRESS: pass 16, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:27,123 - PROGRESS: pass 16, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:28,069 - topic #49 (0.008): 0.258*"1" + 0.225*"2" + 0.212*"0" + 0.101*"3" + 0.055*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.008*"Q1" + 0.006*"2009"
+2020-10-04 23:44:28,069 - topic #48 (0.008): 0.036*"2010/11" + 0.033*"2009/10" + 0.030*"2011/12" + 0.030*"2008/09" + 0.026*"2012/13" + 0.023*"2007/08" + 0.021*"2006/07" + 0.019*"2013/14" + 0.018*"2004/05" + 0.017*"2005/06"
+2020-10-04 23:44:28,070 - topic #2 (0.051): 0.046*"de" + 0.042*"FY15" + 0.038*"FY14" + 0.035*"la" + 0.033*"Satisfacció" + 0.033*"amb" + 0.028*"FY16" + 0.025*"Q5" + 0.024*"Q6" + 0.020*"FY13"
+2020-10-04 23:44:28,070 - topic #1 (0.058): 0.970*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"May" + 0.001*"Kick-off" + 0.001*"Mar" + 0.001*"Jul"
+2020-10-04 23:44:28,070 - topic #0 (0.066): 0.021*"D" + 0.020*"C" + 0.016*"B" + 0.016*"E" + 0.016*"A" + 0.015*"s" + 0.014*"2016." + 0.013*"F" + 0.012*"S" + 0.012*"Jul-Sept"
+2020-10-04 23:44:28,072 - topic diff=0.472064, rho=0.214561
+2020-10-04 23:44:28,893 - -2.834 per-word bound, 7.1 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:28,919 - PROGRESS: pass 17, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:28,963 - PROGRESS: pass 17, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:29,003 - PROGRESS: pass 17, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:29,051 - PROGRESS: pass 17, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:29,109 - PROGRESS: pass 17, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:30,157 - topic #49 (0.008): 0.259*"1" + 0.225*"2" + 0.212*"0" + 0.101*"3" + 0.056*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.007*"Q1" + 0.006*"2009"
+2020-10-04 23:44:30,157 - topic #48 (0.008): 0.036*"2010/11" + 0.034*"2009/10" + 0.031*"2011/12" + 0.030*"2008/09" + 0.026*"2012/13" + 0.024*"2007/08" + 0.021*"2006/07" + 0.019*"2013/14" + 0.018*"2004/05" + 0.017*"2005/06"
+2020-10-04 23:44:30,157 - topic #2 (0.051): 0.046*"de" + 0.043*"FY15" + 0.039*"FY14" + 0.035*"la" + 0.033*"Satisfacció" + 0.033*"amb" + 0.029*"FY16" + 0.026*"Q5" + 0.025*"Q6" + 0.021*"FY13"
+2020-10-04 23:44:30,158 - topic #1 (0.058): 0.971*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"Kick-off" + 0.001*"May" + 0.001*"Mar" + 0.001*"Jul"
+2020-10-04 23:44:30,158 - topic #0 (0.066): 0.021*"D" + 0.020*"C" + 0.016*"B" + 0.016*"E" + 0.016*"A" + 0.015*"s" + 0.014*"2016." + 0.014*"F" + 0.012*"S" + 0.012*"Jul-Sept"
+2020-10-04 23:44:30,160 - topic diff=0.410935, rho=0.209786
+2020-10-04 23:44:30,929 - -2.831 per-word bound, 7.1 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:30,953 - PROGRESS: pass 18, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:30,996 - PROGRESS: pass 18, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:31,039 - PROGRESS: pass 18, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:31,094 - PROGRESS: pass 18, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:31,165 - PROGRESS: pass 18, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:32,240 - topic #49 (0.008): 0.260*"1" + 0.226*"2" + 0.212*"0" + 0.102*"3" + 0.056*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"Q1" + 0.006*"2009"
+2020-10-04 23:44:32,240 - topic #48 (0.008): 0.036*"2010/11" + 0.034*"2009/10" + 0.031*"2011/12" + 0.030*"2008/09" + 0.026*"2012/13" + 0.024*"2007/08" + 0.021*"2006/07" + 0.019*"2013/14" + 0.018*"2004/05" + 0.017*"2005/06"
+2020-10-04 23:44:32,240 - topic #2 (0.051): 0.047*"de" + 0.043*"FY15" + 0.039*"FY14" + 0.036*"la" + 0.034*"Satisfacció" + 0.034*"amb" + 0.029*"FY16" + 0.026*"Q5" + 0.025*"Q6" + 0.022*"FY13"
+2020-10-04 23:44:32,240 - topic #1 (0.058): 0.972*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"Kick-off" + 0.001*"May" + 0.001*"Mar" + 0.001*"Jul"
+2020-10-04 23:44:32,241 - topic #0 (0.066): 0.022*"D" + 0.021*"C" + 0.016*"B" + 0.016*"E" + 0.016*"A" + 0.015*"s" + 0.014*"2016." + 0.014*"F" + 0.013*"S" + 0.012*"Jul-Sept"
+2020-10-04 23:44:32,243 - topic diff=0.357067, rho=0.205317
+2020-10-04 23:44:32,913 - -2.828 per-word bound, 7.1 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:32,934 - PROGRESS: pass 19, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:32,971 - PROGRESS: pass 19, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:33,010 - PROGRESS: pass 19, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:33,058 - PROGRESS: pass 19, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:33,114 - PROGRESS: pass 19, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:34,035 - topic #49 (0.008): 0.260*"1" + 0.227*"2" + 0.212*"0" + 0.102*"3" + 0.056*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:44:34,035 - topic #48 (0.008): 0.037*"2010/11" + 0.034*"2009/10" + 0.031*"2011/12" + 0.030*"2008/09" + 0.026*"2012/13" + 0.024*"2007/08" + 0.022*"2006/07" + 0.019*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:44:34,035 - topic #2 (0.051): 0.047*"de" + 0.044*"FY15" + 0.040*"FY14" + 0.036*"la" + 0.034*"Satisfacció" + 0.034*"amb" + 0.029*"FY16" + 0.026*"Q5" + 0.025*"Q6" + 0.022*"FY13"
+2020-10-04 23:44:34,036 - topic #1 (0.058): 0.972*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"Kick-off" + 0.001*"May" + 0.001*"Mar" + 0.001*"Jul"
+2020-10-04 23:44:34,036 - topic #0 (0.066): 0.022*"D" + 0.021*"C" + 0.016*"B" + 0.016*"E" + 0.016*"A" + 0.015*"s" + 0.015*"2016." + 0.014*"F" + 0.013*"S" + 0.012*"Jul-Sept"
+2020-10-04 23:44:34,038 - topic diff=0.309744, rho=0.201121
+2020-10-04 23:44:34,801 - -2.826 per-word bound, 7.1 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:34,826 - PROGRESS: pass 20, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:34,927 - PROGRESS: pass 20, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:34,986 - PROGRESS: pass 20, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:35,036 - PROGRESS: pass 20, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:35,107 - PROGRESS: pass 20, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:36,209 - topic #49 (0.008): 0.261*"1" + 0.227*"2" + 0.212*"0" + 0.102*"3" + 0.057*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:44:36,209 - topic #48 (0.008): 0.037*"2010/11" + 0.034*"2009/10" + 0.031*"2011/12" + 0.031*"2008/09" + 0.026*"2012/13" + 0.024*"2007/08" + 0.022*"2006/07" + 0.019*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:44:36,210 - topic #2 (0.051): 0.048*"de" + 0.044*"FY15" + 0.040*"FY14" + 0.036*"la" + 0.034*"Satisfacció" + 0.034*"amb" + 0.029*"FY16" + 0.026*"Q5" + 0.025*"Q6" + 0.023*"FY13"
+2020-10-04 23:44:36,210 - topic #1 (0.058): 0.972*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"Kick-off" + 0.001*"May" + 0.001*"Mar" + 0.001*"Jul"
+2020-10-04 23:44:36,210 - topic #0 (0.066): 0.022*"D" + 0.021*"C" + 0.016*"B" + 0.016*"E" + 0.016*"A" + 0.015*"s" + 0.015*"F" + 0.015*"2016." + 0.013*"S" + 0.012*"N"
+2020-10-04 23:44:36,212 - topic diff=0.268461, rho=0.197173
+2020-10-04 23:44:36,920 - -2.824 per-word bound, 7.1 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:36,944 - PROGRESS: pass 21, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:36,983 - PROGRESS: pass 21, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:37,023 - PROGRESS: pass 21, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:37,070 - PROGRESS: pass 21, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:37,126 - PROGRESS: pass 21, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:38,148 - topic #49 (0.008): 0.262*"1" + 0.228*"2" + 0.212*"0" + 0.103*"3" + 0.057*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:44:38,149 - topic #48 (0.008): 0.037*"2010/11" + 0.034*"2009/10" + 0.031*"2011/12" + 0.031*"2008/09" + 0.026*"2012/13" + 0.024*"2007/08" + 0.022*"2006/07" + 0.019*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:44:38,149 - topic #2 (0.051): 0.048*"de" + 0.044*"FY15" + 0.041*"FY14" + 0.036*"la" + 0.034*"Satisfacció" + 0.034*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.023*"FY13"
+2020-10-04 23:44:38,149 - topic #1 (0.058): 0.973*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"Kick-off" + 0.001*"May" + 0.001*"Mar" + 0.001*"Jul"
+2020-10-04 23:44:38,149 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"E" + 0.016*"A" + 0.015*"s" + 0.015*"F" + 0.015*"2016." + 0.014*"S" + 0.012*"N"
+2020-10-04 23:44:38,152 - topic diff=0.232424, rho=0.193449
+2020-10-04 23:44:38,875 - -2.822 per-word bound, 7.1 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:38,899 - PROGRESS: pass 22, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:38,939 - PROGRESS: pass 22, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:38,980 - PROGRESS: pass 22, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:39,021 - PROGRESS: pass 22, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:39,078 - PROGRESS: pass 22, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:40,023 - topic #49 (0.008): 0.262*"1" + 0.228*"2" + 0.211*"0" + 0.103*"3" + 0.057*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:44:40,023 - topic #48 (0.008): 0.037*"2010/11" + 0.034*"2009/10" + 0.031*"2011/12" + 0.031*"2008/09" + 0.026*"2012/13" + 0.024*"2007/08" + 0.022*"2006/07" + 0.019*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:44:40,023 - topic #2 (0.051): 0.048*"de" + 0.044*"FY15" + 0.041*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.024*"FY13"
+2020-10-04 23:44:40,023 - topic #1 (0.058): 0.973*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"Kick-off" + 0.001*"May" + 0.001*"Mar" + 0.001*"Jul"
+2020-10-04 23:44:40,024 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"E" + 0.016*"A" + 0.015*"s" + 0.015*"F" + 0.015*"2016." + 0.014*"S" + 0.012*"N"
+2020-10-04 23:44:40,026 - topic diff=0.201346, rho=0.189927
+2020-10-04 23:44:40,802 - -2.821 per-word bound, 7.1 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:40,824 - PROGRESS: pass 23, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:40,861 - PROGRESS: pass 23, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:40,893 - PROGRESS: pass 23, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:40,989 - PROGRESS: pass 23, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:41,053 - PROGRESS: pass 23, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:41,989 - topic #49 (0.008): 0.263*"1" + 0.229*"2" + 0.211*"0" + 0.103*"3" + 0.057*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:44:41,989 - topic #48 (0.008): 0.037*"2010/11" + 0.034*"2009/10" + 0.031*"2011/12" + 0.031*"2008/09" + 0.026*"2012/13" + 0.024*"2007/08" + 0.022*"2006/07" + 0.019*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:44:41,989 - topic #2 (0.051): 0.048*"de" + 0.044*"FY15" + 0.041*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.024*"FY13"
+2020-10-04 23:44:41,990 - topic #1 (0.058): 0.973*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"Kick-off" + 0.001*"May" + 0.000*"Jul" + 0.000*"1"
+2020-10-04 23:44:41,990 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"E" + 0.016*"A" + 0.015*"F" + 0.015*"s" + 0.015*"2016." + 0.014*"S" + 0.013*"N"
+2020-10-04 23:44:41,992 - topic diff=0.174143, rho=0.186592
+2020-10-04 23:44:42,700 - -2.819 per-word bound, 7.1 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:42,722 - PROGRESS: pass 24, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:42,741 - PROGRESS: pass 24, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:42,777 - PROGRESS: pass 24, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:42,814 - PROGRESS: pass 24, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:42,893 - PROGRESS: pass 24, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:43,855 - topic #49 (0.008): 0.263*"1" + 0.229*"2" + 0.211*"0" + 0.103*"3" + 0.057*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:44:43,855 - topic #48 (0.008): 0.037*"2010/11" + 0.034*"2009/10" + 0.031*"2011/12" + 0.031*"2008/09" + 0.026*"2012/13" + 0.024*"2007/08" + 0.022*"2006/07" + 0.019*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:44:43,855 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.041*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.024*"FY13"
+2020-10-04 23:44:43,856 - topic #1 (0.058): 0.973*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.001*"Kick-off" + 0.001*"May" + 0.000*"1" + 0.000*"Jul"
+2020-10-04 23:44:43,856 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"E" + 0.016*"A" + 0.015*"F" + 0.015*"s" + 0.015*"2016." + 0.014*"S" + 0.013*"N"
+2020-10-04 23:44:43,858 - topic diff=0.150660, rho=0.183426
+2020-10-04 23:44:44,605 - -2.818 per-word bound, 7.1 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:44,645 - PROGRESS: pass 25, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:44,701 - PROGRESS: pass 25, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:44,751 - PROGRESS: pass 25, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:44,803 - PROGRESS: pass 25, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:44,864 - PROGRESS: pass 25, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:45,808 - topic #49 (0.008): 0.264*"1" + 0.229*"2" + 0.211*"0" + 0.104*"3" + 0.057*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:44:45,808 - topic #48 (0.008): 0.037*"2010/11" + 0.034*"2009/10" + 0.031*"2011/12" + 0.031*"2008/09" + 0.026*"2012/13" + 0.024*"2007/08" + 0.022*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:44:45,809 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:44:45,809 - topic #1 (0.058): 0.974*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Kick-off" + 0.001*"Dec" + 0.000*"May" + 0.000*"1" + 0.000*"Jul"
+2020-10-04 23:44:45,809 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"E" + 0.016*"A" + 0.015*"F" + 0.015*"s" + 0.015*"2016." + 0.014*"S" + 0.013*"N"
+2020-10-04 23:44:45,811 - topic diff=0.130645, rho=0.180416
+2020-10-04 23:44:46,498 - -2.817 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:46,521 - PROGRESS: pass 26, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:46,560 - PROGRESS: pass 26, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:46,608 - PROGRESS: pass 26, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:46,654 - PROGRESS: pass 26, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:46,717 - PROGRESS: pass 26, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:47,721 - topic #49 (0.008): 0.264*"1" + 0.230*"2" + 0.210*"0" + 0.104*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:44:47,721 - topic #48 (0.008): 0.037*"2010/11" + 0.035*"2009/10" + 0.031*"2011/12" + 0.031*"2008/09" + 0.026*"2012/13" + 0.024*"2007/08" + 0.022*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:44:47,721 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:44:47,721 - topic #1 (0.058): 0.974*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Kick-off" + 0.001*"Dec" + 0.000*"1" + 0.000*"May" + 0.000*"Jul"
+2020-10-04 23:44:47,721 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"E" + 0.016*"A" + 0.015*"F" + 0.015*"s" + 0.015*"2016." + 0.014*"S" + 0.013*"N"
+2020-10-04 23:44:47,724 - topic diff=0.113140, rho=0.177550
+2020-10-04 23:44:48,411 - -2.816 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:48,433 - PROGRESS: pass 27, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:48,504 - PROGRESS: pass 27, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:48,541 - PROGRESS: pass 27, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:48,588 - PROGRESS: pass 27, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:48,638 - PROGRESS: pass 27, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:49,485 - topic #49 (0.008): 0.264*"1" + 0.230*"2" + 0.210*"0" + 0.104*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:44:49,485 - topic #48 (0.008): 0.037*"2010/11" + 0.035*"2009/10" + 0.031*"2011/12" + 0.031*"2008/09" + 0.026*"2012/13" + 0.024*"2007/08" + 0.022*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:44:49,485 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:44:49,486 - topic #1 (0.058): 0.974*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Kick-off" + 0.001*"Oct" + 0.001*"Dec" + 0.000*"1" + 0.000*"May" + 0.000*"Jul"
+2020-10-04 23:44:49,486 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"E" + 0.016*"A" + 0.015*"F" + 0.015*"s" + 0.015*"2016." + 0.014*"S" + 0.013*"N"
+2020-10-04 23:44:49,488 - topic diff=0.098179, rho=0.174816
+2020-10-04 23:44:50,220 - -2.815 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:50,244 - PROGRESS: pass 28, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:50,283 - PROGRESS: pass 28, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:50,322 - PROGRESS: pass 28, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:50,365 - PROGRESS: pass 28, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:50,420 - PROGRESS: pass 28, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:51,374 - topic #49 (0.008): 0.265*"1" + 0.230*"2" + 0.210*"0" + 0.104*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:44:51,375 - topic #48 (0.008): 0.037*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.031*"2008/09" + 0.027*"2012/13" + 0.024*"2007/08" + 0.022*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:44:51,375 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:44:51,375 - topic #1 (0.058): 0.974*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Nov" + 0.001*"Kick-off" + 0.001*"Oct" + 0.001*"Dec" + 0.000*"1" + 0.000*"May" + 0.000*"Jul"
+2020-10-04 23:44:51,375 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"2016." + 0.015*"S" + 0.013*"N"
+2020-10-04 23:44:51,378 - topic diff=0.085149, rho=0.172204
+2020-10-04 23:44:52,108 - -2.815 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:52,131 - PROGRESS: pass 29, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:52,169 - PROGRESS: pass 29, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:52,209 - PROGRESS: pass 29, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:52,254 - PROGRESS: pass 29, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:52,316 - PROGRESS: pass 29, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:53,195 - topic #49 (0.008): 0.265*"1" + 0.231*"2" + 0.210*"0" + 0.104*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:44:53,196 - topic #48 (0.008): 0.038*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.031*"2008/09" + 0.027*"2012/13" + 0.024*"2007/08" + 0.022*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:44:53,196 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:44:53,196 - topic #1 (0.058): 0.974*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.000*"1" + 0.000*"May" + 0.000*"Jul"
+2020-10-04 23:44:53,196 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"2016." + 0.015*"S" + 0.013*"N"
+2020-10-04 23:44:53,198 - topic diff=0.074019, rho=0.169706
+2020-10-04 23:44:53,898 - -2.814 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:53,921 - PROGRESS: pass 30, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:53,958 - PROGRESS: pass 30, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:54,035 - PROGRESS: pass 30, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:54,076 - PROGRESS: pass 30, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:54,139 - PROGRESS: pass 30, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:55,187 - topic #49 (0.008): 0.265*"1" + 0.231*"2" + 0.210*"0" + 0.104*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:44:55,187 - topic #48 (0.008): 0.038*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.031*"2008/09" + 0.027*"2012/13" + 0.024*"2007/08" + 0.022*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:44:55,187 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:44:55,188 - topic #1 (0.058): 0.974*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.000*"1" + 0.000*"May" + 0.000*"Jul"
+2020-10-04 23:44:55,188 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"2016." + 0.015*"S" + 0.014*"N"
+2020-10-04 23:44:55,190 - topic diff=0.064485, rho=0.167314
+2020-10-04 23:44:55,896 - -2.814 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:55,918 - PROGRESS: pass 31, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:55,952 - PROGRESS: pass 31, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:55,992 - PROGRESS: pass 31, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:56,040 - PROGRESS: pass 31, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:56,095 - PROGRESS: pass 31, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:57,049 - topic #49 (0.008): 0.265*"1" + 0.231*"2" + 0.209*"0" + 0.104*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:44:57,050 - topic #48 (0.008): 0.038*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.031*"2008/09" + 0.027*"2012/13" + 0.024*"2007/08" + 0.022*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:44:57,050 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:44:57,050 - topic #1 (0.058): 0.974*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.000*"1" + 0.000*"May" + 0.000*"Mon-"
+2020-10-04 23:44:57,050 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:44:57,052 - topic diff=0.056279, rho=0.165020
+2020-10-04 23:44:57,753 - -2.813 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:57,775 - PROGRESS: pass 32, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:57,811 - PROGRESS: pass 32, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:57,850 - PROGRESS: pass 32, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:57,898 - PROGRESS: pass 32, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:44:57,964 - PROGRESS: pass 32, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:44:58,885 - topic #49 (0.008): 0.266*"1" + 0.231*"2" + 0.209*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:44:58,886 - topic #48 (0.008): 0.038*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.031*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.022*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:44:58,886 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:44:58,886 - topic #1 (0.058): 0.974*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.000*"1" + 0.000*"May" + 0.000*"Mon-"
+2020-10-04 23:44:58,886 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:44:58,888 - topic diff=0.049204, rho=0.162818
+2020-10-04 23:44:59,690 - -2.813 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:44:59,718 - PROGRESS: pass 33, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:44:59,767 - PROGRESS: pass 33, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:44:59,826 - PROGRESS: pass 33, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:44:59,887 - PROGRESS: pass 33, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:00,027 - PROGRESS: pass 33, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:01,057 - topic #49 (0.008): 0.266*"1" + 0.231*"2" + 0.209*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:01,058 - topic #48 (0.008): 0.038*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.031*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.022*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:01,058 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:45:01,058 - topic #1 (0.058): 0.975*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.000*"1" + 0.000*"May" + 0.000*"Mon-"
+2020-10-04 23:45:01,058 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:01,061 - topic diff=0.043070, rho=0.160702
+2020-10-04 23:45:01,888 - -2.812 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:01,913 - PROGRESS: pass 34, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:01,953 - PROGRESS: pass 34, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:02,001 - PROGRESS: pass 34, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:02,049 - PROGRESS: pass 34, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:02,123 - PROGRESS: pass 34, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:03,185 - topic #49 (0.008): 0.266*"1" + 0.231*"2" + 0.209*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:03,185 - topic #48 (0.008): 0.038*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.032*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.022*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:03,185 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:45:03,185 - topic #1 (0.058): 0.975*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-"
+2020-10-04 23:45:03,186 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:03,188 - topic diff=0.037801, rho=0.158666
+2020-10-04 23:45:03,870 - -2.812 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:03,891 - PROGRESS: pass 35, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:03,927 - PROGRESS: pass 35, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:03,964 - PROGRESS: pass 35, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:04,011 - PROGRESS: pass 35, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:04,068 - PROGRESS: pass 35, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:05,280 - topic #49 (0.008): 0.266*"1" + 0.232*"2" + 0.209*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:05,280 - topic #48 (0.008): 0.038*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.032*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.022*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:05,280 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:45:05,281 - topic #1 (0.058): 0.975*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-"
+2020-10-04 23:45:05,281 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:05,284 - topic diff=0.033274, rho=0.156706
+2020-10-04 23:45:06,032 - -2.812 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:06,054 - PROGRESS: pass 36, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:06,090 - PROGRESS: pass 36, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:06,127 - PROGRESS: pass 36, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:06,172 - PROGRESS: pass 36, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:06,228 - PROGRESS: pass 36, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:07,094 - topic #49 (0.008): 0.266*"1" + 0.232*"2" + 0.209*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:07,095 - topic #48 (0.008): 0.038*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.032*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.022*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:07,095 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:45:07,095 - topic #1 (0.058): 0.975*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-"
+2020-10-04 23:45:07,095 - topic #0 (0.066): 0.023*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:07,098 - topic diff=0.029309, rho=0.154817
+2020-10-04 23:45:07,766 - -2.812 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:07,788 - PROGRESS: pass 37, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:07,862 - PROGRESS: pass 37, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:07,898 - PROGRESS: pass 37, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:07,935 - PROGRESS: pass 37, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:07,993 - PROGRESS: pass 37, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:08,823 - topic #49 (0.008): 0.267*"1" + 0.232*"2" + 0.209*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:08,823 - topic #48 (0.008): 0.038*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.032*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.022*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:08,824 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:45:08,824 - topic #1 (0.058): 0.975*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-"
+2020-10-04 23:45:08,825 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:08,827 - topic diff=0.025939, rho=0.152994
+2020-10-04 23:45:09,599 - -2.811 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:09,622 - PROGRESS: pass 38, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:09,670 - PROGRESS: pass 38, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:09,719 - PROGRESS: pass 38, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:09,768 - PROGRESS: pass 38, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:09,826 - PROGRESS: pass 38, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:10,725 - topic #49 (0.008): 0.267*"1" + 0.232*"2" + 0.208*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:10,725 - topic #48 (0.008): 0.038*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.032*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:10,725 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:45:10,726 - topic #1 (0.058): 0.975*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.001*"Oct" + 0.001*"Dec" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-"
+2020-10-04 23:45:10,726 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:10,728 - topic diff=0.023006, rho=0.151234
+2020-10-04 23:45:11,375 - -2.811 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:11,397 - PROGRESS: pass 39, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:11,437 - PROGRESS: pass 39, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:11,477 - PROGRESS: pass 39, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:11,518 - PROGRESS: pass 39, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:11,575 - PROGRESS: pass 39, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:12,434 - topic #49 (0.008): 0.267*"1" + 0.232*"2" + 0.208*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:12,434 - topic #48 (0.008): 0.038*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.032*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.020*"2013/14" + 0.018*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:12,434 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:45:12,434 - topic #1 (0.058): 0.975*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.001*"Oct" + 0.000*"Dec" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-"
+2020-10-04 23:45:12,435 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:12,437 - topic diff=0.020439, rho=0.149534
+2020-10-04 23:45:13,116 - -2.811 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:13,137 - PROGRESS: pass 40, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:13,172 - PROGRESS: pass 40, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:13,216 - PROGRESS: pass 40, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:13,303 - PROGRESS: pass 40, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:13,365 - PROGRESS: pass 40, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:14,169 - topic #49 (0.008): 0.267*"1" + 0.232*"2" + 0.208*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:14,170 - topic #48 (0.008): 0.038*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.032*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.020*"2013/14" + 0.019*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:14,170 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:45:14,170 - topic #1 (0.058): 0.975*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.001*"Oct" + 0.000*"Dec" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-"
+2020-10-04 23:45:14,170 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:14,173 - topic diff=0.018202, rho=0.147890
+2020-10-04 23:45:14,807 - -2.811 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:14,829 - PROGRESS: pass 41, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:14,862 - PROGRESS: pass 41, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:14,901 - PROGRESS: pass 41, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:14,951 - PROGRESS: pass 41, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:15,006 - PROGRESS: pass 41, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:15,966 - topic #49 (0.008): 0.267*"1" + 0.232*"2" + 0.208*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:15,967 - topic #48 (0.008): 0.038*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.032*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.020*"2013/14" + 0.019*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:15,967 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:45:15,967 - topic #1 (0.058): 0.975*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.001*"Oct" + 0.000*"1" + 0.000*"Dec" + 0.000*"Thur-" + 0.000*"Mon-"
+2020-10-04 23:45:15,967 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:15,970 - topic diff=0.016228, rho=0.146298
+2020-10-04 23:45:16,680 - -2.811 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:16,703 - PROGRESS: pass 42, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:16,746 - PROGRESS: pass 42, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:16,790 - PROGRESS: pass 42, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:16,833 - PROGRESS: pass 42, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:16,892 - PROGRESS: pass 42, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:17,718 - topic #49 (0.008): 0.267*"1" + 0.232*"2" + 0.208*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:17,718 - topic #48 (0.008): 0.038*"2010/11" + 0.035*"2009/10" + 0.032*"2011/12" + 0.032*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.020*"2013/14" + 0.019*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:17,718 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:45:17,718 - topic #1 (0.058): 0.976*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.001*"Oct" + 0.000*"1" + 0.000*"Dec" + 0.000*"Thur-" + 0.000*"Mon-"
+2020-10-04 23:45:17,719 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:17,721 - topic diff=0.014499, rho=0.144757
+2020-10-04 23:45:18,351 - -2.810 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:18,372 - PROGRESS: pass 43, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:18,412 - PROGRESS: pass 43, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:18,447 - PROGRESS: pass 43, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:18,488 - PROGRESS: pass 43, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:18,540 - PROGRESS: pass 43, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:19,334 - topic #49 (0.008): 0.267*"1" + 0.232*"2" + 0.208*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:19,334 - topic #48 (0.008): 0.038*"2010/11" + 0.036*"2009/10" + 0.032*"2011/12" + 0.032*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.020*"2013/14" + 0.019*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:19,334 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:45:19,335 - topic #1 (0.058): 0.976*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.000*"Oct" + 0.000*"1" + 0.000*"Dec" + 0.000*"Thur-" + 0.000*"Mon-"
+2020-10-04 23:45:19,335 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:19,337 - topic diff=0.012979, rho=0.143264
+2020-10-04 23:45:19,970 - -2.810 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:19,991 - PROGRESS: pass 44, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:20,068 - PROGRESS: pass 44, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:20,104 - PROGRESS: pass 44, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:20,138 - PROGRESS: pass 44, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:20,187 - PROGRESS: pass 44, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:21,004 - topic #49 (0.008): 0.267*"1" + 0.232*"2" + 0.208*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:21,004 - topic #48 (0.008): 0.038*"2010/11" + 0.036*"2009/10" + 0.032*"2011/12" + 0.032*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.020*"2013/14" + 0.019*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:21,004 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:45:21,005 - topic #1 (0.058): 0.976*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.000*"Oct" + 0.000*"1" + 0.000*"Dec" + 0.000*"Mon-" + 0.000*"Thur-"
+2020-10-04 23:45:21,005 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:21,007 - topic diff=0.011665, rho=0.141816
+2020-10-04 23:45:21,609 - -2.810 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:21,630 - PROGRESS: pass 45, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:21,663 - PROGRESS: pass 45, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:21,702 - PROGRESS: pass 45, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:21,741 - PROGRESS: pass 45, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:21,792 - PROGRESS: pass 45, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:22,547 - topic #49 (0.008): 0.267*"1" + 0.232*"2" + 0.208*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:22,547 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.032*"2011/12" + 0.032*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.020*"2013/14" + 0.019*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:22,547 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"FY13"
+2020-10-04 23:45:22,548 - topic #1 (0.058): 0.976*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.001*"Nov" + 0.000*"Oct" + 0.000*"1" + 0.000*"Dec" + 0.000*"Mon-" + 0.000*"Thur-"
+2020-10-04 23:45:22,548 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:22,550 - topic diff=0.010512, rho=0.140411
+2020-10-04 23:45:23,158 - -2.810 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:23,179 - PROGRESS: pass 46, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:23,213 - PROGRESS: pass 46, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:23,248 - PROGRESS: pass 46, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:23,286 - PROGRESS: pass 46, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:23,346 - PROGRESS: pass 46, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:24,125 - topic #49 (0.008): 0.267*"1" + 0.232*"2" + 0.208*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:24,125 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.032*"2011/12" + 0.032*"2008/09" + 0.027*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.020*"2013/14" + 0.019*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:24,125 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"San"
+2020-10-04 23:45:24,125 - topic #1 (0.058): 0.976*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"Nov" + 0.000*"Oct" + 0.000*"1" + 0.000*"Dec" + 0.000*"Mon-" + 0.000*"Thur-"
+2020-10-04 23:45:24,126 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:24,128 - topic diff=0.009486, rho=0.139047
+2020-10-04 23:45:24,739 - -2.810 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:24,760 - PROGRESS: pass 47, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:24,794 - PROGRESS: pass 47, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:24,862 - PROGRESS: pass 47, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:24,898 - PROGRESS: pass 47, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:24,948 - PROGRESS: pass 47, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:25,717 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.208*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:25,718 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.020*"2013/14" + 0.019*"2004/05" + 0.018*"2005/06"
+2020-10-04 23:45:25,718 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.025*"San"
+2020-10-04 23:45:25,718 - topic #1 (0.058): 0.976*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"Nov" + 0.000*"Oct" + 0.000*"1" + 0.000*"Dec" + 0.000*"Thur-" + 0.000*"Mon-"
+2020-10-04 23:45:25,718 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:25,720 - topic diff=0.008570, rho=0.137722
+2020-10-04 23:45:26,321 - -2.810 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:26,341 - PROGRESS: pass 48, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:26,378 - PROGRESS: pass 48, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:26,414 - PROGRESS: pass 48, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:26,457 - PROGRESS: pass 48, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:26,512 - PROGRESS: pass 48, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:27,275 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.105*"3" + 0.058*"4" + 0.025*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:27,275 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.020*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:27,276 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.026*"San"
+2020-10-04 23:45:27,276 - topic #1 (0.058): 0.976*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"Nov" + 0.000*"1" + 0.000*"Oct" + 0.000*"Dec" + 0.000*"Thur-" + 0.000*"Mon-"
+2020-10-04 23:45:27,276 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:27,278 - topic diff=0.007752, rho=0.136434
+2020-10-04 23:45:27,879 - -2.810 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:27,899 - PROGRESS: pass 49, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:27,936 - PROGRESS: pass 49, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:27,979 - PROGRESS: pass 49, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:28,018 - PROGRESS: pass 49, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:28,075 - PROGRESS: pass 49, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:28,833 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.105*"3" + 0.058*"4" + 0.026*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2009" + 0.006*"2013"
+2020-10-04 23:45:28,834 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:28,834 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.026*"San"
+2020-10-04 23:45:28,834 - topic #1 (0.058): 0.976*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"Nov" + 0.000*"1" + 0.000*"Oct" + 0.000*"Dec" + 0.000*"Thur-" + 0.000*"Mon-"
+2020-10-04 23:45:28,834 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:28,836 - topic diff=0.007048, rho=0.135182
+2020-10-04 23:45:29,442 - -2.810 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:29,463 - PROGRESS: pass 50, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:29,497 - PROGRESS: pass 50, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:29,543 - PROGRESS: pass 50, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:29,584 - PROGRESS: pass 50, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:29,683 - PROGRESS: pass 50, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:30,623 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.058*"4" + 0.026*"I" + 0.011*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:30,623 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:30,623 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.026*"San"
+2020-10-04 23:45:30,623 - topic #1 (0.058): 0.976*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"Nov" + 0.000*"1" + 0.000*"Oct" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-"
+2020-10-04 23:45:30,624 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:30,626 - topic diff=0.006408, rho=0.133964
+2020-10-04 23:45:31,350 - -2.809 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:31,375 - PROGRESS: pass 51, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:31,413 - PROGRESS: pass 51, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:31,452 - PROGRESS: pass 51, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:31,491 - PROGRESS: pass 51, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:31,543 - PROGRESS: pass 51, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:32,324 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.058*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:32,324 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:32,325 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"Q6" + 0.026*"San"
+2020-10-04 23:45:32,325 - topic #1 (0.058): 0.976*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"Nov" + 0.000*"1" + 0.000*"Oct" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-"
+2020-10-04 23:45:32,325 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:32,327 - topic diff=0.005844, rho=0.132777
+2020-10-04 23:45:32,938 - -2.809 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:32,958 - PROGRESS: pass 52, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:32,997 - PROGRESS: pass 52, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:33,031 - PROGRESS: pass 52, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:33,075 - PROGRESS: pass 52, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:33,133 - PROGRESS: pass 52, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:33,879 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.058*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:33,880 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:33,880 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"San" + 0.026*"Q6"
+2020-10-04 23:45:33,880 - topic #1 (0.058): 0.976*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Oct" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-"
+2020-10-04 23:45:33,881 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:33,883 - topic diff=0.005326, rho=0.131622
+2020-10-04 23:45:34,489 - -2.809 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:34,509 - PROGRESS: pass 53, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:34,545 - PROGRESS: pass 53, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:34,582 - PROGRESS: pass 53, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:34,620 - PROGRESS: pass 53, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:34,668 - PROGRESS: pass 53, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:35,456 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:35,457 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:35,457 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"San" + 0.026*"Q6"
+2020-10-04 23:45:35,457 - topic #1 (0.058): 0.976*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Oct" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Mon-"
+2020-10-04 23:45:35,457 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:35,460 - topic diff=0.004871, rho=0.130497
+2020-10-04 23:45:36,058 - -2.809 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:36,078 - PROGRESS: pass 54, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:36,145 - PROGRESS: pass 54, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:36,183 - PROGRESS: pass 54, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:36,225 - PROGRESS: pass 54, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:36,280 - PROGRESS: pass 54, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:37,021 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:37,022 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:37,022 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"San" + 0.026*"Q6"
+2020-10-04 23:45:37,022 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Oct" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Mon-"
+2020-10-04 23:45:37,022 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:37,024 - topic diff=0.004464, rho=0.129400
+2020-10-04 23:45:37,636 - -2.809 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:37,656 - PROGRESS: pass 55, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:37,690 - PROGRESS: pass 55, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:37,726 - PROGRESS: pass 55, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:37,760 - PROGRESS: pass 55, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:37,805 - PROGRESS: pass 55, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:38,600 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:38,600 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:38,600 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"San" + 0.026*"Q6"
+2020-10-04 23:45:38,600 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Oct" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Mon-"
+2020-10-04 23:45:38,601 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:38,603 - topic diff=0.004101, rho=0.128330
+2020-10-04 23:45:39,206 - -2.809 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:39,227 - PROGRESS: pass 56, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:39,260 - PROGRESS: pass 56, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:39,298 - PROGRESS: pass 56, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:39,341 - PROGRESS: pass 56, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:39,398 - PROGRESS: pass 56, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:40,176 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:40,176 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:40,176 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"San" + 0.026*"Q6"
+2020-10-04 23:45:40,177 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Oct" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Mon-"
+2020-10-04 23:45:40,177 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:40,179 - topic diff=0.003777, rho=0.127286
+2020-10-04 23:45:40,792 - -2.809 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:40,812 - PROGRESS: pass 57, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:40,849 - PROGRESS: pass 57, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:40,884 - PROGRESS: pass 57, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:40,961 - PROGRESS: pass 57, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:41,009 - PROGRESS: pass 57, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:41,770 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:41,770 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:41,770 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"San" + 0.026*"Q6"
+2020-10-04 23:45:41,771 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Oct" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Fri-"
+2020-10-04 23:45:41,771 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:41,773 - topic diff=0.003491, rho=0.126267
+2020-10-04 23:45:42,388 - -2.809 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:42,408 - PROGRESS: pass 58, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:42,441 - PROGRESS: pass 58, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:42,483 - PROGRESS: pass 58, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:42,520 - PROGRESS: pass 58, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:42,568 - PROGRESS: pass 58, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:43,536 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:43,537 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:43,537 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"San" + 0.026*"Q6"
+2020-10-04 23:45:43,537 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Oct" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Fri-"
+2020-10-04 23:45:43,537 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:43,540 - topic diff=0.003256, rho=0.125272
+2020-10-04 23:45:44,361 - -2.809 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:44,384 - PROGRESS: pass 59, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:44,424 - PROGRESS: pass 59, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:44,471 - PROGRESS: pass 59, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:44,518 - PROGRESS: pass 59, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:44,579 - PROGRESS: pass 59, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:45,392 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:45,392 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:45,392 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"San" + 0.026*"Q6"
+2020-10-04 23:45:45,393 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Oct" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Fri-"
+2020-10-04 23:45:45,393 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:45,395 - topic diff=0.003033, rho=0.124301
+2020-10-04 23:45:46,008 - -2.809 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:46,029 - PROGRESS: pass 60, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:46,062 - PROGRESS: pass 60, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:46,099 - PROGRESS: pass 60, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:46,137 - PROGRESS: pass 60, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:46,189 - PROGRESS: pass 60, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:46,963 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:46,964 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:46,964 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"San" + 0.026*"Q6"
+2020-10-04 23:45:46,964 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Oct" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Fri-"
+2020-10-04 23:45:46,964 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:46,966 - topic diff=0.002845, rho=0.123352
+2020-10-04 23:45:47,578 - -2.809 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:47,601 - PROGRESS: pass 61, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:47,671 - PROGRESS: pass 61, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:47,718 - PROGRESS: pass 61, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:47,768 - PROGRESS: pass 61, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:47,823 - PROGRESS: pass 61, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:48,625 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:48,625 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:48,626 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"San" + 0.026*"Q6"
+2020-10-04 23:45:48,626 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Mon-" + 0.000*"Fri-"
+2020-10-04 23:45:48,626 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:48,628 - topic diff=0.002702, rho=0.122424
+2020-10-04 23:45:49,228 - -2.809 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:49,249 - PROGRESS: pass 62, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:49,282 - PROGRESS: pass 62, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:49,319 - PROGRESS: pass 62, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:49,358 - PROGRESS: pass 62, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:49,413 - PROGRESS: pass 62, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:50,166 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:50,166 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.032*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:50,166 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"San" + 0.026*"Q6"
+2020-10-04 23:45:50,166 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Mon-" + 0.000*"Fri-"
+2020-10-04 23:45:50,167 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:50,169 - topic diff=0.002524, rho=0.121516
+2020-10-04 23:45:50,775 - -2.809 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:50,795 - PROGRESS: pass 63, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:50,829 - PROGRESS: pass 63, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:50,864 - PROGRESS: pass 63, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:50,899 - PROGRESS: pass 63, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:50,954 - PROGRESS: pass 63, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:51,734 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:51,734 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.033*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:51,734 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"San" + 0.026*"Q6"
+2020-10-04 23:45:51,734 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Mon-" + 0.000*"Fri-"
+2020-10-04 23:45:51,735 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:51,737 - topic diff=0.002353, rho=0.120629
+2020-10-04 23:45:52,338 - -2.809 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:52,359 - PROGRESS: pass 64, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:52,394 - PROGRESS: pass 64, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:52,463 - PROGRESS: pass 64, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:52,506 - PROGRESS: pass 64, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:52,560 - PROGRESS: pass 64, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:53,307 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:53,307 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.033*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:53,307 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"San" + 0.026*"Q6"
+2020-10-04 23:45:53,308 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Mon-" + 0.000*"Fri-"
+2020-10-04 23:45:53,308 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:53,310 - topic diff=0.002195, rho=0.119761
+2020-10-04 23:45:53,912 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:53,933 - PROGRESS: pass 65, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:53,964 - PROGRESS: pass 65, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:54,002 - PROGRESS: pass 65, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:54,040 - PROGRESS: pass 65, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:54,091 - PROGRESS: pass 65, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:54,888 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:54,888 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.033*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:54,889 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.026*"San" + 0.026*"Q6"
+2020-10-04 23:45:54,889 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Mon-" + 0.000*"Fri-"
+2020-10-04 23:45:54,889 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:54,891 - topic diff=0.002055, rho=0.118911
+2020-10-04 23:45:55,493 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:55,515 - PROGRESS: pass 66, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:55,558 - PROGRESS: pass 66, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:55,592 - PROGRESS: pass 66, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:55,630 - PROGRESS: pass 66, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:55,678 - PROGRESS: pass 66, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:56,471 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.104*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:56,471 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.033*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:56,471 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:45:56,471 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Mon-" + 0.000*"Fri-"
+2020-10-04 23:45:56,472 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:56,474 - topic diff=0.001910, rho=0.118079
+2020-10-04 23:45:57,066 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:57,087 - PROGRESS: pass 67, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:57,120 - PROGRESS: pass 67, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:57,156 - PROGRESS: pass 67, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:57,193 - PROGRESS: pass 67, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:57,288 - PROGRESS: pass 67, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:58,046 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.103*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:58,046 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.033*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:58,046 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:45:58,047 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Nov" + 0.000*"Thur-" + 0.000*"Wed-" + 0.000*"Mon-" + 0.000*"Fri-"
+2020-10-04 23:45:58,047 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:58,049 - topic diff=0.001799, rho=0.117265
+2020-10-04 23:45:58,651 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:45:58,671 - PROGRESS: pass 68, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:45:58,706 - PROGRESS: pass 68, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:45:58,740 - PROGRESS: pass 68, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:45:58,784 - PROGRESS: pass 68, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:45:58,830 - PROGRESS: pass 68, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:45:59,594 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.103*"3" + 0.057*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:45:59,594 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.033*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:45:59,594 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:45:59,595 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:45:59,595 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:45:59,597 - topic diff=0.001679, rho=0.116467
+2020-10-04 23:46:00,193 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:00,213 - PROGRESS: pass 69, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:00,246 - PROGRESS: pass 69, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:00,283 - PROGRESS: pass 69, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:00,322 - PROGRESS: pass 69, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:00,377 - PROGRESS: pass 69, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:01,139 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:01,139 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.033*"2008/09" + 0.028*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:01,139 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:01,139 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:01,140 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"E" + 0.016*"F" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:01,142 - topic diff=0.001578, rho=0.115685
+2020-10-04 23:46:01,760 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:01,781 - PROGRESS: pass 70, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:01,814 - PROGRESS: pass 70, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:01,850 - PROGRESS: pass 70, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:01,886 - PROGRESS: pass 70, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:01,933 - PROGRESS: pass 70, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:02,698 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:02,698 - topic #48 (0.008): 0.039*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.033*"2008/09" + 0.029*"2012/13" + 0.025*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:02,698 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:02,699 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:02,699 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:02,701 - topic diff=0.001493, rho=0.114918
+2020-10-04 23:46:03,310 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:03,333 - PROGRESS: pass 71, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:03,403 - PROGRESS: pass 71, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:03,440 - PROGRESS: pass 71, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:03,485 - PROGRESS: pass 71, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:03,540 - PROGRESS: pass 71, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:04,272 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:04,273 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.033*"2008/09" + 0.029*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:04,273 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:04,273 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:04,273 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:04,275 - topic diff=0.001410, rho=0.114167
+2020-10-04 23:46:04,881 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:04,901 - PROGRESS: pass 72, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:04,934 - PROGRESS: pass 72, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:04,970 - PROGRESS: pass 72, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:05,012 - PROGRESS: pass 72, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:05,061 - PROGRESS: pass 72, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:05,810 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:05,810 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.033*"2008/09" + 0.029*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:05,811 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:05,811 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:05,811 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:05,813 - topic diff=0.001328, rho=0.113430
+2020-10-04 23:46:06,415 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:06,435 - PROGRESS: pass 73, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:06,476 - PROGRESS: pass 73, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:06,522 - PROGRESS: pass 73, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:06,562 - PROGRESS: pass 73, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:06,609 - PROGRESS: pass 73, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:07,371 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.026*"I" + 0.012*"IV" + 0.009*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:07,372 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.033*"2008/09" + 0.029*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:07,372 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:07,372 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:07,372 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:07,374 - topic diff=0.001253, rho=0.112707
+2020-10-04 23:46:07,981 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:08,001 - PROGRESS: pass 74, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:08,026 - PROGRESS: pass 74, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:08,075 - PROGRESS: pass 74, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:08,152 - PROGRESS: pass 74, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:08,206 - PROGRESS: pass 74, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:08,949 - topic #49 (0.008): 0.268*"1" + 0.232*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.026*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:08,949 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.033*"2008/09" + 0.029*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.021*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:08,950 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:08,950 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:08,950 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:08,952 - topic diff=0.001191, rho=0.111998
+2020-10-04 23:46:09,554 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:09,575 - PROGRESS: pass 75, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:09,610 - PROGRESS: pass 75, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:09,652 - PROGRESS: pass 75, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:09,692 - PROGRESS: pass 75, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:09,747 - PROGRESS: pass 75, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:10,527 - topic #49 (0.008): 0.268*"1" + 0.231*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.026*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:10,527 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.033*"2011/12" + 0.033*"2008/09" + 0.029*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.022*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:10,527 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:10,527 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:10,528 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:10,530 - topic diff=0.001128, rho=0.111302
+2020-10-04 23:46:11,140 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:11,160 - PROGRESS: pass 76, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:11,186 - PROGRESS: pass 76, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:11,232 - PROGRESS: pass 76, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:11,277 - PROGRESS: pass 76, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:11,333 - PROGRESS: pass 76, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:12,097 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.026*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:12,097 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.034*"2011/12" + 0.033*"2008/09" + 0.029*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.022*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:12,097 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:12,098 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:12,098 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:12,100 - topic diff=0.001074, rho=0.110619
+2020-10-04 23:46:12,707 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:12,728 - PROGRESS: pass 77, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:12,761 - PROGRESS: pass 77, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:12,799 - PROGRESS: pass 77, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:12,843 - PROGRESS: pass 77, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:12,889 - PROGRESS: pass 77, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:13,658 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.026*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:13,658 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.034*"2011/12" + 0.033*"2008/09" + 0.029*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.022*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:13,658 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:13,658 - topic #1 (0.058): 0.977*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:13,658 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:13,660 - topic diff=0.001032, rho=0.109949
+2020-10-04 23:46:14,264 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:14,318 - PROGRESS: pass 78, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:14,354 - PROGRESS: pass 78, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:14,399 - PROGRESS: pass 78, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:14,444 - PROGRESS: pass 78, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:14,497 - PROGRESS: pass 78, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:15,268 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.026*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:15,268 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.034*"2011/12" + 0.033*"2008/09" + 0.029*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.022*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:15,268 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:15,268 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:15,268 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:15,271 - topic diff=0.000985, rho=0.109290
+2020-10-04 23:46:15,868 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:15,889 - PROGRESS: pass 79, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:15,923 - PROGRESS: pass 79, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:15,961 - PROGRESS: pass 79, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:16,005 - PROGRESS: pass 79, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:16,062 - PROGRESS: pass 79, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:16,806 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:16,806 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.034*"2011/12" + 0.033*"2008/09" + 0.029*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.022*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:16,807 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:16,807 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:16,807 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:16,809 - topic diff=0.000936, rho=0.108643
+2020-10-04 23:46:17,411 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:17,432 - PROGRESS: pass 80, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:17,467 - PROGRESS: pass 80, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:17,502 - PROGRESS: pass 80, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:17,543 - PROGRESS: pass 80, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:17,591 - PROGRESS: pass 80, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:18,346 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:18,347 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.034*"2011/12" + 0.033*"2008/09" + 0.029*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.022*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:18,347 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:18,347 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:18,348 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:18,350 - topic diff=0.000895, rho=0.108007
+2020-10-04 23:46:18,957 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:18,978 - PROGRESS: pass 81, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:19,013 - PROGRESS: pass 81, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:19,084 - PROGRESS: pass 81, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:19,120 - PROGRESS: pass 81, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:19,162 - PROGRESS: pass 81, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:19,982 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:19,983 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.034*"2011/12" + 0.033*"2008/09" + 0.029*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.022*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:19,983 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:19,983 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:19,983 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:19,986 - topic diff=0.000855, rho=0.107383
+2020-10-04 23:46:20,619 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:20,640 - PROGRESS: pass 82, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:20,672 - PROGRESS: pass 82, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:20,709 - PROGRESS: pass 82, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:20,754 - PROGRESS: pass 82, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:20,807 - PROGRESS: pass 82, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:21,581 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:21,581 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.034*"2011/12" + 0.033*"2008/09" + 0.030*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.022*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:21,581 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:21,581 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:21,581 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:21,584 - topic diff=0.000827, rho=0.106769
+2020-10-04 23:46:22,180 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:22,201 - PROGRESS: pass 83, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:22,226 - PROGRESS: pass 83, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:22,262 - PROGRESS: pass 83, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:22,305 - PROGRESS: pass 83, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:22,360 - PROGRESS: pass 83, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:23,138 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.103*"3" + 0.056*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:23,138 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.034*"2011/12" + 0.033*"2008/09" + 0.030*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.022*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:23,138 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:23,138 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:23,139 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:23,141 - topic diff=0.000794, rho=0.106166
+2020-10-04 23:46:23,748 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:23,770 - PROGRESS: pass 84, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:23,795 - PROGRESS: pass 84, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:23,837 - PROGRESS: pass 84, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:23,921 - PROGRESS: pass 84, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:23,974 - PROGRESS: pass 84, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:24,725 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.102*"3" + 0.056*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:24,725 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.034*"2011/12" + 0.033*"2008/09" + 0.030*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.023*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:24,725 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:24,726 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:24,726 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:24,728 - topic diff=0.000763, rho=0.105572
+2020-10-04 23:46:25,316 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:25,338 - PROGRESS: pass 85, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:25,374 - PROGRESS: pass 85, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:25,410 - PROGRESS: pass 85, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:25,447 - PROGRESS: pass 85, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:25,495 - PROGRESS: pass 85, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:26,258 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.102*"3" + 0.056*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:26,258 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.034*"2011/12" + 0.033*"2008/09" + 0.030*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.023*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:26,258 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:26,258 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:26,259 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:26,261 - topic diff=0.000732, rho=0.104989
+2020-10-04 23:46:26,866 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:26,887 - PROGRESS: pass 86, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:26,924 - PROGRESS: pass 86, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:26,962 - PROGRESS: pass 86, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:27,004 - PROGRESS: pass 86, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:27,061 - PROGRESS: pass 86, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:27,859 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.102*"3" + 0.056*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:27,859 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.034*"2011/12" + 0.033*"2008/09" + 0.030*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.023*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:27,859 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:27,859 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:27,859 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:27,861 - topic diff=0.000709, rho=0.104415
+2020-10-04 23:46:28,460 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:28,481 - PROGRESS: pass 87, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:28,515 - PROGRESS: pass 87, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:28,554 - PROGRESS: pass 87, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:28,591 - PROGRESS: pass 87, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:28,641 - PROGRESS: pass 87, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:29,447 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.102*"3" + 0.056*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:29,447 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.035*"2011/12" + 0.033*"2008/09" + 0.030*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.023*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:29,447 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:29,448 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:29,448 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:29,450 - topic diff=0.000698, rho=0.103851
+2020-10-04 23:46:30,035 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:30,055 - PROGRESS: pass 88, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:30,122 - PROGRESS: pass 88, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:30,162 - PROGRESS: pass 88, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:30,204 - PROGRESS: pass 88, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:30,259 - PROGRESS: pass 88, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:31,007 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.102*"3" + 0.056*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:31,007 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.035*"2011/12" + 0.033*"2008/09" + 0.030*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.023*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:31,007 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:31,007 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:31,007 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"A" + 0.016*"F" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:31,010 - topic diff=0.000672, rho=0.103295
+2020-10-04 23:46:31,637 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:31,658 - PROGRESS: pass 89, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:31,693 - PROGRESS: pass 89, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:31,731 - PROGRESS: pass 89, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:31,776 - PROGRESS: pass 89, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:31,830 - PROGRESS: pass 89, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:32,619 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.102*"3" + 0.056*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:32,619 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.035*"2011/12" + 0.033*"2008/09" + 0.030*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.023*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:32,619 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:32,619 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Fri-" + 0.000*"Nov"
+2020-10-04 23:46:32,620 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"F" + 0.016*"A" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:32,622 - topic diff=0.000652, rho=0.102748
+2020-10-04 23:46:33,209 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:33,229 - PROGRESS: pass 90, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:33,263 - PROGRESS: pass 90, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:33,295 - PROGRESS: pass 90, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:33,334 - PROGRESS: pass 90, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:33,386 - PROGRESS: pass 90, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:34,154 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.102*"3" + 0.055*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:34,155 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.035*"2011/12" + 0.033*"2008/09" + 0.030*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.023*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:34,155 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:34,155 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Fri-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Tue-"
+2020-10-04 23:46:34,155 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"F" + 0.016*"A" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:34,158 - topic diff=0.000626, rho=0.102210
+2020-10-04 23:46:34,840 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:34,864 - PROGRESS: pass 91, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:34,906 - PROGRESS: pass 91, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:34,948 - PROGRESS: pass 91, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:35,037 - PROGRESS: pass 91, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:35,096 - PROGRESS: pass 91, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:35,942 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.102*"3" + 0.055*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:35,942 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.035*"2011/12" + 0.033*"2008/09" + 0.030*"2012/13" + 0.026*"2007/08" + 0.023*"2006/07" + 0.023*"2013/14" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:35,943 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:35,943 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Fri-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Tue-"
+2020-10-04 23:46:35,943 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"F" + 0.016*"A" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:35,945 - topic diff=0.000620, rho=0.101680
+2020-10-04 23:46:36,753 - -2.808 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:36,785 - PROGRESS: pass 92, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:36,838 - PROGRESS: pass 92, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:36,893 - PROGRESS: pass 92, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:36,956 - PROGRESS: pass 92, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:37,021 - PROGRESS: pass 92, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:37,890 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.102*"3" + 0.055*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:37,890 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.035*"2011/12" + 0.033*"2008/09" + 0.030*"2012/13" + 0.026*"2007/08" + 0.023*"2013/14" + 0.023*"2006/07" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:37,891 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:37,891 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Fri-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Tue-"
+2020-10-04 23:46:37,891 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"F" + 0.016*"A" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:37,894 - topic diff=0.000606, rho=0.101159
+2020-10-04 23:46:38,547 - -2.807 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:38,568 - PROGRESS: pass 93, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:38,606 - PROGRESS: pass 93, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:38,644 - PROGRESS: pass 93, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:38,687 - PROGRESS: pass 93, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:38,740 - PROGRESS: pass 93, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:39,651 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.102*"3" + 0.055*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.006*"2013" + 0.006*"2009"
+2020-10-04 23:46:39,652 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.035*"2011/12" + 0.033*"2008/09" + 0.031*"2012/13" + 0.026*"2007/08" + 0.023*"2013/14" + 0.023*"2006/07" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:39,652 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:39,652 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Fri-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Tue-"
+2020-10-04 23:46:39,652 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"F" + 0.016*"A" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:39,654 - topic diff=0.000588, rho=0.100645
+2020-10-04 23:46:40,390 - -2.807 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:40,417 - PROGRESS: pass 94, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:40,461 - PROGRESS: pass 94, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:40,512 - PROGRESS: pass 94, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:40,569 - PROGRESS: pass 94, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:40,642 - PROGRESS: pass 94, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:41,544 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.102*"3" + 0.055*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.007*"2013" + 0.006*"2009"
+2020-10-04 23:46:41,544 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.035*"2011/12" + 0.033*"2008/09" + 0.031*"2012/13" + 0.026*"2007/08" + 0.024*"2013/14" + 0.023*"2006/07" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:41,545 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:41,545 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Fri-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Tue-"
+2020-10-04 23:46:41,545 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"F" + 0.016*"A" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:41,547 - topic diff=0.000583, rho=0.100139
+2020-10-04 23:46:42,214 - -2.807 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:42,271 - PROGRESS: pass 95, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:42,310 - PROGRESS: pass 95, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:42,370 - PROGRESS: pass 95, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:42,429 - PROGRESS: pass 95, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:42,509 - PROGRESS: pass 95, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:43,334 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.102*"3" + 0.055*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.007*"2013" + 0.006*"2009"
+2020-10-04 23:46:43,335 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.035*"2011/12" + 0.033*"2008/09" + 0.031*"2012/13" + 0.026*"2007/08" + 0.024*"2013/14" + 0.023*"2006/07" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:43,335 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:43,335 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Fri-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Tue-"
+2020-10-04 23:46:43,335 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"F" + 0.016*"A" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:43,337 - topic diff=0.000562, rho=0.099641
+2020-10-04 23:46:43,955 - -2.807 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:43,976 - PROGRESS: pass 96, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:44,011 - PROGRESS: pass 96, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:44,050 - PROGRESS: pass 96, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:44,094 - PROGRESS: pass 96, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:44,153 - PROGRESS: pass 96, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:45,067 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.102*"3" + 0.055*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.007*"2013" + 0.006*"2009"
+2020-10-04 23:46:45,067 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.035*"2011/12" + 0.033*"2008/09" + 0.031*"2012/13" + 0.026*"2007/08" + 0.024*"2013/14" + 0.023*"2006/07" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:45,068 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:45,068 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Fri-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Tue-"
+2020-10-04 23:46:45,068 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"F" + 0.016*"A" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:45,070 - topic diff=0.000552, rho=0.099150
+2020-10-04 23:46:45,679 - -2.807 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:45,700 - PROGRESS: pass 97, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:45,733 - PROGRESS: pass 97, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:45,773 - PROGRESS: pass 97, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:45,815 - PROGRESS: pass 97, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:45,867 - PROGRESS: pass 97, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:46,648 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.207*"0" + 0.102*"3" + 0.055*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.007*"2013" + 0.006*"2009"
+2020-10-04 23:46:46,648 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.035*"2011/12" + 0.033*"2008/09" + 0.031*"2012/13" + 0.026*"2007/08" + 0.024*"2013/14" + 0.023*"2006/07" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:46,649 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:46,649 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Fri-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Tue-"
+2020-10-04 23:46:46,649 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"F" + 0.016*"A" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:46,651 - topic diff=0.000548, rho=0.098666
+2020-10-04 23:46:47,239 - -2.807 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:47,259 - PROGRESS: pass 98, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:47,326 - PROGRESS: pass 98, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:47,369 - PROGRESS: pass 98, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:47,407 - PROGRESS: pass 98, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:47,458 - PROGRESS: pass 98, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:48,207 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.206*"0" + 0.102*"3" + 0.055*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.007*"2013" + 0.006*"2009"
+2020-10-04 23:46:48,207 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.035*"2011/12" + 0.033*"2008/09" + 0.031*"2012/13" + 0.026*"2007/08" + 0.024*"2013/14" + 0.023*"2006/07" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:48,207 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"amb" + 0.035*"Satisfacció" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:48,208 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Fri-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Tue-"
+2020-10-04 23:46:48,208 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"F" + 0.016*"A" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:48,210 - topic diff=0.000535, rho=0.098189
+2020-10-04 23:46:48,826 - -2.807 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:48,847 - PROGRESS: pass 99, dispatched chunk #0 = documents up to #2000/9444, outstanding queue size 1
+2020-10-04 23:46:48,882 - PROGRESS: pass 99, dispatched chunk #1 = documents up to #4000/9444, outstanding queue size 2
+2020-10-04 23:46:48,922 - PROGRESS: pass 99, dispatched chunk #2 = documents up to #6000/9444, outstanding queue size 3
+2020-10-04 23:46:48,961 - PROGRESS: pass 99, dispatched chunk #3 = documents up to #8000/9444, outstanding queue size 4
+2020-10-04 23:46:49,011 - PROGRESS: pass 99, dispatched chunk #4 = documents up to #9444/9444, outstanding queue size 5
+2020-10-04 23:46:49,861 - topic #49 (0.008): 0.267*"1" + 0.231*"2" + 0.206*"0" + 0.102*"3" + 0.055*"4" + 0.027*"I" + 0.012*"IV" + 0.010*"3." + 0.007*"2013" + 0.006*"2009"
+2020-10-04 23:46:49,861 - topic #48 (0.008): 0.040*"2010/11" + 0.036*"2009/10" + 0.036*"2011/12" + 0.033*"2008/09" + 0.031*"2012/13" + 0.026*"2007/08" + 0.024*"2013/14" + 0.023*"2006/07" + 0.019*"2004/05" + 0.019*"2005/06"
+2020-10-04 23:46:49,862 - topic #2 (0.051): 0.049*"de" + 0.045*"FY15" + 0.042*"FY14" + 0.037*"la" + 0.035*"Satisfacció" + 0.035*"amb" + 0.030*"FY16" + 0.027*"Q5" + 0.027*"San" + 0.026*"Q6"
+2020-10-04 23:46:49,862 - topic #1 (0.058): 0.978*"" + 0.008*"1st" + 0.001*"0" + 0.001*"Kick-off" + 0.000*"1" + 0.000*"Thur-" + 0.000*"Fri-" + 0.000*"Mon-" + 0.000*"Wed-" + 0.000*"Tue-"
+2020-10-04 23:46:49,862 - topic #0 (0.066): 0.024*"D" + 0.021*"C" + 0.016*"B" + 0.016*"F" + 0.016*"A" + 0.016*"E" + 0.015*"s" + 0.015*"S" + 0.015*"2016." + 0.014*"N"
+2020-10-04 23:46:49,864 - topic diff=0.000523, rho=0.097719
+2020-10-04 23:46:50,476 - -2.807 per-word bound, 7.0 perplexity estimate based on a held-out corpus of 1444 documents with 86154 words
+2020-10-04 23:46:50,568 - saving LdaState object under ckpt/LDA_K50_1bowordmcp_bow.model.state, separately None
+2020-10-04 23:46:50,577 - saved ckpt/LDA_K50_1bowordmcp_bow.model.state
+2020-10-04 23:46:50,581 - saving LdaMulticore object under ckpt/LDA_K50_1bowordmcp_bow.model, separately ['expElogbeta', 'sstats']
+2020-10-04 23:46:50,581 - storing np array 'expElogbeta' to ckpt/LDA_K50_1bowordmcp_bow.model.expElogbeta.npy
+2020-10-04 23:46:50,587 - not storing attribute state
+2020-10-04 23:46:50,587 - not storing attribute id2word
+2020-10-04 23:46:50,587 - not storing attribute dispatcher
+2020-10-04 23:46:50,588 - saved ckpt/LDA_K50_1bowordmcp_bow.model
+2020-10-04 23:46:50,680 - using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows

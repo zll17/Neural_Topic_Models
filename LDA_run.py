@@ -11,7 +11,7 @@ from utils import *
 from gensim.models import LdaModel,TfidfModel
 from gensim.models.ldamulticore import LdaMulticore
 from gensim.models.coherencemodel import CoherenceModel
-from dataLoader import DocDataset
+from dataset import DocDataset
 from multiprocessing import cpu_count
 
 
