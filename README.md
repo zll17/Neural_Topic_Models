@@ -41,7 +41,7 @@ Yishu Miao
 VAE + Gaussian Softmax
 
 <p align="center">
-    <img src="assets/vae_arch.png" width="auto"\>
+    <img src="assets/vae_arch.png" width="720"\>
 </p>
 
 [[Paper]](http://proceedings.mlr.press/v70/miao17a.html) [[Code]](models/GSM.py)
@@ -111,7 +111,7 @@ Adji B. Dieng, Francisco J. R. Ruiz, David M. Blei
 VAE + Gaussian Softmax + Embedding
 
 <p align="center">
-    <img src="assets/etm_arch.png" width="auto"\>
+    <img src="assets/etm_arch.png" width="720"\>
 </p>
 
 [[Paper]](https://arxiv.org/abs/1907.04907) [[Code]](models/ETM.py)
@@ -134,8 +134,9 @@ Leilan Zhang
 Based on VaDE ([Variational Deep Embedding: An Unsupervised and Generative Approach to Clustering](https://arxiv.org/abs/1611.05148))
 
 <p align="center">
-    <img src="assets/gmvae_arch.png" width="auto"\>
+    <img src="assets/gmvae_arch.png" width="720"\>
 </p>
+
 
 [[Paper]](https://arxiv.org/abs/1611.06430) [[Code]](implementations/ccgan/ccgan.py)
 
@@ -159,8 +160,9 @@ Recent years have witnessed a surge of interests of using neural topic models fo
 #### Description
 
 <p align="center">
-    <img src="assets/BATM_arch.png" width="auto"\>
+    <img src="assets/BATM_arch.png" width="720"\>
 </p>
+
 
 [[Paper]](https://arxiv.org/abs/2004.12331) [[Code]](models/BATM.py)
 
