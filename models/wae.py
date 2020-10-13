@@ -84,7 +84,7 @@ class WAE(nn.Module):
                 theta_prior = F.softmax(theta_prior,dim=1)
                 return theta_prior
         else:
-            self.sample(dist='dirichlet',batch_size=batch_size)
+            return self.sample(dist='dirichlet',batch_size=batch_size)
 
     def mmd_loss(self, x, y, device, t=0.1, kernel='diffusion'):
         '''

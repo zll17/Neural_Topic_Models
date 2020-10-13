@@ -126,7 +126,7 @@ class DocDataLoader:
 '''
 
 if __name__ == '__main__':
-    docSet = DocDataset('cnews10k',rebuild=True)
+    docSet = DocDataset('subts4',rebuild=True)
     dataloader = DataLoader(docSet,batch_size=64,shuffle=True,num_workers=4,collate_fn=docSet.collate_fn)
     print('docSet.docs[10]:',docSet.docs[10])
     print(next(iter(dataloader)))

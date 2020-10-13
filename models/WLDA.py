@@ -10,7 +10,6 @@
 '''
 
 
-import matplotlib.pyplot as plt
 import os
 import re
 import pickle
@@ -20,6 +19,7 @@ import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
 from tqdm import tqdm
+import matplotlib.pyplot as plt
 from .wae import WAE
 import sys
 sys.path.append('..')
