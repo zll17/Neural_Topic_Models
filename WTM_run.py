@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 '''
-@File    :   WLDA_run.py
+@File    :   WTM_run.py
 @Time    :   2020/10/04 21:03:13
 @Author  :   Leilan Zhang
 @Version :   1.0
@@ -11,14 +11,14 @@
 
 
 
-
 import os
 import re
 import torch
 import pickle
 import argparse
 import logging
-from models import WLDA
+import time
+from models import WTM
 from utils import *
 from dataset import DocDataset
 from multiprocessing import cpu_count
@@ -31,10 +31,11 @@ parser.add_argument('--num_epochs',type=int,default=100,help='Number of iteratio
 parser.add_argument('--n_topic',type=int,default=20,help='Num of topics')
 parser.add_argument('--bkpt_continue',type=bool,default=False,help='Whether to load a trained model as initialization and continue training.')
 parser.add_argument('--use_tfidf',type=bool,default=False,help='Whether to use the tfidf feature for the BOW input')
-parser.add_argument('--rebuild',type=bool,default=True,help='Whether to rebuild the corpus, such as tokenization, build dict etc.(default True)')
+parser.add_argument('--rebuild',action='store_true',help='Whether to rebuild the corpus, such as tokenization, build dict etc.(default False)')
 parser.add_argument('--dist',type=str,default='gmm_std',help='Prior distribution for latent vectors: (dirichlet,gmm_std,gmm_ctm,gaussian etc.)')
 parser.add_argument('--batch_size',type=int,default=512,help='Batch size (default=512)')
 parser.add_argument('--criterion',type=str,default='cross_entropy',help='The criterion to calculate the loss, e.g cross_entropy, bce_softmax, bce_sigmoid')
+parser.add_argument('--auto_adj',action='store_true',help='To adjust the no_above ratio automatically (default:rm top 20)')
 
 args = parser.parse_args()
 
@@ -53,15 +54,22 @@ def main():
     dist = args.dist 
     batch_size = args.batch_size
     criterion = args.criterion
+    auto_adj = args.auto_adj
 
     device = torch.device('cuda')
     docSet = DocDataset(taskname,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=False)
+    if auto_adj:
+        no_above = docSet.topk_dfs(topk=20)
+        docSet = DocDataset(taskname,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=False)
+    
     voc_size = docSet.vocabsize
     print('voc size:',voc_size)
     n_topic = args.n_topic
-    model = WLDA(bow_dim=voc_size,n_topic=n_topic,device=device,dist=dist,taskname=taskname,dropout=0.4)
+    model = WTM(bow_dim=voc_size,n_topic=n_topic,device=device,dist=dist,taskname=taskname,dropout=0.4)
     model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0)
     model.evaluate(test_data=docSet)
+    save_name = f'./ckpt/WTM_{taskname}_tp{n_topic}_{dist}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
+    torch.save(model.wae.state_dict(),save_name)
 
 
 if __name__ == "__main__":

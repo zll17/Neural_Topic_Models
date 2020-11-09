@@ -1,4 +1,5 @@
 from .GSM import GSM
-from .WLDA import WLDA
+from .WTM import WTM
 from .GMNTM import GMNTM
 from .BATM import BATM
+from .ETM import ETM

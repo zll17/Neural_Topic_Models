@@ -1,14 +1,19 @@
-<p align="center"><img src="assets/logo.png" width="480"\></p>
+<p align="center" id="title_en"><img src="assets/logo.png" width="480"\></p>
 
-PyTorch implementations of Neural Topic Model varieties proposed in recent years, including NVDM-GSM, WLDA, ETM, BATM ,and GMNTM. The aim of this project is to provide a practical and working example for neural topic models to facilitate the research of related fields. Configuration of the models will not exactly the same as those proposed in the papers, and the hyper-parameters are not carefully finetuned, but I have chosen to get the core ideas covered. 
+[English](#title_en) | [中文](#title_zh)
+
+
+
+PyTorch implementations of Neural Topic Model varieties proposed in recent years, including NVDM-GSM, WLDA, WTM-GMM, ETM, BATM ,and GMNTM. The aim of this project is to provide a practical and working example for neural topic models to facilitate the research of related fields. Configuration of the models will not exactly the same as those proposed in the papers, and the hyper-parameters are not carefully finetuned, but I have chosen to get the core ideas covered. 
 
 Empirically, NTM is superior to classical statistical topic models ,especially on short texts. Datasets of short news ([cnews10k](#cnews10k)) and dialogue utterances ([zhdd](#zhdd)), both of which are in Chinese, are presented for evaluation purpose. As a comparison to the NTM, an out-of-box LDA script is also provided, which is based on the gensim library. 
 
 Any suggestions or contributions to improving this implementation of NTM are welcomed.
 
-## Table of Contents
+<h2 id="TOC_EN">Table of Contents</h2>
+
   * [Installation](#installation)
-  * [Implementations](#implementations)
+  * [Models](#Models)
     + [NVDM-GSM](#NVDM-GSM)
     + [WLDA-MMD](#WLDA-MMD)
     + [WLDA-GMM](WLDA-GMM)
@@ -22,6 +27,8 @@ Any suggestions or contributions to improving this implementation of NTM are wel
 * [Usage](#usage)
 * [Demos](#Demos)
 * [Acknowledgement](#Acknowledgement)
+
+
 
 ## Installation
 ```shell
@@ -57,7 +64,7 @@ $ python3 GSM_run.py --taskname cnews10k --n_topic 20 --num_epochs 600 --no_abov
 
 
 
-### WLDA-MMD
+### WTM-MMD
 _Topic Modeling with Wasserstein Autoencoders_
 
 #### Authors
@@ -69,13 +76,13 @@ WAE with Dirichlet prior + Gaussian Softmax.
 [[Paper]](https://www.aclweb.org/anthology/P19-1640/) [[Code]](models/WLDA.py)
 
 #### Run Example
+```shell
+$ python3 WTM_run.py --taskname cnews10k --n_topic 20 --num_epochs 600 --no_above 0.013 --dist dirichlet
 ```
-$ python3 WLDA_run.py --taskname cnews10k --n_topic 20 --num_epochs 600 --no_above 0.013 --dist dirichlet
-```
 
 
 
-### WLDA-GMM
+### WTM-GMM
 _Research on Clustering for Subtitle Dialogue Text Based on Neural Topic Model_
 
 #### Authors
@@ -92,7 +99,7 @@ WAE with Gaussian Mixture prior + Gaussian Softmax.
 
 #### Run Example
 ```shell
-$ python3 WLDA_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0.039 --dist gmm-ctm
+$ python3 WTM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0.039 --dist gmm-ctm
 ```
 
 <p align="center">
@@ -113,7 +120,6 @@ VAE + Gaussian Softmax + Embedding
 <p align="center">
     <img src="assets/etm_arch.png" width="720"\>
 </p>
-
 [[Paper]](https://arxiv.org/abs/1907.04907) [[Code]](models/ETM.py)
 
 #### Run Example
@@ -154,10 +160,9 @@ _Neural Topic Modeling with Bidirectional Adversarial Training_
 #### Authors
 Rui Wang, Xuemeng Hu, Deyu Zhou, Yulan He, Yuxuan Xiong, Chenchen Ye, Haiyang Xu
 
-#### Abstract
-Recent years have witnessed a surge of interests of using neural topic models for automatic topic extraction from text, since they avoid the complicated mathematical derivations for model inference as in traditional topic models such as Latent Dirichlet Allocation (LDA). However, these models either typically assume improper prior (e.g. Gaussian or Logistic Normal) over latent topic space or could not infer topic distribution for a given document. To address these limitations, we propose a neural topic modeling approach, called Bidirectional Adversarial Topic (BAT) model, which represents the first attempt of applying bidirectional adversarial training for neural topic modeling. The proposed BAT builds a two-way projection between the document-topic distribution and the document-word distribution. It uses a generator to capture the semantic patterns from texts and an encoder for topic inference. Furthermore, to incorporate word relatedness information, the Bidirectional Adversarial Topic model with Gaussian (Gaussian-BAT) is extended from BAT. To verify the effectiveness of BAT and Gaussian-BAT, three benchmark corpora are used in our experiments. The experimental results show that BAT and Gaussian-BAT obtain more coherent topics, outperforming several competitive baselines. Moreover, when performing text clustering based on the extracted topics, our models outperform all the baselines, with more significant improvements achieved by Gaussian-BAT where an increase of near 6\% is observed in accuracy.
-
 #### Description
+
+GAN+Encoder
 
 <p align="center">
     <img src="assets/BATM_arch.png" width="720"\>
@@ -184,26 +189,115 @@ $ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0
 
 | dataset  | num of document | genre            | avg len of docs | language |
 | -------- | --------------- | ---------------- | --------------- | -------- |
-| cnews10k | 10k             | short news       | TD              | Chinese  |
-| zhddline | TD              | short utterances | TD              | Chinese  |
-| zhdd     | TD              | short dialogues  | TD              | Chinese  |
-| 3body1   | TD              | long novel       | TD              | Chinese  |
+| cnews10k | 10k             | short news       | 18.7            | Chinese  |
+| zhddline | 96785           | short utterances | 18.1            | Chinese  |
+| zhdd     | 12336           | short dialogues  | 142.1           | Chinese  |
+| 3body1   | 2626            | long novel       | 73.8            | Chinese  |
+
+##### Some snippets
+
+<h6 id="1.3">1.语法示例</h6>
+
+<p align="center">
+    <img src="assets/cnews10k_exp.png" width="512"\>
+</p>
+
+
+###### zhddline
+
+<p align="center">
+    <img src="assets/zhddline_exp.png" width="512"\>
+</p>
+
+
+###### zhdd
+
+<p align="center">
+    <img src="assets/zhdd_exp.png" width="720"\>
+</p>
+
+###### 3body1
+
+<p align="center">
+    <img src="assets/zhdd_exp.png" width="720"\>
+</p>
+
 
 #### Usage
 
-TODO
 
-#### Demos
-
-TODO
 
 #### Acknowledgement
 
-A big part of this project is taken from my master thesis, which is supported by my supervisor Prof. Qiang Zhou, I would like to thank him for valuable comments and helpful suggestions 
+A big part of this project is supported by my supervisor Prof. Qiang Zhou, I would highly appreciate him for his valuable comments and helpful suggestions.
+
+In the construction of this project, some implementations are taken as reference, I would like to thank the contributors of those projects: VaDE, WLDA, ETM.
 
 #### License
 
-TBD
+Apache License 2.0
 
 
+
+-------------------
+
+<p align="center" id="title_zh"><img src="assets/logo.png" width="480"\></p>
+
+
+
+一些神经主题模型（Neural Topic Model, NTM）的PyTorch实现，包括NVDM-GSM、WLDA、WTM-GMM、ETM、 BATM 和 GMNTM。
+
+近年来基于VAE和GAN的神经主题模型的各类变种，相比于经典的统计主题模型（如LDA等），能提取到更一致的主题。NTM在稀疏性十分严重的场景下所提取到的主题，其一致性和多样性都优于LDA，是一种强大（且有意思）的模型。此项目的初衷是提供一组方便、实用的神经主题模型实现，包括部分论文的复现及我自己的改进模型。项目中的模型配置与原论文未必完全一致，但保留了原论文中心思想。
+
+此项目提供有三个中文短文本数据集——新闻标题数据集（[cnews10k](cnews10k)）和对话数据集（[zhdd](zhdd) 和 [zhddline](zhddline)），作评测之用。作为对比，提供了基于gensim编写的LDA脚本，开箱即用，且接口与NTM保持一致。
+
+## 目录
+
+  * [TODO](TODO)
+  * [安装](#安装)
+  * [模型](模型)
+  * [数据集](数据集)
+  * [应用示例](应用示例)
+  * [致谢](致谢)
+
+
+
+## TODO
+
+- 训练模型权重保存
+- log 曲线绘制
+- 文档-主题分布推断
+- ETM 主题向量、词向量获取、保存
+- 隐空间绘制
+- 中文文档完善
+
+
+
+## 安装
+
+``` shell
+$ git clone https://github.com/zll17/Neural_Topic_Models
+$ cd Neural_Topic_Models/
+$ sudo pip install -r requirements.txt
+```
+
+
+
+## 模型
+
+### NVDM-GSM
+
+论文： _Discovering Discrete Latent Topics with Neural Variational Inference_
+
+#### Authors
+
+Yishu Miao
+
+#### Description
+
+VAE + Gaussian Softmax
+
+<p align="center">
+    <img src="assets/vae_arch.png" width="720"\>
+</p>
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 '''
-@File    :   WLDA.py
+@File    :   WTM.py
 @Time    :   2020/10/06 17:13:43
 @Author  :   Leilan Zhang
 @Version :   1.0
@@ -25,7 +25,7 @@ import sys
 sys.path.append('..')
 from utils import evaluate_topic_quality, smooth_curve
 
-class WLDA:
+class WTM:
     def __init__(self, bow_dim=10000, n_topic=20, device=None, dist='gmm_std', taskname=None, dropout=0.0):
         self.bow_dim = bow_dim
         self.n_topic = n_topic

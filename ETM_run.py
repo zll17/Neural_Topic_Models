@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 '''
-@File    :   GMNTM_run.py
-@Time    :   2020/10/09 20:13:18
+@File    :   ETM_run.py
+@Time    :   2020/09/30 15:59:22
 @Author  :   Leilan Zhang
 @Version :   1.0
 @Contact :   zhangleilan@gmail.com
 @Desc    :   None
 '''
+
 
 import os
 import re
@@ -16,12 +17,13 @@ import pickle
 import argparse
 import logging
 import time
-from models import GMNTM
+from models import ETM
 from utils import *
 from dataset import DocDataset
 from multiprocessing import cpu_count
+#from torch.utils.data import Dataset,DataLoader
 
-parser = argparse.ArgumentParser('GMNTM topic model')
+parser = argparse.ArgumentParser('ETM topic model')
 parser.add_argument('--taskname',type=str,default='cnews10k',help='Taskname e.g cnews10k')
 parser.add_argument('--no_below',type=int,default=5,help='The lower bound of count for words to keep, e.g 10')
 parser.add_argument('--no_above',type=float,default=0.005,help='The ratio of upper bound of count for words to keep, e.g 0.3')
@@ -32,10 +34,10 @@ parser.add_argument('--use_tfidf',type=bool,default=False,help='Whether to use t
 parser.add_argument('--rebuild',type=bool,default=True,help='Whether to rebuild the corpus, such as tokenization, build dict etc.(default True)')
 parser.add_argument('--batch_size',type=int,default=512,help='Batch size (default=512)')
 parser.add_argument('--criterion',type=str,default='cross_entropy',help='The criterion to calculate the loss, e.g cross_entropy, bce_softmax, bce_sigmoid')
+parser.add_argument('--use_fc1',action='store_true',help='Whether to use a linear layer after the reparameter trick (default:False)') #TBD_fc1
+parser.add_argument('--emb_dim',type=int,default=300,help="The dimension of the latent topic vectors (default:300)")
 parser.add_argument('--auto_adj',action='store_true',help='To adjust the no_above ratio automatically (default:rm top 20)')
-
 args = parser.parse_args()
-
 
 def main():
     global args
@@ -50,6 +52,9 @@ def main():
     rebuild = args.rebuild
     batch_size = args.batch_size
     criterion = args.criterion
+    n_topic = args.n_topic
+    use_fc1 = args.use_fc1 #TBD_fc1
+    emb_dim = args.emb_dim
     auto_adj = args.auto_adj
 
     device = torch.device('cuda')
@@ -60,13 +65,23 @@ def main():
     
     voc_size = docSet.vocabsize
     print('voc size:',voc_size)
-    n_topic = args.n_topic
-
-    model = GMNTM(bow_dim=voc_size,n_topic=n_topic,device=device,taskname=taskname,dropout=0.2)
-    model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0,criterion='bce_softmax')
+    model = ETM(bow_dim=voc_size,n_topic=n_topic,taskname=taskname,device=device,use_fc1=use_fc1,emb_dim=emb_dim) #TBD_fc1
+    model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0,criterion=criterion)
     model.evaluate(test_data=docSet)
-    save_name = f'./ckpt/GMNTM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
-    torch.save(model.vade.state_dict(),save_name)
+    save_name = f'./ckpt/ETM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
+    torch.save(model.vae.state_dict(),save_name)
+    topic_vecs = model.vae.alpha.weight.detach().cpu().numpy()
+    word_vecs = model.vae.rho.weight.detach().cpu().numpy()
+    print('topic_vecs.shape:',topic_vecs.shape)
+    print('word_vecs.shape:',word_vecs.shape)
+    vocab = np.array([t[0] for t in sorted(list(docSet.dictionary.token2id.items()),key=lambda x: x[1])]).reshape(-1,1)
+    topic_ids = np.array([f'TP{i}' for i in range(n_topic)]).reshape(-1,1)
+    word_vecs = np.concatenate([vocab,word_vecs],axis=1)
+    topic_vecs = np.concatenate([topic_ids,topic_vecs],axis=1)
+    save_name_tp = f'./ckpt/TpVec_ETM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.emb'
+    save_name_wd = f'./ckpt/WdVec_ETM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.emb'
+    torch.save(topic_vecs,save_name_tp)
+    torch.save(word_vecs,save_name_wd)
 
 if __name__ == "__main__":
     main()

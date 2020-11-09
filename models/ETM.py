@@ -1,3 +1,14 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+'''
+@File    :   ETM.py
+@Time    :   2020/09/30 15:26:45
+@Author  :   Leilan Zhang
+@Version :   1.0
+@Contact :   zhangleilan@gmail.com
+@Desc    :   None
+'''
+
 import os
 import re
 import pickle
@@ -15,12 +26,30 @@ sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
 sys.path.append('..')
 from utils import evaluate_topic_quality, smooth_curve
 
-class GSM:
-    def __init__(self,bow_dim=10000,n_topic=20,taskname=None,device=None,use_fc1=False):
+class EVAE(VAE):
+    def __init__(self, use_fc1,encode_dims=[2000,1024,512,20],decode_dims=[20,1024,2000],dropout=0.0,emb_dim=300):
+        super(EVAE,self).__init__(use_fc1=use_fc1,encode_dims=encode_dims,decode_dims=decode_dims,dropout=dropout)
+        self.emb_dim = emb_dim
+        self.vocab_size = encode_dims[0]
+        self.n_topic = encode_dims[-1]
+        self.rho = nn.Linear(emb_dim,self.vocab_size)
+        self.alpha = nn.Linear(emb_dim,self.n_topic)
+        self.decoder = None
+
+    def decode(self,z):
+        wght_dec = self.alpha(self.rho.weight) #[K,V]
+        beta = F.softmax(wght_dec,dim=0).transpose(1,0)
+        res = torch.mm(z,beta)
+        logits = torch.log(res+1e-6)
+        return logits
+
+
+class ETM:
+    def __init__(self,bow_dim=10000,n_topic=20,taskname=None,device=None,use_fc1=False,emb_dim=300):
         self.bow_dim = bow_dim
         self.n_topic = n_topic
         #TBD_fc1
-        self.vae = VAE(use_fc1=use_fc1,encode_dims=[bow_dim,1024,512,n_topic],decode_dims=[n_topic,512,bow_dim],dropout=0.0)
+        self.vae = EVAE(use_fc1=use_fc1,encode_dims=[bow_dim,1024,512,n_topic],decode_dims=[n_topic,512,bow_dim],dropout=0.0,emb_dim=emb_dim)
         self.device = device
         self.id2token = None
         self.taskname = taskname
@@ -167,10 +196,8 @@ class GSM:
             topic_words.append([self.id2token[idx] for idx in indices[topic_id]])
         return topic_words
 
-
-
 if __name__ == '__main__':
-    model = VAE(encode_dims=[1024,512,256,20],decode_dims=[20,128,768,1024])
+    model = EVAE(use_fc1=True,encode_dims=[1024,512,256,20],decode_dims=[20,128,768,1024],emb_dim=300)
     model = model.cuda()
     inpt = torch.randn(234,1024).cuda()
     out,mu,log_var = model(inpt)

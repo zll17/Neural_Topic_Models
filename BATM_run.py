@@ -16,6 +16,7 @@ import torch
 import pickle
 import argparse
 import logging
+import time
 from models import BATM
 from utils import *
 from dataset import DocDataset
@@ -33,6 +34,7 @@ parser.add_argument('--rebuild',type=bool,default=True,help='Whether to rebuild 
 parser.add_argument('--dist',type=str,default='gmm_std',help='Prior distribution for latent vectors: (dirichlet,gmm_std,gmm_ctm,gaussian etc.)')
 parser.add_argument('--batch_size',type=int,default=512,help='Batch size (default=512)')
 parser.add_argument('--criterion',type=str,default='cross_entropy',help='The criterion to calculate the loss, e.g cross_entropy, bce_softmax, bce_sigmoid')
+parser.add_argument('--auto_adj',action='store_ture',help='To adjust the no_above ratio automatically (default:rm top 20)')
 
 args = parser.parse_args()
 
@@ -51,16 +53,21 @@ def main():
     dist = args.dist 
     batch_size = args.batch_size
     criterion = args.criterion
+    auto_adj = args.auto_adj
 
     device = torch.device('cuda')
     docSet = DocDataset(taskname,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=True)
+    if auto_adj:
+        no_above = docSet.topk_dfs(topk=20)
+        docSet = DocDataset(taskname,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=False)
     voc_size = docSet.vocabsize
     print('voc size:',voc_size)
     n_topic = args.n_topic
     model = BATM(bow_dim=voc_size,n_topic=n_topic,device=device, taskname=taskname)
     model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,n_critic=10)
     model.evaluate(test_data=docSet)
-
+    save_name = f'./ckpt/BATM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
+    torch.save({'generator':model.generator.state_dict(),'encoder':model.encoder.state_dict(),'discriminator':model.discriminator.state_dict()},save_name)
 
 if __name__ == "__main__":
     main()

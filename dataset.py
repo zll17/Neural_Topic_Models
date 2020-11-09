@@ -98,12 +98,18 @@ class DocDataset(Dataset):
         dfs_topk = sorted([(self.dictionary.id2token[k],fq) for k,fq in self.dictionary.dfs.items()],key=lambda x: x[1],reverse=True)[:topk]
         for i,(word,freq) in enumerate(dfs_topk):
             print(f'{i+1}:{word} --> {freq}/{ndoc} = {(1.0*freq/ndoc):>.13f}')
+        return dfs_topk
 
     def show_cfs_topk(self,topk=20):
         ntokens = sum([v for k,v in self.dictionary.cfs.items()])
         cfs_topk = sorted([(self.dictionary.id2token[k],fq) for k,fq in self.dictionary.cfs.items()],key=lambda x: x[1],reverse=True)[:topk]
         for i,(word,freq) in enumerate(cfs_topk):
             print(f'{i+1}:{word} --> {freq}/{ntokens} = {(1.0*freq/ntokens):>.13f}')
+    
+    def topk_dfs(self,topk=20):
+        ndoc = len(self.docs)
+        dfs_topk = self.show_dfs_topk(topk=topk)
+        return 1.0*dfs_topk[-1][-1]/ndoc
 '''
 class DocDataLoader:
     def __init__(self,dataset=None,batch_size=128,shuffle=True):
@@ -126,7 +132,7 @@ class DocDataLoader:
 '''
 
 if __name__ == '__main__':
-    docSet = DocDataset('subts4',rebuild=True)
+    docSet = DocDataset('zhdd',rebuild=True)
     dataloader = DataLoader(docSet,batch_size=64,shuffle=True,num_workers=4,collate_fn=docSet.collate_fn)
     print('docSet.docs[10]:',docSet.docs[10])
     print(next(iter(dataloader)))
@@ -139,4 +145,5 @@ if __name__ == '__main__':
     for doc in docSet:
         print(doc)
         break
+    print(docSet.topk_dfs(20))
     

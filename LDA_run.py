@@ -7,6 +7,7 @@ import gensim
 import pickle
 import argparse
 import logging
+import time
 from utils import *
 from gensim.models import LdaModel,TfidfModel
 from gensim.models.ldamulticore import LdaMulticore
@@ -24,6 +25,7 @@ parser.add_argument('--n_topic',type=int,default=20,help='Num of topics')
 parser.add_argument('--bkpt_continue',type=bool,default=False,help='Whether to load a trained model as initialization and continue training.')
 parser.add_argument('--use_tfidf',type=bool,default=False,help='Whether to use the tfidf feature for the BOW input')
 parser.add_argument('--rebuild',type=bool,default=False,help='Whether to rebuild the corpus, such as tokenization, build dict etc.(default True)')
+parser.add_argument('--auto_adj',action='store_true',help='To adjust the no_above ratio automatically (default:rm top 20)')
 
 args = parser.parse_args()
 
@@ -36,10 +38,14 @@ n_cpu = cpu_count()-2 if cpu_count()>2 else 2
 bkpt_continue = args.bkpt_continue
 use_tfidf = args.use_tfidf
 rebuild = args.rebuild
+auto_adj = args.auto_adj
 
 def main():
     docSet = DocDataset(taskname,no_below=no_below,no_above=no_above,rebuild=rebuild)
-
+    if auto_adj:
+        no_above = docSet.topk_dfs(topk=20)
+        docSet = DocDataset(taskname,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=False)
+    
     model_name = 'LDA'
     msg = 'bow' if not use_tfidf else 'tfidf'
     run_name= '{}_K{}_{}_{}'.format(model_name,n_topic,taskname,msg)
@@ -69,7 +75,8 @@ def main():
         lda_model = LdaMulticore(docSet.bows,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters,workers=n_cpu)
         #lda_model = LdaModel(docSet.bows,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters)
 
-    lda_model.save('ckpt/{}.model'.format(run_name))
+    save_name = f'./ckpt/LDA_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
+    lda_model.save(save_name)
 
 
     # Evaluation
