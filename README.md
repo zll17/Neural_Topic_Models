@@ -6,13 +6,13 @@
 
 PyTorch implementations of Neural Topic Model varieties proposed in recent years, including NVDM-GSM, WLDA, WTM-GMM, ETM, BATM ,and GMNTM. The aim of this project is to provide a practical and working example for neural topic models to facilitate the research of related fields. Configuration of the models will not exactly the same as those proposed in the papers, and the hyper-parameters are not carefully finetuned, but I have chosen to get the core ideas covered. 
 
-Empirically, NTM is superior to classical statistical topic models ,especially on short texts. Datasets of short news ([cnews10k](#cnews10k)) and dialogue utterances ([zhdd](#zhdd)), both of which are in Chinese, are presented for evaluation purpose. As a comparison to the NTM, an out-of-box LDA script is also provided, which is based on the gensim library. 
+Empirically, NTM is superior to classical statistical topic models ,especially on short texts. Datasets of short news ([cnews10k](#cnews10k_exp)), dialogue utterances ([zhddline](#zhddline_exp)) and conversation ([zhdd](#zhdd_exp)), are presented for evaluation purpose, all of which are in Chinese. As a comparison to the NTM, an out-of-box LDA script is also provided, which is based on the gensim library. 
 
 Any suggestions or contributions to improving this implementation of NTM are welcomed.
 
 <h2 id="TOC_EN">Table of Contents</h2>
 
-  * [Installation](#installation)
+  * [Installation](#Installation)
   * [Models](#Models)
     + [NVDM-GSM](#NVDM-GSM)
     + [WLDA-MMD](#WLDA-MMD)
@@ -30,7 +30,8 @@ Any suggestions or contributions to improving this implementation of NTM are wel
 
 
 
-## Installation
+<h2 id="Installation">Table of Contents</h2>
+
 ```shell
 $ git clone https://github.com/zll17/Neural_Topic_Models
 $ cd Neural_Topic_Models/
@@ -180,9 +181,9 @@ $ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0
 
 ### Datasets
 
-- cnews10k: short cnews sampled from the [cnews]() dataset, in Chinese.
+- cnews10k: short cnews sampled from the [cnews](http://thuctc.thunlp.org/#%E4%B8%AD%E6%96%87%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE%E9%9B%86THUCNews) dataset, in Chinese.
 - zhddline: a dialogue dataset in Chinese, translated from the [DailyDialog](https://www.aclweb.org/anthology/I17-1099/) dataset by Sogou translation API.
-- zhdd:  Every dialogue is concatenated to be processed as a document. There're 12336 documents in total.
+- zhdd:  Every conversation is concatenated  as a document to be processed. There're 12336 documents in total.
 - 3body1: The famous science fiction *The Three-Body Problem*, each paragraph is taken as a document.
 
 ​	Basic statistics are listed in the following table:
@@ -196,30 +197,29 @@ $ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0
 
 ##### Some snippets
 
-<h6 id="1.3">1.语法示例</h6>
+<h6 id="cnews10k_exp">cnews10k</h6>
 
 <p align="center">
-    <img src="assets/cnews10k_exp.png" width="512"\>
+    <img src="assets/cnews10k_exp.png" width="640"\>
 </p>
 
-
-###### zhddline
+<h6 id="zhddline_exp">zhddline</h6>
 
 <p align="center">
-    <img src="assets/zhddline_exp.png" width="512"\>
+    <img src="assets/zhddline_exp.png" width="640"\>
 </p>
 
 
 ###### zhdd
 
 <p align="center">
-    <img src="assets/zhdd_exp.png" width="720"\>
+    <img src="assets/zhdd_exp.png" width="640"\>
 </p>
 
 ###### 3body1
 
 <p align="center">
-    <img src="assets/zhdd_exp.png" width="720"\>
+    <img src="assets/3body1_exp.png" width="720"\>
 </p>
 
 
@@ -242,6 +242,8 @@ Apache License 2.0
 -------------------
 
 <p align="center" id="title_zh"><img src="assets/logo.png" width="480"\></p>
+
+[English](#title_en) | [中文](#title_zh)
 
 
 
