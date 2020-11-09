@@ -15,17 +15,16 @@ Any suggestions or contributions to improving this implementation of NTM are wel
   * [Installation](#Installation)
   * [Models](#Models)
     + [NVDM-GSM](#NVDM-GSM)
-    + [WLDA-MMD](#WLDA-MMD)
-    + [WLDA-GMM](WLDA-GMM)
+    + [WTM-MMD](#WTM-MMD)
+    + [WTM-GMM](#WTM-GMM)
     + [ETM](#ETM)
     + [GMNTM](#GMNTM-VaDE)
     + [BATM](#BATM)
 * [Datasets](#Datasets)
-  * [cnews10k](#cnews10k)
-  * [zhdd](#zhdd)
-  * [zhddline](zhddline)
-* [Usage](#usage)
-* [Demos](#Demos)
+  * [cnews10k](#cnews10k_exp)
+  * [zhddline](#zhddline_exp)
+  * [zhdd](#zhdd_exp)
+* [Usage](#Usage)
 * [Acknowledgement](#Acknowledgement)
 
 
@@ -38,8 +37,12 @@ $ cd Neural_Topic_Models/
 $ sudo pip install -r requirements.txt
 ```
 
-## Implementations   
-### NVDM-GSM
+
+
+<h2 id="Models">Models</h2>
+
+<h3 id="NVDM-GSM">NVDM-GSM</h3>
+
 _Discovering Discrete Latent Topics with Neural Variational Inference_
 
 #### Authors
@@ -64,8 +67,8 @@ $ python3 GSM_run.py --taskname cnews10k --n_topic 20 --num_epochs 600 --no_abov
 </p>
 
 
+<h3 id="WTM-MMD">WTM-MMD</h3>
 
-### WTM-MMD
 _Topic Modeling with Wasserstein Autoencoders_
 
 #### Authors
@@ -83,7 +86,8 @@ $ python3 WTM_run.py --taskname cnews10k --n_topic 20 --num_epochs 600 --no_abov
 
 
 
-### WTM-GMM
+<h3 id="WTM-GMM">WTM-GMM</h3>
+
 _Research on Clustering for Subtitle Dialogue Text Based on Neural Topic Model_
 
 #### Authors
@@ -108,8 +112,8 @@ $ python3 WTM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0.
 </p>
 
 
+<h3 id="ETM">ETM</h3>
 
-### ETM
 _Topic Modeling in Embedding Spaces_
 
 #### Authors
@@ -130,7 +134,7 @@ $ python3 ETM_run.py --taskname zhdd --n_topic 20 --num_epochs 900 --no_above 0.
 
 
 
-### GMNTM
+<h3 id="GMNTM-VaDE">GMNTM</h3>
 
 _Research on Clustering for Subtitle Dialogue Text Based on Neural Topic Model_
 
@@ -154,7 +158,7 @@ $ python3 GMNTM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 
 
 
 
-### BATM
+<h3 id="BATM">BATM</h3>
 
 _Neural Topic Modeling with Bidirectional Adversarial Training_
 
@@ -179,7 +183,7 @@ $ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0
 
 
 
-### Datasets
+<h2 id="Datasets">Datasets</h2>
 
 - cnews10k: short cnews sampled from the [cnews](http://thuctc.thunlp.org/#%E4%B8%AD%E6%96%87%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE%E9%9B%86THUCNews) dataset, in Chinese.
 - zhddline: a dialogue dataset in Chinese, translated from the [DailyDialog](https://www.aclweb.org/anthology/I17-1099/) dataset by Sogou translation API.
@@ -209,31 +213,33 @@ $ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0
     <img src="assets/zhddline_exp.png" width="640"\>
 </p>
 
-
-###### zhdd
+<h6 id="zhdd_exp">zhdd</h6>
 
 <p align="center">
     <img src="assets/zhdd_exp.png" width="640"\>
 </p>
 
-###### 3body1
+<h6 id="3body1_exp">3body1</h6>
 
 <p align="center">
     <img src="assets/3body1_exp.png" width="720"\>
 </p>
 
 
-#### Usage
 
 
 
-#### Acknowledgement
+<h4 id="Usage">Usage</h4>
+
+
+
+<h4 id="Acknowledgement">Acknowledgement</h4>
 
 A big part of this project is supported by my supervisor Prof. Qiang Zhou, I would highly appreciate him for his valuable comments and helpful suggestions.
 
 In the construction of this project, some implementations are taken as reference, I would like to thank the contributors of those projects: VaDE, WLDA, ETM.
 
-#### License
+<h4 id="License">License</h4>
 
 Apache License 2.0
 
