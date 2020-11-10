@@ -2,7 +2,7 @@
 
 [English](#title_en) | [中文](#title_zh)
 
-
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 PyTorch implementations of Neural Topic Model varieties proposed in recent years, including NVDM-GSM, WLDA, WTM-GMM, ETM, BATM ,and GMNTM. The aim of this project is to provide a practical and working example for neural topic models to facilitate the research of related fields. Configuration of the models will not exactly the same as those proposed in the papers, and the hyper-parameters are not carefully finetuned, but I have chosen to get the core ideas covered. 
 
@@ -25,11 +25,13 @@ Any suggestions or contributions to improving this implementation of NTM are wel
   * [3.2 zhddline](#zhddline_exp)
   * [3.3 zhdd](#zhdd_exp)
 * [4. Usage](#Usage)
+  * [4.1 Preparation](#Preparation)
+  * [4.2 Run](#Run)
 * [5. Acknowledgement](#Acknowledgement)
 
 
 
-<h2 id="Installation">Table of Contents</h2>
+<h2 id="Installation">1. Installation</h2>
 
 ```shell
 $ git clone https://github.com/zll17/Neural_Topic_Models
@@ -39,19 +41,18 @@ $ sudo pip install -r requirements.txt
 
 
 
-<h2 id="Models">Models</h2>
+<h2 id="Models">2. Models</h2>
 
-<h3 id="NVDM-GSM">NVDM-GSM</h3>
+<h3 id="NVDM-GSM">2.1 NVDM-GSM</h3>
 
 Original paper: _Discovering Discrete Latent Topics with Neural Variational Inference_
 
-#### Authors
-Yishu Miao
+*Author:* Yishu Miao
 
 #### Description
 **VAE + Gaussian Softmax**
 
-The architecture of the model is a simple VAE, which takes the BOW of a document as its input. After sampling the latent vector **z** from the variational distribution *Q(z|x)*, the model will normalize **z** through a softmax layer, which will be taken as the topic distribution **$ \theta $** in the following steps. Emperically, I found that adding a fully-connected layer before the softmax layer would largely improve the model's performance, therefore, an optional argument **use_fc1** is provided to indicate whether to adopt the affine layer or not. The configuration of the encoder and decoder could also be customized by yourself, depending on your application.
+The architecture of the model is a simple VAE, which takes the BOW of a document as its input. After sampling the latent vector **z** from the variational distribution *Q(z|x)*, the model will normalize **z** through a softmax layer, which will be taken as the topic distribution $ \theta $ in the following steps. Emperically, I found that adding a fully-connected layer before the softmax layer would largely improve the model's performance, therefore, an optional argument **use_fc1** is provided to indicate whether to adopt the affine layer or not. The configuration of the encoder and decoder could also be customized by yourself, depending on your application.
 
  *Explaination for some arguments:*
 
@@ -74,7 +75,7 @@ The architecture of the model is a simple VAE, which takes the BOW of a document
 <p align="center">
     <img src="assets/vae_arch.png" width="720"\>
 </p>
-[[Paper]](http://proceedings.mlr.press/v70/miao17a.html) [[Code]](models/GSM.py)
+[Paper](http://proceedings.mlr.press/v70/miao17a.html) | [Code](models/GSM.py)
 
 #### Run Example
 ```
@@ -86,12 +87,11 @@ $ python3 GSM_run.py --taskname cnews10k --n_topic 20 --num_epochs 1000 --no_abo
 </p>
 
 
-<h3 id="WTM-MMD">WTM-MMD</h3>
+<h3 id="WTM-MMD">2.2 WTM-MMD</h3>
 
-_Topic Modeling with Wasserstein Autoencoders_
+Original paper: _Topic Modeling with Wasserstein Autoencoders_
 
-#### Authors
-Feng Nan, Ran Ding, Ramesh Nallapati, Bing Xiang
+*Author:* Feng Nan, Ran Ding, Ramesh Nallapati, Bing Xiang
 
 #### Description
 **WAE with Dirichlet prior + Gaussian Softmax**
@@ -109,8 +109,7 @@ The meaning of other arguments can be referred to the [GSM](#NVDM-GSM) model.
 <p align="center">
     <img src="assets/wtm_arch.png" width="720"\>
 </p>
-
-[[Paper]](https://www.aclweb.org/anthology/P19-1640/) [[Code]](models/WTM.py)
+[Paper](https://www.aclweb.org/anthology/P19-1640/) | [Code](models/WTM.py)
 
 #### Run Example
 ```shell
@@ -125,13 +124,11 @@ $ python3 WTM_run.py --taskname cnews10k --n_topic 20 --num_epochs 600 --no_abov
 
 
 
-<h3 id="WTM-GMM">WTM-GMM</h3>
+<h3 id="WTM-GMM">2.3 WTM-GMM</h3>
 
-_Research on Clustering for Subtitle Dialogue Text Based on Neural Topic Model_
+Original paper: _Research on Clustering for Subtitle Dialogue Text Based on Neural Topic Model_
 
-#### Authors
-
-Leilan Zhang
+*Author:* Leilan Zhang
 
 #### Description
 
@@ -148,8 +145,7 @@ The meaning of other arguments can be referred to the [GSM](#NVDM-GSM) model.
 <p align="center">
     <img src="assets/wtm_gmm_arch.png" width="720"\>
 </p>
-
-[[Paper]](Under review) [[Code]](models/WTM.py)
+[Paper](Under review) | [Code](models/WTM.py)
 
 
 
@@ -163,14 +159,14 @@ $ python3 WTM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0.
 </p>
 
 
-<h3 id="ETM">ETM</h3>
+<h3 id="ETM">2.4 ETM</h3>
 
-_Topic Modeling in Embedding Spaces_
+Original paper: _Topic Modeling in Embedding Spaces_
 
-#### Authors
-Adji B. Dieng, Francisco J. R. Ruiz, David M. Blei
+*Author:* Adji B. Dieng, Francisco J. R. Ruiz, David M. Blei
 
-#### Abstract
+#### Description
+
 **VAE + Gaussian Softmax + Embedding**
 
 The architecture is a straightforward VAE, with the topic-word distribution matrix decomposed as the product of the topic vectors and the word vectors. The topic vectors and word vectors are jointly trained with the topic modeling process. A note-worthy mentioned advantage of this model is that it can improve the interpretability of topics by locatting the topic vectors and the word vectors in the same space. Correspondingly, the model requires more time to converge to an ideal result than others since it has more parameters to adjust.
@@ -186,7 +182,7 @@ The meaning of other arguments can be referred to the [GSM](#NVDM-GSM) model.
 <p align="center">
     <img src="assets/etm_arch.png" width="720"\>
 </p>
-[[Paper]](https://arxiv.org/abs/1907.04907) [[Code]](models/ETM.py)
+[Paper](https://arxiv.org/abs/1907.04907) | [Code](models/ETM.py)
 
 #### Run Example
 ```shell
@@ -195,12 +191,11 @@ $ python3 ETM_run.py --taskname zhdd --n_topic 20 --num_epochs 1000 --no_below 5
 
 
 
-<h3 id="GMNTM-VaDE">GMNTM</h3>
+<h3 id="GMNTM-VaDE">2.5 GMNTM</h3>
 
-_Research on Clustering for Subtitle Dialogue Text Based on Neural Topic Model_
+Original paper: _Research on Clustering for Subtitle Dialogue Text Based on Neural Topic Model_
 
-#### Authors
-Leilan Zhang
+*Author:* Leilan Zhang
 
 #### Description
 The architecture is based on [VaDE](https://arxiv.org/abs/1611.05148), which takes Gaussian mixture distribution as a prior distribution. Different from the Wasserstein distance adopted by WAE, the VaDE uses KL divergence to measure the discrepancy of prior and variational distribution. It adopts a discrete variable to indicate the belonging component and a continuous variable to indicate the vector in latent space.  The original intent of the GMNTM is to improve the model's representation ability with the import of the multi-mode distribution, to replace the single-mode multivariate Gaussian distribution utilized in GSM. Empirically, it does obtain a series of more diverse and coherent topics than GSM does. However, it suffers from the mode collapse problem, which will finally result in a series of homogeneous topics. Therefore, the training process should not be too long and should be stopped before the collapse occures. 
@@ -212,7 +207,7 @@ Any suggestions are welcome.
 </p>
 
 
-[[Paper]](https://arxiv.org/abs/1611.06430) [[Code]](implementations/ccgan/ccgan.py)
+[Paper](https://arxiv.org/abs/1611.06430) | [Code](implementations/ccgan/ccgan.py)
 
 #### Run Example
 ```
@@ -221,12 +216,11 @@ $ python3 GMNTM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 
 
 
 
-<h3 id="BATM">BATM</h3>
+<h3 id="BATM">2.6 BATM</h3>
 
-_Neural Topic Modeling with Bidirectional Adversarial Training_
+Origianal paper: _Neural Topic Modeling with Bidirectional Adversarial Training_
 
-#### Authors
-Rui Wang, Xuemeng Hu, Deyu Zhou, Yulan He, Yuxuan Xiong, Chenchen Ye, Haiyang Xu
+*Author:* Rui Wang, Xuemeng Hu, Deyu Zhou, Yulan He, Yuxuan Xiong, Chenchen Ye, Haiyang Xu
 
 #### Description
 
@@ -243,7 +237,7 @@ This model is made up of three modules: a Generator, a Discriminator, and an Enc
 
 
 
-[[Paper]](https://arxiv.org/abs/2004.12331) [[Code]](models/BATM.py)
+[Paper](https://arxiv.org/abs/2004.12331) [Code](models/BATM.py)
 
 #### Run Example
 ```
@@ -252,7 +246,7 @@ $ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0
 
 
 
-<h2 id="Datasets">Datasets</h2>
+<h2 id="Datasets">3. Datasets</h2>
 
 - cnews10k: short cnews sampled from the [cnews](http://thuctc.thunlp.org/#%E4%B8%AD%E6%96%87%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE%E9%9B%86THUCNews) dataset, in Chinese.
 - zhddline: a dialogue dataset in Chinese, translated from the [DailyDialog](https://www.aclweb.org/anthology/I17-1099/) dataset by Sogou translation API.
@@ -261,34 +255,34 @@ $ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0
 
 ​	Basic statistics are listed in the following table:
 
-| dataset  | num of document | genre            | avg len of docs | language |
-| -------- | --------------- | ---------------- | --------------- | -------- |
-| cnews10k | 10k             | short news       | 18.7            | Chinese  |
-| zhddline | 96785           | short utterances | 18.1            | Chinese  |
-| zhdd     | 12336           | short dialogues  | 142.1           | Chinese  |
-| 3body1   | 2626            | long novel       | 73.8            | Chinese  |
+| dataset                             | num of document | genre            | avg len of docs | language |
+| ----------------------------------- | --------------- | ---------------- | --------------- | -------- |
+| [cnews10k](data/cnews10k_lines.txt) | 10k             | short news       | 18.7            | Chinese  |
+| [zhddline](data/zhddline_lines.txt) | 96785           | short utterances | 18.1            | Chinese  |
+| [zhdd](data/zhdd_lines.txt)         | 12336           | short dialogues  | 142.1           | Chinese  |
+| [3body1](data/3body1_lines.txt)     | 2626            | long novel       | 73.8            | Chinese  |
 
 ##### Some snippets
 
-<h6 id="cnews10k_exp">cnews10k</h6>
+<h6 id="cnews10k_exp">3.1 cnews10k</h6>
 
 <p align="center">
     <img src="assets/cnews10k_exp.png" width="640"\>
 </p>
 
-<h6 id="zhddline_exp">zhddline</h6>
+<h6 id="zhddline_exp">3.2 zhddline</h6>
 
 <p align="center">
     <img src="assets/zhddline_exp.png" width="640"\>
 </p>
 
-<h6 id="zhdd_exp">zhdd</h6>
+<h6 id="zhdd_exp">3.3 zhdd</h6>
 
 <p align="center">
     <img src="assets/zhdd_exp.png" width="720"\>
 </p>
 
-<h6 id="3body1_exp">3body1</h6>
+<h6 id="3body1_exp">3.4 3body1</h6>
 
 <p align="center">
     <img src="assets/3body1_exp.png" width="720"\>
@@ -300,73 +294,77 @@ $ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0
 
 <h4 id="Usage">4. Usage</h4>
 
-In this section, I will take the zhddline text data as example and display how to apply the WTM-GMM model on it to modeling its topics.
+In this section, I will take the zhddline text data as example and display how to apply the WTM-GMM model on it to modeling its topics. You can use your own text data and follow the same steps.
 
-<h6 id="Usage">4.1 Preparation</h6>
+<h6 id="Preparation">4.1 Preparation</h6>
 
-First, prepare the text date. You need to keep every document in one line, in our example, 
+First, prepare the text date. One line will be taken as one document, so you need to keep one document in one line, in our example, each utterance per line. 
 
-<h4 id="Acknowledgement">Acknowledgement</h4>
+<p align="center">
+    <img src="assets/zhddline_exp_short.png" width="640"\>
+</p>
+
+Then modify the name of the text file into the format {taskname}_lines.txt, in this case, `zhddline_lines.txt`. Put the renamed file in the `data` directory.
+
+Finally, choose the right tokenizer or create one by yourself. The tokenizer should be customized according to text type. The default configuration utilizes HanLP as tokenizer to deal with modern Chinese sentences. If you need to process other types of text (i.e. in English or in ancient Chinese), open the file `tokenization.py` ,  modify the code in function `Tokenizer` accordingly.
+
+<p align="center">
+    <img src="assets/tokenizer_exp.png" width="512"\>
+</p>
+
+
+
+<h6 id="Run">4.2 Run</h6>
+
+Once done the preparation job, run the corresponding running script, in this case, you need to set the `taskname` as `zhddline` and specify other necessary arguments.
+
+```shell
+$ python3 WTM_run.py --taskname zhddline --n_topic 20 --num_epochs 1000 --no_below 5 --dist gmm-std --auto_adj
+```
+
+The model will evaluate the topic coherence and topic diversity every 10 epochs, and display the top 20 topic words for each topic. The weight of the model will be stored in the `ckpt` directory once the training is done. The result of the topic modeling is shown below.
+
+<p align="center">
+    <img src="assets/WLDA-GMM_zhddline10k.png" width="auto"\>
+</p>
+
+
+
+
+
+<h4 id="Acknowledgement">5. Acknowledgement</h4>
 
 A big part of this project is supported by my supervisor Prof. Qiang Zhou, I would highly appreciate him for his valuable comments and helpful suggestions.
 
-In the construction of this project, some implementations are taken as reference, I would like to thank the contributors of those projects: VaDE, WLDA, ETM.
+In the construction of this project, some implementations are taken as reference, I would like to thank the contributors of those projects: 
+
+- [VaDE](https://github.com/GuHongyang/VaDE-pytorch)
+- [WLDA](https://github.com/awslabs/w-lda) 
+- [ETM](https://github.com/adjidieng/ETM)
+
+
 
 <h4 id="License">License</h4>
 
-Apache License 2.0
+Apache License 2.0 
+
+**Cite**: If you find this code useful in your research, please consider citing:
 
 ```
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+@misc{ZLL2020,
+  author = {Leilan Zhang},
+  title = {Neural Topic Models},
+  year = {2020},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/zll17/Neural_Topic_Models}},
+  commit = {f02e8f876449fc3ebffc66f7635a59281b08c1eb}
+}
 ```
 
-## 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 
 
