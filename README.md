@@ -75,7 +75,7 @@ The architecture of the model is a simple VAE, which takes the BOW of a document
 <p align="center">
     <img src="assets/vae_arch.png" width="720"\>
 </p>
-[Paper](http://proceedings.mlr.press/v70/miao17a.html) | [Code](models/GSM.py)
+[Paper](http://proceedings.mlr.press/v70/miao17a.html) & [Code](models/GSM.py)
 
 #### Run Example
 ```
@@ -109,7 +109,7 @@ The meaning of other arguments can be referred to the [GSM](#NVDM-GSM) model.
 <p align="center">
     <img src="assets/wtm_arch.png" width="720"\>
 </p>
-[Paper](https://www.aclweb.org/anthology/P19-1640/) | [Code](models/WTM.py)
+[Paper](https://www.aclweb.org/anthology/P19-1640/) & [Code](models/WTM.py)
 
 #### Run Example
 ```shell
@@ -145,7 +145,7 @@ The meaning of other arguments can be referred to the [GSM](#NVDM-GSM) model.
 <p align="center">
     <img src="assets/wtm_gmm_arch.png" width="720"\>
 </p>
-[Paper](Under review) | [Code](models/WTM.py)
+[Paper](Under review) & [Code](models/WTM.py)
 
 
 
@@ -182,7 +182,7 @@ The meaning of other arguments can be referred to the [GSM](#NVDM-GSM) model.
 <p align="center">
     <img src="assets/etm_arch.png" width="720"\>
 </p>
-[Paper](https://arxiv.org/abs/1907.04907) | [Code](models/ETM.py)
+[Paper](https://arxiv.org/abs/1907.04907) & [Code](models/ETM.py)
 
 #### Run Example
 ```shell
@@ -207,7 +207,7 @@ Any suggestions are welcome.
 </p>
 
 
-[Paper](https://arxiv.org/abs/1611.06430) | [Code](implementations/ccgan/ccgan.py)
+[Paper](https://arxiv.org/abs/1611.06430) & [Code](implementations/ccgan/ccgan.py)
 
 #### Run Example
 ```
@@ -236,8 +236,7 @@ This model is made up of three modules: a Generator, a Discriminator, and an Enc
 </p>
 
 
-
-[Paper](https://arxiv.org/abs/2004.12331) | [Code](models/BATM.py)
+[Paper](https://arxiv.org/abs/2004.12331) & [Code](models/BATM.py)
 
 #### Run Example
 ```
