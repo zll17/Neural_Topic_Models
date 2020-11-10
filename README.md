@@ -237,7 +237,7 @@ This model is made up of three modules: a Generator, a Discriminator, and an Enc
 
 
 
-[Paper](https://arxiv.org/abs/2004.12331) [Code](models/BATM.py)
+[Paper](https://arxiv.org/abs/2004.12331) | [Code](models/BATM.py)
 
 #### Run Example
 ```
@@ -363,6 +363,8 @@ Apache License 2.0
 ```
 
 
+
+-----
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
