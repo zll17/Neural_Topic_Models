@@ -49,6 +49,10 @@ Original paper: _Discovering Discrete Latent Topics with Neural Variational Infe
 
 *Author:* Yishu Miao
 
+<p align="center">
+    <img src="assets/vae_arch.png" width="720"\>
+</p>
+
 #### Description
 **VAE + Gaussian Softmax**
 
@@ -72,9 +76,8 @@ The architecture of the model is a simple VAE, which takes the BOW of a document
 
 ​	--bkpt_continue: once adopted, the model will load the last checkpoint file and continue training.
 
-<p align="center">
-    <img src="assets/vae_arch.png" width="720"\>
-</p>
+
+
 [Paper](http://proceedings.mlr.press/v70/miao17a.html) , [Code](models/GSM.py)
 
 #### Run Example
@@ -93,6 +96,10 @@ Original paper: _Topic Modeling with Wasserstein Autoencoders_
 
 *Author:* Feng Nan, Ran Ding, Ramesh Nallapati, Bing Xiang
 
+<p align="center">
+    <img src="assets/wtm_arch.png" width="720"\>
+</p>
+
 #### Description
 **WAE with Dirichlet prior + Gaussian Softmax**
 
@@ -106,9 +113,6 @@ The architecture is a WAE, which is actually a straightforward AutoEncoder,  wit
 
 The meaning of other arguments can be referred to the [GSM](#NVDM-GSM) model.
 
-<p align="center">
-    <img src="assets/wtm_arch.png" width="720"\>
-</p>
 [Paper](https://www.aclweb.org/anthology/P19-1640/) , [Code](models/WTM.py)
 
 #### Run Example
@@ -130,6 +134,10 @@ Original paper: _Research on Clustering for Subtitle Dialogue Text Based on Neur
 
 *Author:* Leilan Zhang
 
+<p align="center">
+    <img src="assets/wtm_gmm_arch.png" width="720"\>
+</p>
+
 #### Description
 
 **WAE with Gaussian Mixture prior + Gaussian Softmax**
@@ -142,9 +150,6 @@ An improved model of the original WLDA. It takes gaussian mixture distribution a
 
 The meaning of other arguments can be referred to the [GSM](#NVDM-GSM) model.
 
-<p align="center">
-    <img src="assets/wtm_gmm_arch.png" width="720"\>
-</p>
 [Paper](Under review) , [Code](models/WTM.py)
 
 
@@ -165,6 +170,10 @@ Original paper: _Topic Modeling in Embedding Spaces_
 
 *Author:* Adji B. Dieng, Francisco J. R. Ruiz, David M. Blei
 
+<p align="center">
+    <img src="assets/etm_arch.png" width="720"\>
+</p>
+
 #### Description
 
 **VAE + Gaussian Softmax + Embedding**
@@ -177,11 +186,6 @@ The architecture is a straightforward VAE, with the topic-word distribution matr
 
 The meaning of other arguments can be referred to the [GSM](#NVDM-GSM) model.
 
-
-
-<p align="center">
-    <img src="assets/etm_arch.png" width="720"\>
-</p>
 [Paper](https://arxiv.org/abs/1907.04907) , [Code](models/ETM.py)
 
 #### Run Example
@@ -197,15 +201,14 @@ Original paper: _Research on Clustering for Subtitle Dialogue Text Based on Neur
 
 *Author:* Leilan Zhang
 
-#### Description
-The architecture is based on [VaDE](https://arxiv.org/abs/1611.05148), which takes Gaussian mixture distribution as a prior distribution. Different from the Wasserstein distance adopted by WAE, the VaDE uses KL divergence to measure the discrepancy of prior and variational distribution. It adopts a discrete variable to indicate the belonging component and a continuous variable to indicate the vector in latent space.  The original intent of the GMNTM is to improve the model's representation ability with the import of the multi-mode distribution, to replace the single-mode multivariate Gaussian distribution utilized in GSM. Empirically, it does obtain a series of more diverse and coherent topics than GSM does. However, it suffers from the mode collapse problem, which will finally result in a series of homogeneous topics. Therefore, the training process should not be too long and should be stopped before the collapse occures. 
-
-Any suggestions are welcome.
-
 <p align="center">
     <img src="assets/gmvae_arch.png" width="720"\>
 </p>
 
+#### Description
+The architecture is based on [VaDE](https://arxiv.org/abs/1611.05148), which takes Gaussian mixture distribution as a prior distribution. Different from the Wasserstein distance adopted by WAE, the VaDE uses KL divergence to measure the discrepancy of prior and variational distribution. It adopts a discrete variable to indicate the belonging component and a continuous variable to indicate the vector in latent space.  The original intent of the GMNTM is to improve the model's representation ability with the import of the multi-mode distribution, to replace the single-mode multivariate Gaussian distribution utilized in GSM. Empirically, it does obtain a series of more diverse and coherent topics than GSM does. However, it suffers from the mode collapse problem, which will finally result in a series of homogeneous topics. Therefore, the training process should not be too long and should be stopped before the collapse occures. 
+
+Any suggestions are welcome.
 
 [Paper](https://arxiv.org/abs/1611.06430) , [Code](implementations/ccgan/ccgan.py)
 
@@ -222,18 +225,19 @@ Origianal paper: _Neural Topic Modeling with Bidirectional Adversarial Training_
 
 *Author:* Rui Wang, Xuemeng Hu, Deyu Zhou, Yulan He, Yuxuan Xiong, Chenchen Ye, Haiyang Xu
 
-#### Description
-
-**GAN+Encoder**
-
-This model is made up of three modules: a Generator, a Discriminator, and an Encoder. The Encoder takes in a real document and outputs its topic distribution vector, concatenated with the normalized BOW of the original document. The Generator will takes in samples from a prior Dirichlet distribution and produce BOW vector of the fake document, concatenated with the sample distribution vectors. The Discriminator maximizes the likelihood of the real distribution pairs and minimizes the likelihood of the fake distribution pairs. Once done the training, the Encoder could output the topic distribution given a document, while the generator could output the topic-word distribution. Althrough it seems like a feasible approach to accomplish the topic modeling task through this adversarial way, my implement of this model cannot work properately. I still work on it and look for solutions. Any ideas or suggestions would be welcome.
-
 <p align="center">
     <img src="assets/BATM_arch.png" width="720"\>
     <div align="center">
     	(The picture is taken from the original <a href="https://arxiv.org/abs/2004.12331">paper</a>.)
 	</div>
 </p>
+
+#### Description
+
+**GAN+Encoder**
+
+This model is made up of three modules: a Generator, a Discriminator, and an Encoder. The Encoder takes in a real document and outputs its topic distribution vector, concatenated with the normalized BOW of the original document. The Generator will takes in samples from a prior Dirichlet distribution and produce BOW vector of the fake document, concatenated with the sample distribution vectors. The Discriminator maximizes the likelihood of the real distribution pairs and minimizes the likelihood of the fake distribution pairs. Once done the training, the Encoder could output the topic distribution given a document, while the generator could output the topic-word distribution. Althrough it seems like a feasible approach to accomplish the topic modeling task through this adversarial way, my implement of this model cannot work properately. I still work on it and look for solutions. Any ideas or suggestions would be welcome.
+
 
 
 [Paper](https://arxiv.org/abs/2004.12331) , [Code](models/BATM.py)
