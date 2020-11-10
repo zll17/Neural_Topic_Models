@@ -12,20 +12,20 @@ Any suggestions or contributions to improving this implementation of NTM are wel
 
 <h2 id="TOC_EN">Table of Contents</h2>
 
-  * [Installation](#Installation)
-  * [Models](#Models)
-    + [NVDM-GSM](#NVDM-GSM)
-    + [WTM-MMD](#WTM-MMD)
-    + [WTM-GMM](#WTM-GMM)
-    + [ETM](#ETM)
-    + [GMNTM](#GMNTM-VaDE)
-    + [BATM](#BATM)
-* [Datasets](#Datasets)
-  * [cnews10k](#cnews10k_exp)
-  * [zhddline](#zhddline_exp)
-  * [zhdd](#zhdd_exp)
-* [Usage](#Usage)
-* [Acknowledgement](#Acknowledgement)
+  * [1. Installation](#Installation)
+  * [2. Models](#Models)
+    + [2.1 NVDM-GSM](#NVDM-GSM)
+    + [2.2 WTM-MMD](#WTM-MMD)
+    + [2.3 WTM-GMM](#WTM-GMM)
+    + [2.4 ETM](#ETM)
+    + [2.5 GMNTM](#GMNTM-VaDE)
+    + [2.6 BATM](#BATM)
+* [3. Datasets](#Datasets)
+  * [3.1 cnews10k](#cnews10k_exp)
+  * [3.2 zhddline](#zhddline_exp)
+  * [3.3 zhdd](#zhdd_exp)
+* [4. Usage](#Usage)
+* [5. Acknowledgement](#Acknowledgement)
 
 
 
@@ -43,23 +43,42 @@ $ sudo pip install -r requirements.txt
 
 <h3 id="NVDM-GSM">NVDM-GSM</h3>
 
-_Discovering Discrete Latent Topics with Neural Variational Inference_
+Original paper: _Discovering Discrete Latent Topics with Neural Variational Inference_
 
 #### Authors
 Yishu Miao
 
 #### Description
-VAE + Gaussian Softmax
+**VAE + Gaussian Softmax**
+
+The architecture of the model is a simple VAE, which takes the BOW of a document as its input. After sampling the latent vector **z** from the variational distribution *Q(z|x)*, the model will normalize **z** through a softmax layer, which will be taken as the topic distribution **$ \theta $** in the following steps. Emperically, I found that adding a fully-connected layer before the softmax layer would largely improve the model's performance, therefore, an optional argument **use_fc1** is provided to indicate whether to adopt the affine layer or not. The configuration of the encoder and decoder could also be customized by yourself, depending on your application.
+
+ *Explaination for some arguments:*
+
+​	--taskname: the name of the dataset, on which you want to build the topic model.
+
+​	--n_topic: the number of topics.
+
+​	--num_epochs: number of training epochs.
+
+​	--no_below: to filter out the tokens whose document frequency is below the threshold, should be integer.
+
+​	--no_above: to filter out the tokens whose document frequency is higher than the threshold, set as a float number to indicate the ratio of the number of documents.
+
+​	--use_fc1: adopt an affine layer before the softmax layer when specified.
+
+​	--auto_adj: once adopted, there would be no need to specify the no_above argument, the model will automatically filter out the top 20 words with the highest document frequencies.
+
+​	--bkpt_continue: once adopted, the model will load the last checkpoint file and continue training.
 
 <p align="center">
     <img src="assets/vae_arch.png" width="720"\>
 </p>
-
 [[Paper]](http://proceedings.mlr.press/v70/miao17a.html) [[Code]](models/GSM.py)
 
 #### Run Example
 ```
-$ python3 GSM_run.py --taskname cnews10k --n_topic 20 --num_epochs 600 --no_above 0.0134 --criterion cross_entropy --use_fc1
+$ python3 GSM_run.py --taskname cnews10k --n_topic 20 --num_epochs 1000 --no_above 0.0134 --no_below 5 --criterion cross_entropy --use_fc1
 ```
 
 <p align="center">
@@ -75,14 +94,34 @@ _Topic Modeling with Wasserstein Autoencoders_
 Feng Nan, Ran Ding, Ramesh Nallapati, Bing Xiang
 
 #### Description
-WAE with Dirichlet prior + Gaussian Softmax.
+**WAE with Dirichlet prior + Gaussian Softmax**
 
-[[Paper]](https://www.aclweb.org/anthology/P19-1640/) [[Code]](models/WLDA.py)
+The architecture is a WAE, which is actually a straightforward AutoEncoder,  with an additional regulation on the latent space. According to the original [paper](https://www.aclweb.org/anthology/P19-1640/), the prior distribution of the latent vectors **z** is set as Dirichlet distribution, while the variational distribution is regulated under the Wasserstein distance. Compared with the GSM model, this model can hugely alleviate the KL collapse problem and obtain more coherent topics.
+
+ *Explaination for some arguments:*
+
+​	--dist: the type of the prior distribution, set as `dirichlet`  to use it as the WLDA model.
+
+​	--alpha: the hyperparameter $\alpha$ in the dirichlet distribution.
+
+The meaning of other arguments can be referred to the [GSM](#NVDM-GSM) model.
+
+<p align="center">
+    <img src="assets/wtm_arch.png" width="720"\>
+</p>
+
+[[Paper]](https://www.aclweb.org/anthology/P19-1640/) [[Code]](models/WTM.py)
 
 #### Run Example
 ```shell
 $ python3 WTM_run.py --taskname cnews10k --n_topic 20 --num_epochs 600 --no_above 0.013 --dist dirichlet
 ```
+
+<p align="center">
+    <img src="assets/WTM_cnews10k.png" width="auto"\>
+</p>
+
+
 
 
 
@@ -94,11 +133,23 @@ _Research on Clustering for Subtitle Dialogue Text Based on Neural Topic Model_
 
 Leilan Zhang
 
-#### Abstract
+#### Description
 
-WAE with Gaussian Mixture prior + Gaussian Softmax.
+**WAE with Gaussian Mixture prior + Gaussian Softmax**
 
-[[Paper]](Under review) [[Code]](models/WLDA.py)
+An improved model of the original WLDA. It takes gaussian mixture distribution as prior distribution, which has two types of evolution strategy: `gmm-std` and `gmm-ctm` (GMM-standart and GMM-customized for short, respectively). The gmm-std adopts Gaussian mixture distribution,  whose components have fixed means and variances, while those of the gmm-ctm will adjust to fit the latent vectors through the whole training process. The number of the components is usually set as the same as the number of topics. Emperically, the WTM-GMM model usually achieve better performance, both in topic coherence and diversity, than WTM-MMD and NVDM-GSM. It also avoid the mode collapse problem, which is a problem plagues the GMNTM for a long time. I personally highly recommend this model.
+
+*Explaination for some arguments:*
+
+​	--dist: the type of the prior distribution, set as `gmm-std` or `gmm-ctm` to use the corresponding model.
+
+The meaning of other arguments can be referred to the [GSM](#NVDM-GSM) model.
+
+<p align="center">
+    <img src="assets/wtm_gmm_arch.png" width="720"\>
+</p>
+
+[[Paper]](Under review) [[Code]](models/WTM.py)
 
 
 
@@ -120,7 +171,17 @@ _Topic Modeling in Embedding Spaces_
 Adji B. Dieng, Francisco J. R. Ruiz, David M. Blei
 
 #### Abstract
-VAE + Gaussian Softmax + Embedding
+**VAE + Gaussian Softmax + Embedding**
+
+The architecture is a straightforward VAE, with the topic-word distribution matrix decomposed as the product of the topic vectors and the word vectors. The topic vectors and word vectors are jointly trained with the topic modeling process. A note-worthy mentioned advantage of this model is that it can improve the interpretability of topics by locatting the topic vectors and the word vectors in the same space. Correspondingly, the model requires more time to converge to an ideal result than others since it has more parameters to adjust.
+
+ *Explaination for some arguments:*
+
+​	--emb_dim: the dimension of the topic vectors as well as the word vectors, default set as 300.
+
+The meaning of other arguments can be referred to the [GSM](#NVDM-GSM) model.
+
+
 
 <p align="center">
     <img src="assets/etm_arch.png" width="720"\>
@@ -128,8 +189,8 @@ VAE + Gaussian Softmax + Embedding
 [[Paper]](https://arxiv.org/abs/1907.04907) [[Code]](models/ETM.py)
 
 #### Run Example
-```
-$ python3 ETM_run.py --taskname zhdd --n_topic 20 --num_epochs 900 --no_above 0.039
+```shell
+$ python3 ETM_run.py --taskname zhdd --n_topic 20 --num_epochs 1000 --no_below 5 --auto_adj --emb_dim 300
 ```
 
 
@@ -141,8 +202,10 @@ _Research on Clustering for Subtitle Dialogue Text Based on Neural Topic Model_
 #### Authors
 Leilan Zhang
 
-#### Abstract
-Based on VaDE ([Variational Deep Embedding: An Unsupervised and Generative Approach to Clustering](https://arxiv.org/abs/1611.05148))
+#### Description
+The architecture is based on [VaDE](https://arxiv.org/abs/1611.05148), which takes Gaussian mixture distribution as a prior distribution. Different from the Wasserstein distance adopted by WAE, the VaDE uses KL divergence to measure the discrepancy of prior and variational distribution. It adopts a discrete variable to indicate the belonging component and a continuous variable to indicate the vector in latent space.  The original intent of the GMNTM is to improve the model's representation ability with the import of the multi-mode distribution, to replace the single-mode multivariate Gaussian distribution utilized in GSM. Empirically, it does obtain a series of more diverse and coherent topics than GSM does. However, it suffers from the mode collapse problem, which will finally result in a series of homogeneous topics. Therefore, the training process should not be too long and should be stopped before the collapse occures. 
+
+Any suggestions are welcome.
 
 <p align="center">
     <img src="assets/gmvae_arch.png" width="720"\>
@@ -167,11 +230,17 @@ Rui Wang, Xuemeng Hu, Deyu Zhou, Yulan He, Yuxuan Xiong, Chenchen Ye, Haiyang Xu
 
 #### Description
 
-GAN+Encoder
+**GAN+Encoder**
+
+This model is made up of three modules: a Generator, a Discriminator, and an Encoder. The Encoder takes in a real document and outputs its topic distribution vector, concatenated with the normalized BOW of the original document. The Generator will takes in samples from a prior Dirichlet distribution and produce BOW vector of the fake document, concatenated with the sample distribution vectors. The Discriminator maximizes the likelihood of the real distribution pairs and minimizes the likelihood of the fake distribution pairs. Once done the training, the Encoder could output the topic distribution given a document, while the generator could output the topic-word distribution. Althrough it seems like a feasible approach to accomplish the topic modeling task through this adversarial way, my implement of this model cannot work properately. I still work on it and look for solutions. Any ideas or suggestions would be welcome.
 
 <p align="center">
     <img src="assets/BATM_arch.png" width="720"\>
+    <div align="center">
+    	(The picture is taken from the original <a href="https://arxiv.org/abs/2004.12331">paper</a>.)
+	</div>
 </p>
+
 
 
 [[Paper]](https://arxiv.org/abs/2004.12331) [[Code]](models/BATM.py)
@@ -216,7 +285,7 @@ $ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0
 <h6 id="zhdd_exp">zhdd</h6>
 
 <p align="center">
-    <img src="assets/zhdd_exp.png" width="640"\>
+    <img src="assets/zhdd_exp.png" width="720"\>
 </p>
 
 <h6 id="3body1_exp">3body1</h6>
@@ -229,9 +298,13 @@ $ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0
 
 
 
-<h4 id="Usage">Usage</h4>
+<h4 id="Usage">4. Usage</h4>
 
+In this section, I will take the zhddline text data as example and display how to apply the WTM-GMM model on it to modeling its topics.
 
+<h6 id="Usage">4.1 Preparation</h6>
+
+First, prepare the text date. You need to keep every document in one line, in our example, 
 
 <h4 id="Acknowledgement">Acknowledgement</h4>
 
@@ -243,9 +316,69 @@ In the construction of this project, some implementations are taken as reference
 
 Apache License 2.0
 
+```
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+```
+
+## 
 
 
--------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------
+
+
+
+
 
 <p align="center" id="title_zh"><img src="assets/logo.png" width="480"\></p>
 
