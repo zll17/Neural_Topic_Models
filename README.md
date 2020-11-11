@@ -50,7 +50,7 @@ Original paper: _Discovering Discrete Latent Topics with Neural Variational Infe
 *Author:* Yishu Miao
 
 <p align="center">
-    <img src="https://github.com/zll17/Neural_Topic_Models/assets/vae_arch.png" width="720"\>
+    <img src="assets/vae_arch.png" width="720"\>
 </p>
 
 
