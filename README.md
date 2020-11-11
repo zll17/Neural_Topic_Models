@@ -394,7 +394,7 @@ Apache License 2.0
 
 近年来基于VAE和GAN的神经主题模型的各类变种，相比于经典的统计主题模型（如LDA等），能提取到更一致的主题。NTM在稀疏性十分严重的场景下所提取到的主题，其一致性和多样性都优于LDA，是一种强大（且有意思）的模型。此项目的初衷是提供一组方便、实用的神经主题模型实现，包括部分论文的复现及我自己的改进模型。项目中的模型配置与原论文未必完全一致，但保留了原论文中心思想。
 
-此项目提供有三个中文短文本数据集——新闻标题数据集（[cnews10k](cnews10k)）和对话数据集（[zhdd](zhdd) 和 [zhddline](zhddline)），作评测之用。作为对比，提供了基于gensim编写的LDA脚本，开箱即用，且接口与NTM保持一致。
+此项目提供有三个中文短文本数据集——新闻标题数据集（[cnews10k](data/cnews10k_lines.txt)）和对话数据集（[zhdd](data/zhdd_lines.txt) 和 [zhddline](data/zhddline_lines.txt)），作评测之用。作为对比，提供了基于gensim编写的LDA脚本，开箱即用，且接口与NTM保持一致。
 
 ## 目录
 
@@ -409,7 +409,7 @@ Apache License 2.0
 
 ## TODO
 
-- 训练模型权重保存
+- <del>训练模型权重保存</del>
 - log 曲线绘制
 - 文档-主题分布推断
 - ETM 主题向量、词向量获取、保存
@@ -445,4 +445,4 @@ VAE + Gaussian Softmax
 <p align="center">
     <img src="assets/vae_arch.png" width="720"\>
 </p>
-
+（未完待续）
