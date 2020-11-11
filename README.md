@@ -50,8 +50,9 @@ Original paper: _Discovering Discrete Latent Topics with Neural Variational Infe
 *Author:* Yishu Miao
 
 <p align="center">
-    <img src="assets/vae_arch.png" width="720"\>
+    <img src="https://github.com/zll17/Neural_Topic_Models/assets/vae_arch.png" width="720"\>
 </p>
+
 
 #### Description
 **VAE + Gaussian Softmax**
@@ -297,11 +298,11 @@ $ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0
 
 <h4 id="Usage">4. Usage</h4>
 
-In this section, I will take the zhddline text data as example and display how to apply the WTM-GMM model on it to modeling its topics. You can use your own text data and follow the same steps.
+In this section, I will take the zhddline text data as an example and display how to apply the WTM-GMM model on it to modeling its topics. You can use your own text data and follow the same steps.
 
 <h6 id="Preparation">4.1 Preparation</h6>
 
-First, prepare the text date. One line will be taken as one document, so you need to keep one document in one line, in our example, each utterance per line. 
+First, prepare the text data. One line will be taken as one document, so you need to keep one document in one line, in our example, each utterance per line. 
 
 <p align="center">
     <img src="assets/zhddline_exp_short.png" width="640"\>
@@ -355,7 +356,7 @@ Apache License 2.0
 
 ```
 @misc{ZLL2020,
-  author = {Leilan Zhang},
+  author = {Leilan Zhang, Qiang Zhou},
   title = {Neural Topic Models},
   year = {2020},
   publisher = {GitHub},
@@ -387,7 +388,7 @@ Apache License 2.0
 
 [English](#title_en) | [中文](#title_zh)
 
-
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 一些神经主题模型（Neural Topic Model, NTM）的PyTorch实现，包括NVDM-GSM、WLDA、WTM-GMM、ETM、 BATM 和 GMNTM。
 

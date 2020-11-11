@@ -1,0 +1,5 @@
+pytorch
+gensim==3.8.3
+tqdm
+numpy
+matplotlib
