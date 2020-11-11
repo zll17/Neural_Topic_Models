@@ -338,7 +338,7 @@ The model will evaluate the topic coherence and topic diversity every 10 epochs,
 
 <h4 id="Acknowledgement">5. Acknowledgement</h4>
 
-A big part of this project is supported by my supervisor Prof. Qiang Zhou, I would highly appreciate him for his valuable comments and helpful suggestions.
+I would highly appreciate my supervisor [Prof. Qiang Zhou](http://cslt.riit.tsinghua.edu.cn/~qzhou/eng/index.htm) for his valuable inspiration and helpful suggestions to these neural topic models. A big part of this project is supported by him.
 
 In the construction of this project, some implementations are taken as reference, I would like to thank the contributors of those projects: 
 
@@ -346,7 +346,7 @@ In the construction of this project, some implementations are taken as reference
 - [WLDA](https://github.com/awslabs/w-lda) 
 - [ETM](https://github.com/adjidieng/ETM)
 
-
+I would also give thanks to @[NekoMt.Tai](https://github.com/xDarkLemon) for her kind shares of her GPU machines with me.
 
 <h4 id="License">License</h4>
 
