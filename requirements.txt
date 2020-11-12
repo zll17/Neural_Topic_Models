@@ -1,5 +1,6 @@
-pytorch
-gensim==3.8.3
+torch
+gensim
 tqdm
 numpy
 matplotlib
+pyhanlp

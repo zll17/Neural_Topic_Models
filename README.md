@@ -4,7 +4,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-PyTorch implementations of Neural Topic Model varieties proposed in recent years, including NVDM-GSM, WLDA, WTM-GMM, ETM, BATM ,and GMNTM. The aim of this project is to provide a practical and working example for neural topic models to facilitate the research of related fields. Configuration of the models will not exactly the same as those proposed in the papers, and the hyper-parameters are not carefully finetuned, but I have chosen to get the core ideas covered. 
+PyTorch implementations of Neural Topic Model varieties proposed in recent years, including NVDM-GSM, WTM-MMD (W-LDA), WTM-GMM, ETM, BATM ,and GMNTM. The aim of this project is to provide a practical and working example for neural topic models to facilitate the research of related fields. Configuration of the models will not exactly the same as those proposed in the papers, and the hyper-parameters are not carefully finetuned, but I have chosen to get the core ideas covered. 
 
 Empirically, NTM is superior to classical statistical topic models ,especially on short texts. Datasets of short news ([cnews10k](#cnews10k_exp)), dialogue utterances ([zhddline](#zhddline_exp)) and conversation ([zhdd](#zhdd_exp)), are presented for evaluation purpose, all of which are in Chinese. As a comparison to the NTM, an out-of-box LDA script is also provided, which is based on the gensim library. 
 
@@ -143,7 +143,7 @@ Original paper: _Research on Clustering for Subtitle Dialogue Text Based on Neur
 
 **WAE with Gaussian Mixture prior + Gaussian Softmax**
 
-An improved model of the original WLDA. It takes gaussian mixture distribution as prior distribution, which has two types of evolution strategy: `gmm-std` and `gmm-ctm` (GMM-standart and GMM-customized for short, respectively). The gmm-std adopts Gaussian mixture distribution,  whose components have fixed means and variances, while those of the gmm-ctm will adjust to fit the latent vectors through the whole training process. The number of the components is usually set as the same as the number of topics. Emperically, the WTM-GMM model usually achieve better performance, both in topic coherence and diversity, than WTM-MMD and NVDM-GSM. It also avoid the mode collapse problem, which is a problem plagues the GMNTM for a long time. I personally highly recommend this model.
+An improved model of the original WLDA. It takes gaussian mixture distribution as prior distribution, which has two types of evolution strategy: `gmm-std` and `gmm-ctm` (GMM-standart and GMM-customized for short, respectively). The gmm-std adopts Gaussian mixture distribution,  whose components have fixed means and variances, while those of the gmm-ctm will adjust to fit the latent vectors through the whole training process. The number of the components is usually set as the same as the number of topics. Emperically, the WTM-GMM model usually achieve better performance, both in topic coherence and diversity, than WTM-MMD and NVDM-GSM. It also avoid the mode collapse problem, which is a problem plagues the GMNTM for a long time. I personally recommend this model.
 
 *Explaination for some arguments:*
 
@@ -157,7 +157,7 @@ The meaning of other arguments can be referred to the [GSM](#NVDM-GSM) model.
 
 #### Run Example
 ```shell
-$ python3 WTM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0.039 --dist gmm-ctm
+$ python3 WTM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --dist gmm-ctm --no_below 5 --auto_adj
 ```
 
 <p align="center">
@@ -214,8 +214,8 @@ Any suggestions are welcome.
 [[Paper](https://arxiv.org/abs/1611.06430)]  [[Code](implementations/ccgan/ccgan.py)]
 
 #### Run Example
-```
-$ python3 GMNTM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0.039 
+```shell
+$ python3 GMNTM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_below 5 --auto_adj
 ```
 
 
@@ -244,8 +244,8 @@ This model is made up of three modules: a Generator, a Discriminator, and an Enc
 [[Paper](https://arxiv.org/abs/2004.12331)]  [[Code](models/BATM.py)]
 
 #### Run Example
-```
-$ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0.039 
+```shell
+$ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0.039 --no_below 5
 ```
 
 
@@ -302,15 +302,15 @@ In this section, I will take the zhddline text data as an example and display ho
 
 <h6 id="Preparation">4.1 Preparation</h6>
 
-First, prepare the text data. One line will be taken as one document, so you need to keep one document in one line, in our example, each utterance per line. 
+First, prepare the text data. One line will be taken as one document, so you need to **keep one document in one line**, in our example, each utterance per line. 
 
 <p align="center">
     <img src="assets/zhddline_exp_short.png" width="640"\>
 </p>
 
-Then modify the name of the text file into the format {taskname}_lines.txt, in this case, `zhddline_lines.txt`. Put the renamed file in the `data` directory.
+Then **modify the name of the text file** into the format {taskname}_lines.txt, in this case, `zhddline_lines.txt`. Put the renamed file in the `data` directory.
 
-Finally, choose the right tokenizer or create one by yourself. The tokenizer should be customized according to text type. The default configuration utilizes HanLP as tokenizer to deal with modern Chinese sentences. If you need to process other types of text (i.e. in English or in ancient Chinese), open the file `tokenization.py` ,  modify the code in function `Tokenizer` accordingly.
+Finally, **choose the right tokenizer or create one by yourself**. The tokenizer should be customized according to text type. The default configuration utilizes HanLP as tokenizer to deal with modern Chinese sentences. If you need to process other types of text (i.e. in English or in ancient Chinese), open the file `tokenization.py` ,  modify the code in function `Tokenizer` accordingly.
 
 <p align="center">
     <img src="assets/tokenizer_exp.png" width="512"\>
@@ -390,7 +390,7 @@ Apache License 2.0
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-一些神经主题模型（Neural Topic Model, NTM）的PyTorch实现，包括NVDM-GSM、WLDA、WTM-GMM、ETM、 BATM 和 GMNTM。
+若干神经主题模型（Neural Topic Model, NTM）的PyTorch实现，包括NVDM-GSM、WTM-MMD (W-LDA)、WTM-GMM、ETM、 BATM 和 GMNTM。
 
 近年来基于VAE和GAN的神经主题模型的各类变种，相比于经典的统计主题模型（如LDA等），能提取到更一致的主题。NTM在稀疏性十分严重的场景下所提取到的主题，其一致性和多样性都优于LDA，是一种强大（且有意思）的模型。此项目的初衷是提供一组方便、实用的神经主题模型实现，包括部分论文的复现及我自己的改进模型。项目中的模型配置与原论文未必完全一致，但保留了原论文中心思想。
 
@@ -415,6 +415,9 @@ Apache License 2.0
 - ETM 主题向量、词向量获取、保存
 - 隐空间绘制
 - 中文文档完善
+- 各个模型性能对比
+- 阶段性保存权重，断点续训
+2. 高亮推荐模型
 
 
 
@@ -434,9 +437,7 @@ $ sudo pip install -r requirements.txt
 
 论文： _Discovering Discrete Latent Topics with Neural Variational Inference_
 
-#### Authors
-
-Yishu Miao
+Author: Yishu Miao
 
 #### Description
 
