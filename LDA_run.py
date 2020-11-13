@@ -29,18 +29,20 @@ parser.add_argument('--auto_adj',action='store_true',help='To adjust the no_abov
 
 args = parser.parse_args()
 
-taskname = args.taskname
-no_below = args.no_below
-no_above = args.no_above
-num_iters = args.num_iters
-n_topic = args.n_topic
-n_cpu = cpu_count()-2 if cpu_count()>2 else 2
-bkpt_continue = args.bkpt_continue
-use_tfidf = args.use_tfidf
-rebuild = args.rebuild
-auto_adj = args.auto_adj
-
 def main():
+    global args
+    
+    taskname = args.taskname
+    no_below = args.no_below
+    no_above = args.no_above
+    num_iters = args.num_iters
+    n_topic = args.n_topic
+    n_cpu = cpu_count()-2 if cpu_count()>2 else 2
+    bkpt_continue = args.bkpt_continue
+    use_tfidf = args.use_tfidf
+    rebuild = args.rebuild
+    auto_adj = args.auto_adj
+
     docSet = DocDataset(taskname,no_below=no_below,no_above=no_above,rebuild=rebuild)
     if auto_adj:
         no_above = docSet.topk_dfs(topk=20)
