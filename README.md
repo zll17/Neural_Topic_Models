@@ -338,7 +338,7 @@ The model will evaluate the topic coherence and topic diversity every 10 epochs,
 
 <h4 id="Acknowledgement">5. Acknowledgement</h4>
 
-I would highly appreciate my supervisor [Prof. Qiang Zhou](http://cslt.riit.tsinghua.edu.cn/~qzhou/eng/index.htm) for his valuable inspiration and helpful suggestions to these neural topic models. A big part of this project is supported by him.
+I would highly appreciate my supervisor Prof. Qiang Zhou for his valuable inspiration and helpful suggestions to these neural topic models. A big part of this project is supported by him.
 
 In the construction of this project, some implementations are taken as reference, I would like to thank the contributors of those projects: 
 
