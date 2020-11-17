@@ -8,7 +8,9 @@ PyTorch implementations of Neural Topic Model varieties proposed in recent years
 
 Empirically, NTM is superior to classical statistical topic models ,especially on short texts. Datasets of short news ([cnews10k](#cnews10k_exp)), dialogue utterances ([zhddline](#zhddline_exp)) and conversation ([zhdd](#zhdd_exp)), are presented for evaluation purpose, all of which are in Chinese. As a comparison to the NTM, an out-of-box LDA script is also provided, which is based on the gensim library. 
 
-Any suggestions or contributions to improving this implementation of NTM are welcomed.
+Any suggestions or contributions to improving this implementation of NTM are welcomed. Hope it can make your life better ;)
+
+*Note*: If you find it's slow to load the pictures of this readme file, you can read this [article](https://zll17.github.io/2020/11/17/Introduction-to-Neural-Topic-Models/) at my blog.
 
 <h2 id="TOC_EN">Table of Contents</h2>
 
@@ -346,7 +348,7 @@ In the construction of this project, some implementations are taken as reference
 - [WLDA](https://github.com/awslabs/w-lda) 
 - [ETM](https://github.com/adjidieng/ETM)
 
-I would also give thanks to @[NekoMt.Tai](https://github.com/xDarkLemon) for her kind shares of her GPU machines with me :-)
+I would also give thanks to @[NekoMt.Tai](https://github.com/xDarkLemon) for her kind shares of her GPU machines with me.
 
 <h4 id="License">License</h4>
 
@@ -395,6 +397,8 @@ Apache License 2.0
 近年来基于VAE和GAN的神经主题模型的各类变种，相比于经典的统计主题模型（如LDA等），能提取到更一致的主题。NTM在稀疏性十分严重的场景下所提取到的主题，其一致性和多样性都优于LDA，是一种强大（且有意思）的模型。此项目的初衷是提供一组方便、实用的神经主题模型实现，包括部分论文的复现及我自己的改进模型。项目中的模型配置与原论文未必完全一致，但保留了原论文中心思想。
 
 此项目提供有三个中文短文本数据集——新闻标题数据集（[cnews10k](data/cnews10k_lines.txt)）和对话数据集（[zhdd](data/zhdd_lines.txt) 和 [zhddline](data/zhddline_lines.txt)），作评测之用。作为对比，提供了基于gensim编写的LDA脚本，开箱即用，且接口与NTM保持一致。
+
+*Note*：由于国内访问GitHub不便，如果你遇到ReadMe图片加载不出的问题，可以访问我的blog查看其[拷贝](https://zll17.github.io/2020/11/17/Introduction-to-Neural-Topic-Models/)。
 
 ## 目录
 
