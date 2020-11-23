@@ -70,6 +70,10 @@ def main():
     model.evaluate(test_data=docSet)
     save_name = f'./ckpt/WTM_{taskname}_tp{n_topic}_{dist}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
     torch.save(model.wae.state_dict(),save_name)
+    txt_lst, embeds = model.get_embed(train_data=docSet, num=1000)
+    torch.save({'txts':txt_lst,'embeds':embeds},'wtm_embeds.pkl')
+    
+    
 
 
 if __name__ == "__main__":

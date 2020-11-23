@@ -78,10 +78,20 @@ def main():
     topic_ids = np.array([f'TP{i}' for i in range(n_topic)]).reshape(-1,1)
     word_vecs = np.concatenate([vocab,word_vecs],axis=1)
     topic_vecs = np.concatenate([topic_ids,topic_vecs],axis=1)
-    save_name_tp = f'./ckpt/TpVec_ETM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.emb'
+    #save_name_tp = f'./ckpt/TpVec_ETM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.emb'
     save_name_wd = f'./ckpt/WdVec_ETM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.emb'
-    torch.save(topic_vecs,save_name_tp)
-    torch.save(word_vecs,save_name_wd)
+    n_instances = word_vecs.shape[0]+topic_vecs.shape[0]
+    with open(save_name_wd,'w',encoding='utf-8') as wfp:
+        wfp.write(f'{n_instances} {emb_dim}\n')
+        wfp.write('\n'.join([' '.join(e) for e in word_vecs]+[' '.join(e) for e in topic_vecs]))
+    from gensim.models import KeyedVectors
+    w2v = KeyedVectors.load_word2vec_format(save_name_wd,binary=False)
+    w2v.save(save_name.split('.')[0]+'.w2v')
+    print(w2v.vocab.keys())
+    #w2v.most_similar('你好')
+    for i in range(n_topic):
+        print(f'Most similar to Topic {i}')
+        print(w2v.most_similar(f'TP{i}'))
 
 if __name__ == "__main__":
     main()

@@ -12,6 +12,7 @@
 
 import os
 import re
+import time
 import pickle
 import torch
 import torch.nn as nn
@@ -90,6 +91,8 @@ class WTM:
                 if test_data!=None:
                     c_v,c_w2v,c_uci,c_npmi,mimno_tc, td = self.evaluate(test_data,calc4each=False)
                     c_v_lst.append(c_v), c_w2v_lst.append(c_w2v), c_uci_lst.append(c_uci),c_npmi_lst.append(c_npmi), mimno_tc_lst.append(mimno_tc), td_lst.append(td)
+                save_name = f'./ckpt/WTM_{self.taskname}_tp{self.n_topic}_{self.dist}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
+                torch.save(self.wae.state_dict(),save_name)
         scrs = {'c_v':c_v_lst,'c_w2v':c_w2v_lst,'c_uci':c_uci_lst,'c_npmi':c_npmi_lst,'mimno_tc':mimno_tc_lst,'td':td_lst}
         '''
         for scr_name,scr_lst in scrs.items():
@@ -136,6 +139,24 @@ class WTM:
             if normalize:
                 theta = F.softmax(theta,dim=1)
             return theta.detach().cpu().squeeze(0).numpy()
+
+    def get_embed(self,train_data, num=1000):
+        self.wae.eval()
+        data_loader = DataLoader(train_data, batch_size=512,shuffle=False, num_workers=4, collate_fn=train_data.collate_fn)
+        embed_lst = []
+        txt_lst = []
+        for data_batch in data_loader:
+            txts, bows = data_batch
+            embed = self.inference(bows,train_data.dictionary)
+            embed_lst.append(embed)
+            txt_lst.append(txts)
+            cnt += embed.shape[0]
+            if cnt>=num:
+                break
+        embed_lst = torch.concat(embed_lst,dim=0)[:num]
+        txt_lst = torch.concat(txt_lst,dim=0)[:num]
+        return txt_lst, embed_lst
+
 
     def get_topic_word_dist(self,normalize=True):
         self.wae.eval()
