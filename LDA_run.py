@@ -86,7 +86,7 @@ def main():
     topic_words = get_topic_words(model=lda_model,n_topic=n_topic,topn=15,vocab=docSet.dictionary)
 
 
-    cv_score, w2v_score, c_uci_score, c_npmi_score = calc_topic_coherence(topic_words,docs=docSet.docs,dictionary=docSet.dictionary)
+    (cv_score, w2v_score, c_uci_score, c_npmi_score),_ = calc_topic_coherence(topic_words,docs=docSet.docs,dictionary=docSet.dictionary)
 
     topic_diversity = calc_topic_diversity(topic_words)
 

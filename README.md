@@ -8,7 +8,7 @@ PyTorch implementations of Neural Topic Model varieties proposed in recent years
 
 Empirically, NTM is superior to classical statistical topic models ,especially on short texts. Datasets of short news ([cnews10k](#cnews10k_exp)), dialogue utterances ([zhddline](#zhddline_exp)) and conversation ([zhdd](#zhdd_exp)), are presented for evaluation purpose, all of which are in Chinese. As a comparison to the NTM, an out-of-box LDA script is also provided, which is based on the gensim library. 
 
-Any suggestions or contributions to improving this implementation of NTM are welcomed. Hope it can make your life better ;)
+If you have any question or suggestion about this implementation, please do not hesitate to contact me.   **To make it better, welcome to join me.** ;)
 
 *Note*: If you find it's slow to load the pictures of this readme file, you can read this [article](https://zll17.github.io/2020/11/17/Introduction-to-Neural-Topic-Models/) at my blog.
 
@@ -398,20 +398,33 @@ Apache License 2.0
 
 此项目提供有三个中文短文本数据集——新闻标题数据集（[cnews10k](data/cnews10k_lines.txt)）和对话数据集（[zhdd](data/zhdd_lines.txt) 和 [zhddline](data/zhddline_lines.txt)），作评测之用。作为对比，提供了基于gensim编写的LDA脚本，开箱即用，且接口与NTM保持一致。
 
+**如果你对某些实现有疑问或者有更好的想法，欢迎加入我。**
+
 *Note*：由于国内访问GitHub不便，如果你遇到ReadMe图片加载不出的问题，可以访问我的blog查看其[拷贝](https://zll17.github.io/2020/11/17/Introduction-to-Neural-Topic-Models/)。
 
 ## 目录
 
-  * [TODO](TODO)
-  * [安装](#安装)
-  * [模型](模型)
-  * [数据集](数据集)
-  * [应用示例](应用示例)
-  * [致谢](致谢)
+  * [TODO](#TODO-zh)
+  * [安装](#Installation-zh)
+  * [模型](#Models-zh)
+      * [2.1 NVDM-GSM](#NVDM-GSM-zh)
+    * [2.2 WTM-MMD](#WTM-MMD-zh)
+    * [2.3 WTM-GMM](#WTM-GMM-zh)
+    * [2.4 ETM](#ETM-zh)
+    * [2.5 GMNTM](#GMNTM-VaDE-zh)
+    * [2.6 BATM](#BATM-zh)
+  * [数据集](#Datasets-zh)
+      * [3.1 cnews10k](#cnews10k_exp-zh)
+    * [3.2 zhddline](#zhddline_exp-zh)
+    * [3.3 zhdd](#zhdd_exp-zh)
+  * [使用教程](#Usage-zh)
+      * [4.1 Preparation](#Preparation-zh)
+    * [4.2 Run](#Run-zh)
+  * [Acknowledgement](#Acknowledgement-zh)
 
 
 
-## TODO
+<h2 id="TODO-zh">TODO</h2>
 
 - <del>训练模型权重保存</del>
 - log 曲线绘制
@@ -425,7 +438,7 @@ Apache License 2.0
 
 
 
-## 安装
+<h2 id="Installation-zh">1. 安装</h2>
 
 ``` shell
 $ git clone https://github.com/zll17/Neural_Topic_Models
@@ -435,19 +448,330 @@ $ sudo pip install -r requirements.txt
 
 
 
-## 模型
+<h2 id="Models-zh">2. 模型</h2>
 
-### NVDM-GSM
+<h3 id="NVDM-GSM-zh">2.1 NVDM-GSM</h3>
 
 论文： _Discovering Discrete Latent Topics with Neural Variational Inference_
 
-Author: Yishu Miao
-
-#### Description
-
-VAE + Gaussian Softmax
+作者: Yishu Miao
 
 <p align="center">
     <img src="assets/vae_arch.png" width="720"\>
 </p>
-（未完待续）
+#### Description
+
+**VAE + Gaussian Softmax**
+
+模型输入是文档的词袋表示BOW，其架构为简单的VAE。从变分分布 *Q(z|x)*中采样出隐变量**z**后，模型会通过softmax层将**z**规范化，并将规范后的向量作为文档-主题分布 $ \theta $ 。经过一些试验，我发现在softmax层之前加上一个仿射层会极大地改善模型的性能，因此这个实现中有一个可选参数**use_fc1**用以选择是否启用这一仿射层。模型中，编码器和解码器的具体配置（如层数，维度等）都可以定制，取决于你的应用场景。
+
+*参数解释：*
+
+​	--taskname: 用以主题建模的数据集的名字。
+
+​	--n_topic: 主题数。
+
+​	--num_epochs: 模型总共的训练轮次。
+
+​	--no_below: 为整数，文档频率小于该阈值的词将会被过滤掉。
+
+​	--no_above: 为(0,1)之间的实数，是比例值，文档频率高于该阈值的词将会被过滤掉。
+
+​	--use_fc1: 在softmax层之前启用一个仿射层。
+
+​	--auto_adj: 当启用此参数时，不必再设定no_above参数，文档频率最高的20个词将会自动被滤去。
+
+​	--bkpt_continue: 启用此参数时，模型会加载最新的checkpoint文件，并在此基础上继续训练。
+
+[[Paper](http://proceedings.mlr.press/v70/miao17a.html)]  [[Code](models/GSM.py)]
+
+#### Run Example
+
+```shell
+$ python3 GSM_run.py --taskname cnews10k --n_topic 20 --num_epochs 1000 --no_above 0.0134 --no_below 5 --criterion cross_entropy --use_fc1
+```
+
+<p align="center">
+    <img src="assets/GSM_cnews10k.png" width="auto"\>
+</p>
+
+
+
+<h3 id="WTM-MMD-zh">2.2 WTM-MMD</h3>
+
+论文: _Topic Modeling with Wasserstein Autoencoders_
+
+作者: Feng Nan, Ran Ding, Ramesh Nallapati, Bing Xiang
+
+<p align="center">
+    <img src="assets/wtm_arch.png" width="720"\>
+</p>
+
+#### Description
+
+**WAE with Dirichlet prior + Gaussian Softmax**
+
+模型结构是WAE，本质上是一个对隐空间有附加约束的自编码器。 据原[论文](https://www.aclweb.org/anthology/P19-1640/)，模型将隐变量** z **的先验分布取为Dirichlet分布，在Wasserstein距离下对变分分布进行优化。与GSM模型相比，该模型可以极大地缓解KL崩塌的问题并获得一致性更高的主题。
+
+*参数解释：*
+
+--dist：先验分布的类型，当启用W-LDA模型时需设置为`dirichlet`。
+
+--alpha：dirichlet分布中的超参数$ \ alpha $。
+
+其余参数的意义可参考 [GSM](#NVDM-GSM-zh) 模型。
+
+[[Paper](https://www.aclweb.org/anthology/P19-1640/)]  [[Code](models/WTM.py)]
+
+#### Run Example
+
+```shell
+$ python3 WTM_run.py --taskname cnews10k --n_topic 20 --num_epochs 600 --no_above 0.013 --dist dirichlet
+```
+
+<p align="center">
+    <img src="assets/WTM_cnews10k.png" width="auto"\>
+</p>
+
+
+
+<h3 id="WTM-GMM-zh">2.3 WTM-GMM</h3>
+
+论文: _Research on Clustering for Subtitle Dialogue Text Based on Neural Topic Model_
+
+作者: Leilan Zhang
+
+<p align="center">
+    <img src="assets/wtm_gmm_arch.png" width="720"\>
+</p>
+
+#### Description
+
+**WAE with Gaussian Mixture prior + Gaussian Softmax**
+
+原WLDA的改进模型。 它以高斯混合分布作为先验分布，具有两种训练策略：gmm-std和gmm-ctm（分别为GMM-standart和GMM-customized的缩写）。 gmm-std采用高斯混合分布，其成分具有固定的均值和方差，而gmm-ctm的成分将在整个训练过程中进行调整以拟合隐变量。 其成分数通常设置为与主题数相同。 经验表明，与WTM-MMD和NVDM-GSM相比，WTM-GMM模型通常在主题一致性和多样性上都具有更好的性能，它还避免了长期困扰GMNTM的模式崩塌问题。 在选择GMM作先验的模型中，该模型是不错的选择。
+
+*参数解释：*
+
+--dist：先验分布的类型，可设为`gmm-std`或`gmm-ctm`以启用对应的模型。
+
+其余参数的意义可参考 [GSM](#NVDM-GSM-zh) 模型。
+
+[[Paper](https://www.aclweb.org/anthology/P19-1640/)]  [[Code](models/WTM.py)]
+
+#### Run Example
+
+```shell
+$ python3 WTM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --dist gmm-ctm --no_below 5 --auto_adj
+```
+
+<p align="center">
+    <img src="assets/WLDA-GMM_zhdd.png" width="auto"\>
+</p>
+
+
+
+<h3 id="ETM-zh">2.4 ETM</h3>
+
+论文: _Topic Modeling in Embedding Spaces_
+
+作者: Adji B. Dieng, Francisco J. R. Ruiz, David M. Blei
+
+<p align="center">
+    <img src="assets/etm_arch.png" width="720"\>
+</p>
+
+#### Description
+
+**VAE + Gaussian Softmax + Embedding**
+
+模型结构为简单的VAE，其主题-词分布矩阵被分解为主题向量和词向量的乘积。其中，主题向量和词向量通过与主题建模过程联合训练获得。值得一提的是，该模型可将主题向量和词向量放入同一空间中来提高主题的可解释性。 由于需要调节的参数更多，与其他模型相比，该模型需要更多时间才能收敛到理想结果。
+
+*参数解释：*
+
+--emb_dim：主题向量的维度，默认为300。
+
+其余参数的意义可参考 [GSM](#NVDM-GSM-zh) 模型。
+
+[[Paper](https://arxiv.org/abs/1907.04907)]  [[Code](models/ETM.py)]
+
+#### Run Example
+
+```shell
+$ python3 ETM_run.py --taskname zhdd --n_topic 20 --num_epochs 1000 --no_below 5 --auto_adj --emb_dim 300
+```
+
+
+
+<h3 id="GMNTM-VaDE-zh">2.5 GMNTM</h3>
+
+论文: _Research on Clustering for Subtitle Dialogue Text Based on Neural Topic Model_
+
+作者: Leilan Zhang
+
+<p align="center">
+    <img src="assets/gmvae_arch.png" width="720"\>
+</p>
+
+#### Description
+
+模型结构基于[VaDE](https://arxiv.org/abs/1611.05148)，该模型将高斯混合分布作为先验分布。 与WAE采用的Wasserstein距离不同，VaDE使用KL散度来度量先验分布和变分分布的差异。 它采用离散变量表示所属成分，采用连续变量表示隐空间中的向量。 GMNTM的初衷是通过引入多峰分布来提高模型的表示能力，以取代GSM中使用的单峰多元高斯分布。 从经验上讲，它确实比GSM获得了一系列更加多样化和连贯的主题。 但是，它存在模式崩溃问题，最终将导致一系列同类主题。 因此，训练过程不应太长，并且应在崩溃发生之前停止训练。我正在解决这一问题，改进后的模型随后会添加到新版本中。欢迎提供各种思路和建议。
+
+[[Paper](On the way)]  [[Code](models/GMNTM.py)]
+
+#### Run Example
+
+```shell
+$ python3 GMNTM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_below 5 --auto_adj
+```
+
+
+
+<h3 id="BATM-zh">2.6 BATM</h3>
+
+论文: _Neural Topic Modeling with Bidirectional Adversarial Training_
+
+作者: Rui Wang, Xuemeng Hu, Deyu Zhou, Yulan He, Yuxuan Xiong, Chenchen Ye, Haiyang Xu
+
+<p align="center">
+    <img src="assets/BATM_arch.png" width="720"\>
+    <div align="center">
+    	(The picture is taken from the original <a href="https://arxiv.org/abs/2004.12331">paper</a>.)
+	</div>
+</p>
+
+#### Description
+
+**GAN+Encoder**
+
+该模型由三个模块组成：生成器，判别器和编码器。 编码器接收真实文档，输出其主题分布向量，并将其与原始文档的归一化BOW连接。 生成器将从先验的Dirichlet分布中获取样本，生成伪造文档的BOW表示，并将其与分布的样本向量连接在一起。 判别器会最大化真实分布对的概率，并最小化伪造分布对的概率。 训练完成后，编码器可以输出给定文档的主题分布，而生成器可以输出主题词分布。通过这种对抗方式来完成主题建模任务看起来似乎是可行的，但是我的实现还不能正常运行。我目前仍在寻找解决方案，欢迎提供任何思路或建议。
+
+[[Paper](https://arxiv.org/abs/2004.12331)]  [[Code](models/BATM.py)]
+
+
+
+#### Run Example
+
+```shell
+$ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0.039 --no_below 5
+```
+
+
+
+<h2 id="Datasets-zh">3. 数据集</h2>
+
+- cnews10k: 从 [cnews](http://thuctc.thunlp.org/#%E4%B8%AD%E6%96%87%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE%E9%9B%86THUCNews) 数据集中选取的中文新闻标题数据, 短文本。
+
+- zhddline: 中文对话数据集, 从 [DailyDialog](https://www.aclweb.org/anthology/I17-1099/) 数据集翻译而来（基于搜狗翻译API），短文本。
+
+- zhdd:  zhddline的会话版，每一个会话被拼接为一个文档，长文本。共有12336个文档。.
+
+- 3body1: 著名科幻小说《三体1-地球往事》，每一段落被作为一个文档，长文本。
+
+  
+
+  上述数据集的基础统计信息列于下表：
+
+  | dataset                             | num of document | genre            | avg len of docs | language |
+  | ----------------------------------- | --------------- | ---------------- | --------------- | -------- |
+  | [cnews10k](data/cnews10k_lines.txt) | 10k             | short news       | 18.7            | Chinese  |
+  | [zhddline](data/zhddline_lines.txt) | 96785           | short utterances | 18.1            | Chinese  |
+  | [zhdd](data/zhdd_lines.txt)         | 12336           | short dialogues  | 142.1           | Chinese  |
+  | [3body1](data/3body1_lines.txt)     | 2626            | long novel       | 73.8            | Chinese  |
+
+**数据集片段展示**
+
+<h6 id="cnews10k_exp-zh">3.1 cnews10k</h6>
+
+<p align="center">
+    <img src="assets/cnews10k_exp.png" width="640"\>
+</p>
+
+<h6 id="zhddline_exp-zh">3.2 zhddline</h6>
+
+<p align="center">
+    <img src="assets/zhddline_exp.png" width="640"\>
+</p>
+
+<h6 id="zhdd_exp-zh">3.3 zhdd</h6>
+
+<p align="center">
+    <img src="assets/zhdd_exp.png" width="720"\>
+</p>
+
+<h6 id="3body1_exp-zh">3.4 3body1</h6>
+
+<p align="center">
+    <img src="assets/3body1_exp.png" width="720"\>
+</p>
+
+
+
+<h4 id="Usage-zh">4. 使用教程</h4>
+
+在本节中，我将以zhddline文本数据为例，展示如何应用WTM-GMM模型对其进行主题建模。 你可以使用自己的文本数据，只要遵循相同步骤即可。
+
+<h6 id="Preparation-zh">4.1 Preparation</h6>
+
+首先需要准备文本数据，**一行作为一个文档**。在示例zhddline中，每行是一句对话话语。
+
+<p align="center">
+    <img src="assets/zhddline_exp_short.png" width="640"\>
+</p>
+
+然后将文本文件的名称修改为{taskname} _lines.txt，例如修改为“ zhddline_lines.txt”。 将修改后的文件放在“data”目录下。
+
+最后，**选择合适的分词器**（没有合适的就自己写一个）。 分词器应根据文本类型定制。默认配置使用HanLP作为分词器来处理现代汉语句子。 如果你需要处理其他类型的文本（如英语或古汉语），可打开文件`tokenization.py`，并修改`Tokenizer`函数的代码。
+
+<p align="center">
+    <img src="assets/tokenizer_exp.png" width="512"\>
+</p>
+
+<h6 id="Run-zh">4.2 Run</h6>
+
+准备工作完成后，运行模型对应的run脚本，在示例zhddline中，将taskname设置为zhddline并指定其他必要的参数。
+
+```shell
+$ python3 WTM_run.py --taskname zhddline --n_topic 20 --num_epochs 1000 --no_below 5 --dist gmm-std --auto_adj
+```
+
+模型每10个epoch后会评价主题的一致性和多样性，并显示每个主题的前20个主题词。训练完成后，模型的权重将存储在`ckpt`目录中。 主题建模的结果如下所示。
+
+<p align="center">
+    <img src="assets/WLDA-GMM_zhddline10k.png" width="auto"\>
+</p>
+
+
+
+<h4 id="Acknowledgement-zh">5. Acknowledgement</h4>
+
+感谢我的导师 周强 教授对我在主题建模问题上的启发和提供有用的建议。此项目的很大一部分都得益于他的支持。
+
+在构建此项目的过程中，我参考了一些模型的实现，在此谨向这些项目的贡献者表示感谢：
+
+- [VaDE](https://github.com/GuHongyang/VaDE-pytorch)
+- [WLDA](https://github.com/awslabs/w-lda) 
+- [ETM](https://github.com/adjidieng/ETM)
+
+感谢 @[柚子酱](https://github.com/xDarkLemon) 慷慨分享GPU服务器给我 :-D
+
+
+
+<h4 id="License">License</h4>
+
+Apache License 2.0 
+
+**Cite**: If you find this code useful in your research, please consider citing:
+
+```
+@misc{ZLL2020,
+  author = {Leilan Zhang},
+  title = {Neural Topic Models},
+  year = {2020},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/zll17/Neural_Topic_Models}},
+  commit = {f02e8f876449fc3ebffc66f7635a59281b08c1eb}
+}
+```
+
