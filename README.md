@@ -459,6 +459,8 @@ $ sudo pip install -r requirements.txt
 <p align="center">
     <img src="assets/vae_arch.png" width="720"\>
 </p>
+
+
 #### Description
 
 **VAE + Gaussian Softmax**
