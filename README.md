@@ -340,7 +340,7 @@ The model will evaluate the topic coherence and topic diversity every 10 epochs,
 
 <h4 id="Acknowledgement">5. Acknowledgement</h4>
 
-I would appreciate my supervisor Prof. Qiang Zhou for his helpful suggestions to these neural topic models. A big part of this project is supported by him.
+I would appreciate my supervisor Prof. [Qiang Zhou](http://cslt.riit.tsinghua.edu.cn/~qzhou/eng/index.htm) for his helpful suggestions to these neural topic models. A big part of this project is supported by him.
 
 In the construction of this project, some implementations are taken as reference, I would like to thank the contributors of those projects: 
 
@@ -620,7 +620,7 @@ $ python3 ETM_run.py --taskname zhdd --n_topic 20 --num_epochs 1000 --no_below 5
 
 模型结构基于[VaDE](https://arxiv.org/abs/1611.05148)，该模型将高斯混合分布作为先验分布。 与WAE采用的Wasserstein距离不同，VaDE使用KL散度来度量先验分布和变分分布的差异。 它采用离散变量表示所属成分，采用连续变量表示隐空间中的向量。 GMNTM的初衷是通过引入多峰分布来提高模型的表示能力，以取代GSM中使用的单峰多元高斯分布。 从经验上讲，它确实比GSM获得了一系列更加多样化和连贯的主题。 但是，它存在模式崩溃问题，最终将导致一系列同类主题。 因此，训练过程不应太长，并且应在崩溃发生之前停止训练。我正在解决这一问题，改进后的模型随后会添加到新版本中。欢迎提供各种思路和建议。
 
-[[Paper](On the way)]  [[Code](models/GMNTM.py)]
+[Paper](On the way)  [[Code](models/GMNTM.py)]
 
 #### Run Example
 
@@ -724,7 +724,7 @@ $ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0
 
 然后将文本文件的名称修改为{taskname} _lines.txt，例如修改为“ zhddline_lines.txt”。 将修改后的文件放在“data”目录下。
 
-最后，**选择合适的分词器**（没有合适的就自己写一个）。 分词器应根据文本类型定制。默认配置使用HanLP作为分词器来处理现代汉语句子。 如果你需要处理其他类型的文本（如英语或古汉语），可打开文件`tokenization.py`，并修改`Tokenizer`函数的代码。
+最后，**选择合适的分词器**（没有合适的就自己写一个吧）。 分词器应根据文本类型定制。默认配置使用HanLP作为分词器来处理现代汉语句子。 如果你需要处理其他类型的文本（如英语或古汉语），可打开文件`tokenization.py`，并修改`Tokenizer`函数的代码。
 
 <p align="center">
     <img src="assets/tokenizer_exp.png" width="512"\>
@@ -732,7 +732,7 @@ $ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0
 
 <h6 id="Run-zh">4.2 Run</h6>
 
-准备工作完成后，运行模型对应的run脚本，在示例zhddline中，将taskname设置为zhddline并指定其他必要的参数。
+准备工作完成后，运行模型对应的run脚本，在本示例中，将taskname设置为zhddline并指定其他必要的参数。
 
 ```shell
 $ python3 WTM_run.py --taskname zhddline --n_topic 20 --num_epochs 1000 --no_below 5 --dist gmm-std --auto_adj
@@ -748,7 +748,7 @@ $ python3 WTM_run.py --taskname zhddline --n_topic 20 --num_epochs 1000 --no_bel
 
 <h4 id="Acknowledgement-zh">5. Acknowledgement</h4>
 
-感谢我的导师 周强 教授对我在主题建模问题上的启发和提供有用的建议。此项目的很大一部分都得益于他的支持。
+感谢我的导师 [周强](http://cslt.riit.tsinghua.edu.cn/~qzhou/eng/index.htm) 教授对我在主题建模问题上的启发和提供有用的建议。此项目的很大一部分都得益于他的支持。
 
 在构建此项目的过程中，我参考了一些模型的实现，在此谨向这些项目的贡献者表示感谢：
 
