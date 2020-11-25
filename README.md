@@ -434,7 +434,8 @@ Apache License 2.0
 - 中文文档完善
 - 各个模型性能对比
 - 阶段性保存权重，断点续训
-2. 高亮推荐模型
+- 高亮推荐模型
+- DETM
 
 
 
@@ -452,7 +453,7 @@ $ sudo pip install -r requirements.txt
 
 <h3 id="NVDM-GSM-zh">2.1 NVDM-GSM</h3>
 
-论文： _Discovering Discrete Latent Topics with Neural Variational Inference_
+论文: _Discovering Discrete Latent Topics with Neural Variational Inference_
 
 作者: Yishu Miao
 
@@ -513,7 +514,7 @@ $ python3 GSM_run.py --taskname cnews10k --n_topic 20 --num_epochs 1000 --no_abo
 
 **WAE with Dirichlet prior + Gaussian Softmax**
 
-模型结构是WAE，本质上是一个对隐空间有附加约束的自编码器。 据原[论文](https://www.aclweb.org/anthology/P19-1640/)，模型将隐变量** z **的先验分布取为Dirichlet分布，在Wasserstein距离下对变分分布进行优化。与GSM模型相比，该模型可以极大地缓解KL崩塌的问题并获得一致性更高的主题。
+模型结构是WAE，本质上是一个对隐空间施约束的自编码器。 根据原[论文](https://www.aclweb.org/anthology/P19-1640/)，模型将隐变量**z**的先验分布取为Dirichlet分布，在Wasserstein距离下对变分分布进行优化。与GSM模型相比，该模型可以极大地缓解KL崩塌的问题，获得一致性更高的主题。
 
 *参数解释：*
 
