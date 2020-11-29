@@ -10,9 +10,16 @@ def Tokenizer(sent,stopwords=None):
     if stopwords!=None:
         tokens = [t for t in tokens if not (t in stopwords)]
     return tokens
+
 '''
 def Tokenizer(sent,stopwords=None):
-    return sent.split(' ')
+    pat = re.compile(u'[0-9’!"#$%&\'()*+,-./:;<=>?@??\"，。?：★、￥%……【】\.（）《》？“”‘’！\[\\\]^_`{|}~\u3    000]+') 
+    tokens = sent.split(' ')
+    tokens = [re.sub(pat,r'',t).strip() for t in tokens]
+    from nltk.stem import WordNetLemmatizer
+    wnl = WordNetLemmatizer()
+    tokens = [wnl.lemmatize(t).lower() for t in tokens]                                                   
+    return tokens
 '''
 
 if __name__ == '__main__':
