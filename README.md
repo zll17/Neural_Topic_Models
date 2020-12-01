@@ -59,7 +59,7 @@ Original paper: _Discovering Discrete Latent Topics with Neural Variational Infe
 #### Description
 **VAE + Gaussian Softmax**
 
-The architecture of the model is a simple VAE, which takes the BOW of a document as its input. After sampling the latent vector **z** from the variational distribution *Q(z|x)*, the model will normalize **z** through a softmax layer, which will be taken as the topic distribution $ \theta $ in the following steps. Emperically, I found that adding a fully-connected layer before the softmax layer would largely improve the model's performance, therefore, an optional argument **use_fc1** is provided to indicate whether to adopt the affine layer or not. The configuration of the encoder and decoder could also be customized by yourself, depending on your application.
+The architecture of the model is a simple VAE, which takes the BOW of a document as its input. After sampling the latent vector **z** from the variational distribution *Q(z|x)*, the model will normalize **z** through a softmax layer, which will be taken as the topic distribution $ \theta $ in the following steps. The configuration of the encoder and decoder could also be customized by yourself, depending on your application.
 
  *Explaination for some arguments:*
 
@@ -73,8 +73,6 @@ The architecture of the model is a simple VAE, which takes the BOW of a document
 
 ​	--no_above: to filter out the tokens whose document frequency is higher than the threshold, set as a float number to indicate the ratio of the number of documents.
 
-​	--use_fc1: adopt an affine layer before the softmax layer when specified.
-
 ​	--auto_adj: once adopted, there would be no need to specify the no_above argument, the model will automatically filter out the top 20 words with the highest document frequencies.
 
 ​	--bkpt_continue: once adopted, the model will load the last checkpoint file and continue training.
@@ -85,7 +83,7 @@ The architecture of the model is a simple VAE, which takes the BOW of a document
 
 #### Run Example
 ```
-$ python3 GSM_run.py --taskname cnews10k --n_topic 20 --num_epochs 1000 --no_above 0.0134 --no_below 5 --criterion cross_entropy --use_fc1
+$ python3 GSM_run.py --taskname cnews10k --n_topic 20 --num_epochs 1000 --no_above 0.0134 --no_below 5 --criterion cross_entropy
 ```
 
 <p align="center">
@@ -466,7 +464,7 @@ $ sudo pip install -r requirements.txt
 
 **VAE + Gaussian Softmax**
 
-模型输入是文档的词袋表示BOW，其架构为简单的VAE。从变分分布 *Q(z|x)*中采样出隐变量**z**后，模型会通过softmax层将**z**规范化，并将规范后的向量作为文档-主题分布 $ \theta $ 。经过一些试验，我发现在softmax层之前加上一个仿射层会极大地改善模型的性能，因此这个实现中有一个可选参数**use_fc1**用以选择是否启用这一仿射层。模型中，编码器和解码器的具体配置（如层数，维度等）都可以定制，取决于你的应用场景。
+模型输入是文档的词袋表示BOW，其架构为简单的VAE。从变分分布 *Q(z|x)*中采样出隐变量**z**后，模型会通过softmax层将**z**规范化，并将规范后的向量作为文档-主题分布 $ \theta $ 。模型中，编码器和解码器的具体配置（如层数，维度等）都可以定制，取决于你的应用场景。
 
 *参数解释：*
 
@@ -480,8 +478,6 @@ $ sudo pip install -r requirements.txt
 
 ​	--no_above: 为(0,1)之间的实数，是比例值，文档频率高于该阈值的词将会被过滤掉。
 
-​	--use_fc1: 在softmax层之前启用一个仿射层。
-
 ​	--auto_adj: 当启用此参数时，不必再设定no_above参数，文档频率最高的20个词将会自动被滤去。
 
 ​	--bkpt_continue: 启用此参数时，模型会加载最新的checkpoint文件，并在此基础上继续训练。
@@ -491,7 +487,7 @@ $ sudo pip install -r requirements.txt
 #### Run Example
 
 ```shell
-$ python3 GSM_run.py --taskname cnews10k --n_topic 20 --num_epochs 1000 --no_above 0.0134 --no_below 5 --criterion cross_entropy --use_fc1
+$ python3 GSM_run.py --taskname cnews10k --n_topic 20 --num_epochs 1000 --no_above 0.0134 --no_below 5 --criterion cross_entropy
 ```
 
 <p align="center">

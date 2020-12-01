@@ -34,7 +34,6 @@ parser.add_argument('--use_tfidf',type=bool,default=False,help='Whether to use t
 parser.add_argument('--rebuild',type=bool,default=True,help='Whether to rebuild the corpus, such as tokenization, build dict etc.(default True)')
 parser.add_argument('--batch_size',type=int,default=512,help='Batch size (default=512)')
 parser.add_argument('--criterion',type=str,default='cross_entropy',help='The criterion to calculate the loss, e.g cross_entropy, bce_softmax, bce_sigmoid')
-parser.add_argument('--use_fc1',action='store_true',help='Whether to use a linear layer after the reparameter trick (default:False)') #TBD_fc1
 parser.add_argument('--emb_dim',type=int,default=300,help="The dimension of the latent topic vectors (default:300)")
 parser.add_argument('--auto_adj',action='store_true',help='To adjust the no_above ratio automatically (default:rm top 20)')
 args = parser.parse_args()
@@ -53,7 +52,6 @@ def main():
     batch_size = args.batch_size
     criterion = args.criterion
     n_topic = args.n_topic
-    use_fc1 = args.use_fc1 #TBD_fc1
     emb_dim = args.emb_dim
     auto_adj = args.auto_adj
 
@@ -65,7 +63,7 @@ def main():
     
     voc_size = docSet.vocabsize
     print('voc size:',voc_size)
-    model = ETM(bow_dim=voc_size,n_topic=n_topic,taskname=taskname,device=device,use_fc1=use_fc1,emb_dim=emb_dim) #TBD_fc1
+    model = ETM(bow_dim=voc_size,n_topic=n_topic,taskname=taskname,device=device,emb_dim=emb_dim) #TBD_fc1
     model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0,criterion=criterion)
     model.evaluate(test_data=docSet)
     save_name = f'./ckpt/ETM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'

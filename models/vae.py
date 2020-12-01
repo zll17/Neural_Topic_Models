@@ -16,8 +16,8 @@ import torch.nn.functional as F
 
 # VAE model
 class VAE(nn.Module):
-    def __init__(self, use_fc1,encode_dims=[2000,1024,512,20],decode_dims=[20,1024,2000],dropout=0.0):
-        # TBD_fc1
+    def __init__(self, encode_dims=[2000,1024,512,20],decode_dims=[20,1024,2000],dropout=0.0):
+
         super(VAE, self).__init__()
         self.encoder = nn.ModuleDict({
             f'enc_{i}':nn.Linear(encode_dims[i],encode_dims[i+1]) 
@@ -33,7 +33,7 @@ class VAE(nn.Module):
         self.latent_dim = encode_dims[-1]
         self.dropout = nn.Dropout(p=dropout)
         self.fc1 = nn.Linear(encode_dims[-1],encode_dims[-1])
-        self.use_fc1 = use_fc1
+        
         
     def encode(self, x):
         hid = x
@@ -64,8 +64,7 @@ class VAE(nn.Module):
     def forward(self, x, collate_fn=None):
         mu, log_var = self.encode(x)
         _theta = self.reparameterize(mu, log_var)
-        if self.use_fc1:
-            _theta = self.fc1(_theta) #TBD_fc1
+        _theta = self.fc1(_theta) 
         if collate_fn!=None:
             theta = collate_fn(_theta)
         else:

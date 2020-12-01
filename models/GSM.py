@@ -16,17 +16,16 @@ sys.path.append('..')
 from utils import evaluate_topic_quality, smooth_curve
 
 class GSM:
-    def __init__(self,bow_dim=10000,n_topic=20,taskname=None,device=None,use_fc1=False):
+    def __init__(self,bow_dim=10000,n_topic=20,taskname=None,device=None):
         self.bow_dim = bow_dim
         self.n_topic = n_topic
         #TBD_fc1
-        self.vae = VAE(use_fc1=use_fc1,encode_dims=[bow_dim,1024,512,n_topic],decode_dims=[n_topic,512,bow_dim],dropout=0.0)
+        self.vae = VAE(encode_dims=[bow_dim,1024,512,n_topic],decode_dims=[n_topic,512,bow_dim],dropout=0.0)
         self.device = device
         self.id2token = None
         self.taskname = taskname
         if device!=None:
             self.vae = self.vae.to(device)
-        self.use_fc1 = use_fc1
 
     def train(self,train_data,batch_size=256,learning_rate=1e-3,test_data=None,num_epochs=100,is_evaluate=False,log_every=5,beta=1.0,criterion='cross_entropy'):
         self.vae.train()
@@ -120,8 +119,7 @@ class GSM:
         doc_bow = doc_bow.reshape(1,self.bow_dim).to(self.device)
         with torch.no_grad():
             mu,log_var = self.vae.encode(doc_bow)
-            if self.use_fc1:
-                mu = self.vae.fc1(mu) #TBD_fc1
+            mu = self.vae.fc1(mu)
             theta = F.softmax(mu,dim=1)
             return theta.detach().cpu().squeeze(0).numpy()
 
@@ -137,8 +135,7 @@ class GSM:
         doc_bow = doc_bow.to(self.device)
         with torch.no_grad():
             mu,log_var = self.vae.encode(doc_bow)
-            if self.use_fc1:#TBD_fc1
-                mu = self.vae.fc1(mu)
+            mu = self.vae.fc1(mu)
             if normalize:
                 theta = F.softmax(mu,dim=1)
             return theta.detach().cpu().squeeze(0).numpy()

@@ -28,8 +28,8 @@ sys.path.append('..')
 from utils import evaluate_topic_quality, smooth_curve
 
 class EVAE(VAE):
-    def __init__(self, use_fc1,encode_dims=[2000,1024,512,20],decode_dims=[20,1024,2000],dropout=0.0,emb_dim=300):
-        super(EVAE,self).__init__(use_fc1=use_fc1,encode_dims=encode_dims,decode_dims=decode_dims,dropout=dropout)
+    def __init__(self, encode_dims=[2000,1024,512,20],decode_dims=[20,1024,2000],dropout=0.0,emb_dim=300):
+        super(EVAE,self).__init__(encode_dims=encode_dims,decode_dims=decode_dims,dropout=dropout)
         self.emb_dim = emb_dim
         self.vocab_size = encode_dims[0]
         self.n_topic = encode_dims[-1]
@@ -46,17 +46,16 @@ class EVAE(VAE):
 
 
 class ETM:
-    def __init__(self,bow_dim=10000,n_topic=20,taskname=None,device=None,use_fc1=False,emb_dim=300):
+    def __init__(self,bow_dim=10000,n_topic=20,taskname=None,device=None,emb_dim=300):
         self.bow_dim = bow_dim
         self.n_topic = n_topic
         #TBD_fc1
-        self.vae = EVAE(use_fc1=use_fc1,encode_dims=[bow_dim,1024,512,n_topic],decode_dims=[n_topic,512,bow_dim],dropout=0.0,emb_dim=emb_dim)
+        self.vae = EVAE(encode_dims=[bow_dim,1024,512,n_topic],decode_dims=[n_topic,512,bow_dim],dropout=0.0,emb_dim=emb_dim)
         self.device = device
         self.id2token = None
         self.taskname = taskname
         if device!=None:
             self.vae = self.vae.to(device)
-        self.use_fc1 = use_fc1
 
     def train(self,train_data,batch_size=256,learning_rate=1e-3,test_data=None,num_epochs=100,is_evaluate=False,log_every=5,beta=1.0,criterion='cross_entropy'):
         self.vae.train()
@@ -152,8 +151,7 @@ class ETM:
         doc_bow = doc_bow.reshape(1,self.bow_dim).to(self.device)
         with torch.no_grad():
             mu,log_var = self.vae.encode(doc_bow)
-            if self.use_fc1:
-                mu = self.vae.fc1(mu) #TBD_fc1
+            mu = self.vae.fc1(mu) 
             theta = F.softmax(mu,dim=1)
             return theta.detach().cpu().squeeze(0).numpy()
 
@@ -169,8 +167,7 @@ class ETM:
         doc_bow = doc_bow.to(self.device)
         with torch.no_grad():
             mu,log_var = self.vae.encode(doc_bow)
-            if self.use_fc1:#TBD_fc1
-                mu = self.vae.fc1(mu)
+            mu = self.vae.fc1(mu)
             if normalize:
                 theta = F.softmax(mu,dim=1)
             return theta.detach().cpu().squeeze(0).numpy()
@@ -200,7 +197,7 @@ class ETM:
         return topic_words
 
 if __name__ == '__main__':
-    model = EVAE(use_fc1=True,encode_dims=[1024,512,256,20],decode_dims=[20,128,768,1024],emb_dim=300)
+    model = EVAE(encode_dims=[1024,512,256,20],decode_dims=[20,128,768,1024],emb_dim=300)
     model = model.cuda()
     inpt = torch.randn(234,1024).cuda()
     out,mu,log_var = model(inpt)
