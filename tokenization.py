@@ -15,9 +15,10 @@ def Tokenizer(sent, stopwords=None):
 
 '''
 def Tokenizer(sent,stopwords=None):
-    pat = re.compile(r'[0-9’!"#$%&\'()*+,-./:;<=>?@??\"，。?：★、￥%……【】\.（）《》？“”‘’！\[\\\]^_`{|}~\u3000]+') 
-    tokens = sent.split(' ')
-    tokens = [re.sub(pat,r'',t).strip() for t in tokens]
+    # Tokenizer for English. 
+    pat = re.compile(r'[0-9!"#$%&\'()*+,-./:;<=>?@—，。：★、￥…【】（）《》？“”‘’！\[\\\]^_`{|}~\u3000]+')
+    tokens = [re.sub(pat,r'',t).strip() for t in sent.split(' ')]
+    tokens = [t for t in tokens if t!='']
     from nltk.stem import WordNetLemmatizer
     wnl = WordNetLemmatizer()
     tokens = [wnl.lemmatize(t).lower() for t in tokens]                                                   

@@ -119,8 +119,8 @@ class ETM:
                 if test_data!=None:
                     c_v,c_w2v,c_uci,c_npmi,mimno_tc, td = self.evaluate(test_data,calc4each=False)
                     c_v_lst.append(c_v), c_w2v_lst.append(c_w2v), c_uci_lst.append(c_uci),c_npmi_lst.append(c_npmi), mimno_tc_lst.append(mimno_tc), td_lst.append(td)
-                save_name = f'./ckpt/WTM_{self.taskname}_tp{self.n_topic}_{self.dist}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
-                torch.save(self.wae.state_dict(),save_name)
+                save_name = f'./ckpt/ETM_{self.taskname}_tp{self.n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
+                torch.save(self.vae.state_dict(),save_name)
         scrs = {'c_v':c_v_lst,'c_w2v':c_w2v_lst,'c_uci':c_uci_lst,'c_npmi':c_npmi_lst,'mimno_tc':mimno_tc_lst,'td':td_lst}
         '''
         for scr_name,scr_lst in scrs.items():
