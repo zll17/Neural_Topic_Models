@@ -145,6 +145,7 @@ class WTM:
         data_loader = DataLoader(train_data, batch_size=512,shuffle=False, num_workers=4, collate_fn=train_data.collate_fn)
         embed_lst = []
         txt_lst = []
+        cnt = 0
         for data_batch in data_loader:
             txts, bows = data_batch
             embed = self.inference(bows,train_data.dictionary)
@@ -153,8 +154,8 @@ class WTM:
             cnt += embed.shape[0]
             if cnt>=num:
                 break
-        embed_lst = torch.concat(embed_lst,dim=0)[:num]
-        txt_lst = torch.concat(txt_lst,dim=0)[:num]
+        embed_lst = torch.cat(embed_lst,dim=0)[:num]
+        txt_lst = torch.cat(txt_lst,dim=0)[:num]
         return txt_lst, embed_lst
 
 

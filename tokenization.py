@@ -21,7 +21,9 @@ def Tokenizer(sent,stopwords=None):
     tokens = [t for t in tokens if t!='']
     from nltk.stem import WordNetLemmatizer
     wnl = WordNetLemmatizer()
-    tokens = [wnl.lemmatize(t).lower() for t in tokens]                                                   
+    tokens = [wnl.lemmatize(t).lower() for t in tokens]    
+    if stopwords is not None:
+        tokens = [t for t in tokens if not (t in stopwords)]                                               
     return tokens
 '''
 
