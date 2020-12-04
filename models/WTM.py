@@ -115,14 +115,14 @@ class WTM:
         return evaluate_topic_quality(topic_words, test_data, taskname=self.taskname, calc4each=calc4each)
 
 
-    def inference(self, doc_bow):
+    def inference_by_bow(self, doc_bow):
         # doc_bow: torch.tensor [vocab_size]; optional: np.array [vocab_size]
-        if isinstance(doc_bow,np.array):
+        if isinstance(doc_bow,np.ndarray):
             doc_bow = torch.from_numpy(doc_bow)
-        doc_bow = doc_bow.reshape(1,self.bow_dim).to(self.device)
+        doc_bow = doc_bow.to(self.device)
         with torch.no_grad():
             theta = F.softmax(self.wae.encode(doc_bow),dim=1)
-            return theta.detach().cpu().squeeze(0).numpy()
+            return theta.detach().cpu().numpy()
 
 
     def inference(self, doc_tokenized, dictionary,normalize=True):
@@ -148,14 +148,14 @@ class WTM:
         cnt = 0
         for data_batch in data_loader:
             txts, bows = data_batch
-            embed = self.inference(bows,train_data.dictionary)
+            embed = self.inference_by_bow(bows)
             embed_lst.append(embed)
             txt_lst.append(txts)
             cnt += embed.shape[0]
             if cnt>=num:
                 break
-        embed_lst = torch.cat(embed_lst,dim=0)[:num]
-        txt_lst = torch.cat(txt_lst,dim=0)[:num]
+        embed_lst = np.concatenate(embed_lst,axis=0)[:num]
+        txt_lst = np.concatenate(txt_lst,axis=0)[:num]
         return txt_lst, embed_lst
 
 
