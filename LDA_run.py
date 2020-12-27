@@ -71,11 +71,11 @@ def main():
     if use_tfidf:
         tfidf = TfidfModel(docSet.bows)
         corpus_tfidf = tfidf[docSet.bows]
-        #lda_model = LdaMulticore(corpus_tfidf,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters,workers=n_cpu,minimum_probability=0.0)
-        lda_model = LdaModel(corpus_tfidf,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters)
+        lda_model = LdaMulticore(list(corpus_tfidf),num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters,workers=n_cpu,minimum_probability=0.0)
+        #lda_model = LdaModel(list(corpus_tfidf),num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters)
     else:
-        #lda_model = LdaMulticore(docSet.bows,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters,workers=n_cpu)
-        lda_model = LdaModel(docSet.bows,num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters)
+        lda_model = LdaMulticore(list(docSet.bows),num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters,workers=n_cpu)
+        #lda_model = LdaModel(list(docSet.bows),num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters)
 
     save_name = f'./ckpt/LDA_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
     lda_model.save(save_name)
