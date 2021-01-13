@@ -121,6 +121,7 @@ class WTM:
             doc_bow = torch.from_numpy(doc_bow)
         doc_bow = doc_bow.to(self.device)
         with torch.no_grad():
+			self.wae.eval()
             theta = F.softmax(self.wae.encode(doc_bow),dim=1)
             return theta.detach().cpu().numpy()
 
@@ -135,6 +136,7 @@ class WTM:
                 print(f'{token} not in the vocabulary.')
         doc_bow = doc_bow.to(self.device)
         with torch.no_grad():
+			self.wae.eval()
             theta = self.wae.encode(doc_bow)
             if normalize:
                 theta = F.softmax(theta,dim=1)
@@ -168,7 +170,7 @@ class WTM:
                 word_dist = F.softmax(word_dist,dim=1)
             return word_dist.detach().cpu().numpy()
 
-    def show_topic_words(self, topic_id=None, topK=15):
+    def show_topic_words(self, topic_id=None, topK=15, dictionary=None):
         self.wae.eval()
         topic_words = []
         idxes = torch.eye(self.n_topic).to(self.device)
@@ -177,6 +179,8 @@ class WTM:
         vals, indices = torch.topk(word_dist, topK, dim=1)
         vals = vals.cpu().tolist()
         indices = indices.cpu().tolist()
+		if self.id2token==None and dictionary!=None:
+			self.id2token = {v:k for k,v in dictionary.token2id.items()}
         if topic_id == None:
             for i in range(self.n_topic):
                 topic_words.append([self.id2token[idx] for idx in indices[i]])
