@@ -131,6 +131,61 @@ class DocDataLoader:
             yield batch_data
 '''
 
+class TestData(Dataset):
+    def __init__(self, dictionary=None, txtPath=None,tokenizer=None,stopwords=None,no_below=5,no_above=0.1,use_tfidf=False):
+        cwd = os.getcwd()
+        self.txtLines = [line.strip('\n') for line in open(txtPath,'r',encoding='utf-8')]
+        self.dictionary = dictionary
+        self.bows,self.docs = None,None
+        self.use_tfidf = use_tfidf
+        self.tfidf,self.tfidf_model = None,None
+        if stopwords==None:
+           stopwords = set([l.strip('\n').strip() for l in open(os.path.join(cwd,'data','stopwords.txt'),'r',encoding='utf-8')])
+        # self.txtLines is the list of string, without any preprocessing.
+        # self.texts is the list of list of tokens.
+        print('Tokenizing ...')
+        tokenizer = Tokenizer if tokenizer==None else tokenizer
+        self.docs = [tokenizer(txt,stopwords) for txt in tqdm(self.txtLines)]
+        self.docs = [line if line!=[] else None for line in self.docs]
+        # convert to BOW representation
+        self.bows, _docs = [],[]
+        for doc in self.docs:
+            if doc is not None:
+                _bow = self.dictionary.doc2bow(doc)
+                if _bow!=[]:
+                    _docs.append(list(doc))
+                    self.bows.append(_bow)
+                else:
+                    _docs.append(None)
+                    self.bows.append(None)
+            else:
+                _docs.append(None)
+                self.bows.append(None)
+        self.docs = _docs
+        if self.use_tfidf==True:
+            self.tfidf_model = TfidfModel(self.bows)
+            self.tfidf = [self.tfidf_model[bow] for bow in self.bows]
+        self.vocabsize = len(self.dictionary)
+        self.numDocs = len(self.bows)
+        print(f'Processed {len(self.bows)} documents.')
+
+    def __getitem__(self,idx):
+        bow = torch.zeros(self.vocabsize)
+        if self.use_tfidf:
+            item = list(zip(*self.tfidf[idx]))
+        else:
+            item = list(zip(*self.bows[idx])) # bow = [[token_id1,token_id2,...],[freq1,freq2,...]]
+        bow[list(item[0])] = torch.tensor(list(item[1])).float()
+        txt = self.docs[idx]
+        return txt,bow
+    
+    def __len__(self):
+        return self.numDocs
+
+    def __iter__(self):
+        for doc in self.docs:
+            yield doc
+
 if __name__ == '__main__':
     docSet = DocDataset('zhdd',rebuild=True)
     dataloader = DataLoader(docSet,batch_size=64,shuffle=True,num_workers=4,collate_fn=docSet.collate_fn)
