@@ -121,7 +121,7 @@ class WTM:
             doc_bow = torch.from_numpy(doc_bow)
         doc_bow = doc_bow.to(self.device)
         with torch.no_grad():
-			self.wae.eval()
+            self.wae.eval()
             theta = F.softmax(self.wae.encode(doc_bow),dim=1)
             return theta.detach().cpu().numpy()
 
@@ -136,7 +136,7 @@ class WTM:
                 print(f'{token} not in the vocabulary.')
         doc_bow = doc_bow.to(self.device)
         with torch.no_grad():
-			self.wae.eval()
+            self.wae.eval()
             theta = self.wae.encode(doc_bow)
             if normalize:
                 theta = F.softmax(theta,dim=1)
@@ -179,15 +179,17 @@ class WTM:
         vals, indices = torch.topk(word_dist, topK, dim=1)
         vals = vals.cpu().tolist()
         indices = indices.cpu().tolist()
-		if self.id2token==None and dictionary!=None:
-			self.id2token = {v:k for k,v in dictionary.token2id.items()}
+        if self.id2token==None and dictionary!=None:
+            self.id2token = {v:k for k,v in dictionary.token2id.items()}
         if topic_id == None:
             for i in range(self.n_topic):
                 topic_words.append([self.id2token[idx] for idx in indices[i]])
         else:
             topic_words.append([self.id2token[idx] for idx in indices[topic_id]])
         return topic_words
-
+    
+    def load_model(self, model_path):
+        self.wae.load_state_dict(torch.load(model_path))
 
 if __name__ == '__main__':
     model = WAE(encode_dims=[1024, 512, 256, 20],
