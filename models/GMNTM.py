@@ -22,6 +22,7 @@ from tqdm import tqdm
 from .vade import VaDE
 import matplotlib.pyplot as plt
 import sys
+sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
 sys.path.append('..')
 from utils import evaluate_topic_quality, smooth_curve
 
