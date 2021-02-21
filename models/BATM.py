@@ -22,7 +22,6 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 from .gan import Generator, Encoder, Discriminator
 import sys
-sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
 sys.path.append('..')
 from utils import evaluate_topic_quality, smooth_curve
 
