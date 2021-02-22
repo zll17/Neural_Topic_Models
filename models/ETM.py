@@ -143,11 +143,11 @@ class ETM:
         return evaluate_topic_quality(topic_words, test_data, taskname=self.taskname, calc4each=calc4each)
 
 
-    def inference(self,doc_bow):
+    def inference_by_bow(self,doc_bow):
         # doc_bow: torch.tensor [vocab_size]; optional: np.array [vocab_size]
-        if isinstance(doc_bow,np.array):
+        if isinstance(doc_bow,np.ndarray):
             doc_bow = torch.from_numpy(doc_bow)
-        doc_bow = doc_bow.reshape(1,self.bow_dim).to(self.device)
+        doc_bow = doc_bow.reshape(-1,self.bow_dim).to(self.device)
         with torch.no_grad():
             mu,log_var = self.vae.encode(doc_bow)
             mu = self.vae.fc1(mu) 
@@ -172,7 +172,7 @@ class ETM:
             return theta.detach().cpu().squeeze(0).numpy()
 
     def get_embed(self,train_data, num=1000):
-        self.wae.eval()
+        self.vae.eval()
         data_loader = DataLoader(train_data, batch_size=512,shuffle=False, num_workers=4, collate_fn=train_data.collate_fn)
         embed_lst = []
         txt_lst = []

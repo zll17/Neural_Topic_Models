@@ -71,9 +71,9 @@ def main():
     save_name = f'./ckpt/WTM_{taskname}_tp{n_topic}_{dist}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
     torch.save(model.wae.state_dict(),save_name)
     txt_lst, embeds = model.get_embed(train_data=docSet, num=1000)
-    for t,e in zip(txt_lst,embeds):
-        print(t)
-        print(e)
+    with open('topic_dist_wtm.txt','w',encoding='utf-8') as wfp:
+        for t,e in zip(txt_lst,embeds):
+            wfp.write(f'{e}:{t}\n')
     pickle.dump({'txts':txt_lst,'embeds':embeds},open('wtm_embeds.pkl','wb'))
     
     

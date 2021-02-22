@@ -67,6 +67,11 @@ def main():
     model.evaluate(test_data=docSet)
     save_name = f'./ckpt/GMNTM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
     torch.save(model.vade.state_dict(),save_name)
+    txt_lst, embeds = model.get_embed(train_data=docSet, num=1000)
+    with open('topic_dist_gmntm.txt','w',encoding='utf-8') as wfp:
+        for t,e in zip(txt_lst,embeds):
+            wfp.write(f'{e}:{t}\n')
+    pickle.dump({'txts':txt_lst,'embeds':embeds},open('gmntm_embeds.pkl','wb'))
 
 if __name__ == "__main__":
     main()
