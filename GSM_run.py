@@ -67,6 +67,11 @@ def main():
     model.evaluate(test_data=docSet)
     save_name = f'./ckpt/GSM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
     torch.save(model.vae.state_dict(),save_name)
+    txt_lst, embeds = model.get_embed(train_data=docSet, num=1000)
+    for t,e in zip(txt_lst,embeds):
+        print(t)
+        print(e)
+    pickle.dump({'txts':txt_lst,'embeds':embeds},open('gsm_embeds.pkl','wb'))
 
 if __name__ == "__main__":
     main()

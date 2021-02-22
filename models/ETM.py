@@ -171,6 +171,24 @@ class ETM:
                 theta = F.softmax(mu,dim=1)
             return theta.detach().cpu().squeeze(0).numpy()
 
+    def get_embed(self,train_data, num=1000):
+        self.wae.eval()
+        data_loader = DataLoader(train_data, batch_size=512,shuffle=False, num_workers=4, collate_fn=train_data.collate_fn)
+        embed_lst = []
+        txt_lst = []
+        cnt = 0
+        for data_batch in data_loader:
+            txts, bows = data_batch
+            embed = self.inference_by_bow(bows)
+            embed_lst.append(embed)
+            txt_lst.append(txts)
+            cnt += embed.shape[0]
+            if cnt>=num:
+                break
+        embed_lst = np.concatenate(embed_lst,axis=0)[:num]
+        txt_lst = np.concatenate(txt_lst,axis=0)[:num]
+        return txt_lst, embed_lst
+
     def get_topic_word_dist(self,normalize=True):
         self.vae.eval()
         with torch.no_grad():
