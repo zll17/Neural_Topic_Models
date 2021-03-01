@@ -153,6 +153,8 @@ class GSM:
             cnt += embed.shape[0]
             if cnt>=num:
                 break
+        embed_lst = np.array(embed_lst,dtype=object)
+        txt_lst = np.array(txt_lst,dtype=object)
         embed_lst = np.concatenate(embed_lst,axis=0)[:num]
         txt_lst = np.concatenate(txt_lst,axis=0)[:num]
         return txt_lst, embed_lst
