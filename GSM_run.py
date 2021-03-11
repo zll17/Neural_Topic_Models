@@ -51,7 +51,6 @@ def main():
     rebuild = args.rebuild
     batch_size = args.batch_size
     criterion = args.criterion
-    n_topic = args.n_topic
     auto_adj = args.auto_adj
 
     device = torch.device('cuda')
