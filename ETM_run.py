@@ -90,6 +90,11 @@ def main():
     for i in range(n_topic):
         print(f'Most similar to Topic {i}')
         print(w2v.most_similar(f'TP{i}'))
+    txt_lst, embeds = model.get_embed(train_data=docSet, num=1000)
+    with open('topic_dist_etm.txt','w',encoding='utf-8') as wfp:
+        for t,e in zip(txt_lst,embeds):
+            wfp.write(f'{e}:{t}\n')
+    pickle.dump({'txts':txt_lst,'embeds':embeds},open('etm_embeds.pkl','wb'))
 
 if __name__ == "__main__":
     main()

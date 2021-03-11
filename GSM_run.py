@@ -31,7 +31,7 @@ parser.add_argument('--num_epochs',type=int,default=100,help='Number of iteratio
 parser.add_argument('--n_topic',type=int,default=20,help='Num of topics')
 parser.add_argument('--bkpt_continue',type=bool,default=False,help='Whether to load a trained model as initialization and continue training.')
 parser.add_argument('--use_tfidf',type=bool,default=False,help='Whether to use the tfidf feature for the BOW input')
-parser.add_argument('--rebuild',type=bool,default=True,help='Whether to rebuild the corpus, such as tokenization, build dict etc.(default True)')
+parser.add_argument('--rebuild',action='store_true',help='Whether to rebuild the corpus, such as tokenization, build dict etc.(default False)')
 parser.add_argument('--batch_size',type=int,default=512,help='Batch size (default=512)')
 parser.add_argument('--criterion',type=str,default='cross_entropy',help='The criterion to calculate the loss, e.g cross_entropy, bce_softmax, bce_sigmoid')
 parser.add_argument('--auto_adj',action='store_true',help='To adjust the no_above ratio automatically (default:rm top 20)')
@@ -67,6 +67,11 @@ def main():
     model.evaluate(test_data=docSet)
     save_name = f'./ckpt/GSM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
     torch.save(model.vae.state_dict(),save_name)
+    txt_lst, embeds = model.get_embed(train_data=docSet, num=1000)
+    with open('topic_dist_gsm.txt','w',encoding='utf-8') as wfp:
+        for t,e in zip(txt_lst,embeds):
+            wfp.write(f'{e}:{t}\n')
+    pickle.dump({'txts':txt_lst,'embeds':embeds},open('gsm_embeds.pkl','wb'))
 
 if __name__ == "__main__":
     main()

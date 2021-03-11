@@ -16,6 +16,8 @@ from collections import Counter
 from gensim.corpora import Dictionary
 from gensim.models import TfidfModel
 from collections import Counter
+import sys
+sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
 
 class DocDataset(Dataset):
     def __init__(self,taskname,txtPath=None,tokenizer=None,stopwords=None,no_below=5,no_above=0.1,hasLable=False,rebuild=False,use_tfidf=False):

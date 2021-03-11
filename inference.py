@@ -81,8 +81,9 @@ def main():
         if doc is None:
             infer_topics.append(None)
         else:
-            infer_topics.append(int(np.argmax(model.inference(doc_tokenized=doc, dictionary=dictionary))))
-    with open(save_dir+"/inference_result.txt","w")as f:
+            #infer_topics.append(int(np.argmax(model.inference(doc_tokenized=doc, dictionary=dictionary))))
+            infer_topics.append(model.inference(doc_tokenized=doc, dictionary=dictionary))
+    with open(save_dir+"/inference_result_{}.txt".format(model_name),"w")as f:
         json.dump(infer_topics,f)
     
 

@@ -151,7 +151,7 @@ An improved model of the original WLDA. It takes gaussian mixture distribution a
 
 The meaning of other arguments can be referred to the [GSM](#NVDM-GSM) model.
 
-[[Paper](https://under_review)]  [[Code](models/WTM.py)]
+[Under review]  [[Code](models/WTM.py)]
 
 
 
@@ -211,7 +211,7 @@ The architecture is based on [VaDE](https://arxiv.org/abs/1611.05148), which tak
 
 Any suggestions are welcome.
 
-[[Paper](https://arxiv.org/abs/1611.06430)]  [[Code](implementations/ccgan/ccgan.py)]
+[[Paper](Under review)]  [[Code](implementations/ccgan/ccgan.py)]
 
 #### Run Example
 ```shell
@@ -426,7 +426,7 @@ Apache License 2.0
 
 - <del>训练模型权重保存</del>
 - log 曲线绘制
-- 文档-主题分布推断
+- <del>文档-主题分布推断</del>
 - ETM 主题向量、词向量获取、保存
 - 隐空间绘制
 - 中文文档完善

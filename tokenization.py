@@ -2,7 +2,6 @@ import re
 
 from pyhanlp import *
 
-
 def Tokenizer(sent, stopwords=None):
     pat = re.compile(r'[0-9!"#$%&\'()*+,-./:;<=>?@—，。：★、￥…【】（）《》？“”‘’！\[\\\]^_`{|}~\u3000]+')
     tokens = [t.word for t in HanLP.segment(sent)]
