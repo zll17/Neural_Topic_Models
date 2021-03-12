@@ -80,6 +80,8 @@ class WTM:
                     print(f'Epoch {(epoch+1):>3d}\tIter {(iter+1):>4d}\tLoss:{loss.item()/len(bows):<.7f}\tRec Loss:{rec_loss.item()/len(bows):<.7f}\tMMD:{mmd.item()/len(bows):<.7f}')
             #scheduler.step()
             if (epoch+1) % log_every == 0:
+                save_name = f'./ckpt/WTM_{self.taskname}_tp{self.n_topic}_{self.dist}_ep{epoch+1}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
+                torch.save(self.wae.state_dict(),save_name)
                 print(f'Epoch {(epoch+1):>3d}\tLoss:{sum(epochloss_lst)/len(epochloss_lst):<.7f}')
                 print('\n'.join([str(lst) for lst in self.show_topic_words()]))
                 print('='*30)
@@ -91,8 +93,6 @@ class WTM:
                 if test_data!=None:
                     c_v,c_w2v,c_uci,c_npmi,mimno_tc, td = self.evaluate(test_data,calc4each=False)
                     c_v_lst.append(c_v), c_w2v_lst.append(c_w2v), c_uci_lst.append(c_uci),c_npmi_lst.append(c_npmi), mimno_tc_lst.append(mimno_tc), td_lst.append(td)
-                save_name = f'./ckpt/WTM_{self.taskname}_tp{self.n_topic}_{self.dist}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
-                torch.save(self.wae.state_dict(),save_name)
         scrs = {'c_v':c_v_lst,'c_w2v':c_w2v_lst,'c_uci':c_uci_lst,'c_npmi':c_npmi_lst,'mimno_tc':mimno_tc_lst,'td':td_lst}
         '''
         for scr_name,scr_lst in scrs.items():

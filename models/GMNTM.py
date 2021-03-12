@@ -11,6 +11,7 @@
 
 import os
 import re
+import time
 import pickle
 import itertools
 import torch
@@ -143,6 +144,8 @@ class GMNTM:
                     print(f'Epoch {(epoch+1):>3d}\tIter {(iter+1):>4d}\tLoss:{loss.item()/len(bows):<.7f}\tRec Loss:{rec_loss.item()/len(bows):<.7f}\tGMM_KL_Div:{kl_div.item()/len(bows):<.7f}\tCenter_Mutual_Distance:{center_mut_dists/(len(bows)*(len(bows)-1))}')
             #scheduler.step()
             if (epoch+1) % log_every == 0:
+                save_name = f'./ckpt/GMNTM_{self.taskname}_tp{self.n_topic}_ep{epoch+1}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
+                torch.save(self.vade.state_dict(),save_name)
                 print(f'Epoch {(epoch+1):>3d}\tLoss:{sum(epochloss_lst)/len(epochloss_lst):<.7f}')
                 print('\n'.join([str(lst) for lst in self.show_topic_words()]))
                 print('='*30)
@@ -230,7 +233,7 @@ class GMNTM:
                 word_dist = F.softmax(word_dist,dim=1)
             return word_dist.detach().cpu().numpy()
 
-    def show_topic_words(self, topic_id=None, topK=15):
+    def show_topic_words(self, topic_id=None, topK=15, dictionary=None):
         self.vade.eval()
         topic_words = []
         idxes = torch.eye(self.n_topic).to(self.device)
@@ -240,12 +243,17 @@ class GMNTM:
         vals, indices = torch.topk(word_dist, topK, dim=1)
         vals = vals.cpu().tolist()
         indices = indices.cpu().tolist()
+        if self.id2token==None and dictionary!=None:
+            self.id2token = {v:k for k,v in dictionary.token2id.items()}
         if topic_id == None:
             for i in range(self.n_topic):
                 topic_words.append([self.id2token[idx] for idx in indices[i]])
         else:
             topic_words.append([self.id2token[idx] for idx in indices[topic_id]])
         return topic_words
+
+    def load_model(self, model_path):
+        self.vade.load_state_dict(torch.load(model_path))
 
 
 if __name__ == '__main__':
