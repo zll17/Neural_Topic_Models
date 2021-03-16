@@ -57,17 +57,25 @@ class ETM:
         if device!=None:
             self.vae = self.vae.to(device)
 
-    def train(self,train_data,batch_size=256,learning_rate=1e-3,test_data=None,num_epochs=100,is_evaluate=False,log_every=5,beta=1.0,criterion='cross_entropy'):
+    def train(self,train_data,batch_size=256,learning_rate=1e-3,test_data=None,num_epochs=100,is_evaluate=False,log_every=5,beta=1.0,criterion='cross_entropy',ckpt=None):
         self.vae.train()
         self.id2token = {v:k for k,v in train_data.dictionary.token2id.items()}
         data_loader = DataLoader(train_data,batch_size=batch_size,shuffle=True,num_workers=4,collate_fn=train_data.collate_fn)
 
         optimizer = torch.optim.Adam(self.vae.parameters(),lr=learning_rate)
         #scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.5)
+
+        if ckpt:
+            self.load_model(ckpt["net"])
+            optimizer.load_state_dict(ckpt["optimizer"])
+            start_epoch = ckpt["epoch"] + 1
+        else:
+            start_epoch = 0
+
         trainloss_lst, valloss_lst = [], []
         recloss_lst, klloss_lst = [],[]
         c_v_lst, c_w2v_lst, c_uci_lst, c_npmi_lst, mimno_tc_lst, td_lst = [], [], [], [], [], []
-        for epoch in range(num_epochs):
+        for epoch in range(start_epoch, num_epochs):
             epochloss_lst = []
             for iter,data in enumerate(data_loader):
                 optimizer.zero_grad()
