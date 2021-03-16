@@ -77,8 +77,18 @@ class GSM:
                     print(f'Epoch {(epoch+1):>3d}\tIter {(iter+1):>4d}\tLoss:{loss.item()/len(bows):<.7f}\tRec Loss:{rec_loss.item()/len(bows):<.7f}\tKL Div:{kl_div.item()/len(bows):<.7f}')
             #scheduler.step()
             if (epoch+1) % log_every==0:
-                save_name = f'./ckpt/GSM_{self.taskname}_tp{self.n_topic}_ep{epoch+1}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
-                torch.save(self.vae.state_dict(),save_name)
+                save_name = f'./ckpt/GSM_{self.taskname}_tp{self.n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}_ep{epoch+1}.ckpt'
+                checkpoint = {
+                    "net": self.vae.state_dict(),
+                    "optimizer": optimizer.state_dict(),
+                    "epoch": epoch,
+                    "param": {
+                        "bow_dim": self.bow_dim,
+                        "n_topic": self.n_topic,
+                        "taskname": self.taskname
+                    }
+                }
+                torch.save(checkpoint,save_name)
                 # The code lines between this and the next comment lines are duplicated with WLDA.py, consider to simpify them.
                 print(f'Epoch {(epoch+1):>3d}\tLoss:{sum(epochloss_lst)/len(epochloss_lst):<.7f}')
                 print('\n'.join([str(lst) for lst in self.show_topic_words()]))
@@ -188,8 +198,8 @@ class GSM:
             topic_words.append([self.id2token[idx] for idx in indices[topic_id]])
         return topic_words
 
-    def load_model(self, model_path):
-        self.vae.load_state_dict(torch.load(model_path))
+    def load_model(self, model):
+        self.vae.load_state_dict(model)
 
 
 if __name__ == '__main__':

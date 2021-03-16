@@ -34,6 +34,7 @@ class WTM:
         self.device = device
         self.id2token = None
         self.dist = dist
+        self.dropout = dropout
         self.taskname = taskname
         if device != None:
             self.wae = self.wae.to(device)
@@ -80,8 +81,20 @@ class WTM:
                     print(f'Epoch {(epoch+1):>3d}\tIter {(iter+1):>4d}\tLoss:{loss.item()/len(bows):<.7f}\tRec Loss:{rec_loss.item()/len(bows):<.7f}\tMMD:{mmd.item()/len(bows):<.7f}')
             #scheduler.step()
             if (epoch+1) % log_every == 0:
-                save_name = f'./ckpt/WTM_{self.taskname}_tp{self.n_topic}_{self.dist}_ep{epoch+1}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
-                torch.save(self.wae.state_dict(),save_name)
+                save_name = f'./ckpt/WTM_{self.taskname}_tp{self.n_topic}_{self.dist}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}_{epoch+1}.ckpt'
+                checkpoint = {
+                    "net": self.wae.state_dict(),
+                    "optimizer": optimizer.state_dict(),
+                    "epoch": epoch,
+                    "param": {
+                        "bow_dim": self.bow_dim,
+                        "n_topic": self.n_topic,
+                        "taskname": self.taskname,
+                        "dist": self.dist,
+                        "dropout": self.dropout
+                    }
+                }
+                torch.save(checkpoint,save_name)
                 print(f'Epoch {(epoch+1):>3d}\tLoss:{sum(epochloss_lst)/len(epochloss_lst):<.7f}')
                 print('\n'.join([str(lst) for lst in self.show_topic_words()]))
                 print('='*30)
@@ -188,8 +201,8 @@ class WTM:
             topic_words.append([self.id2token[idx] for idx in indices[topic_id]])
         return topic_words
     
-    def load_model(self, model_path):
-        self.wae.load_state_dict(torch.load(model_path))
+    def load_model(self, model):
+        self.wae.load_state_dict(model)
 
 if __name__ == '__main__':
     model = WAE(encode_dims=[1024, 512, 256, 20],

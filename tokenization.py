@@ -34,8 +34,7 @@ class HanLPTokenizer(object):
             tokens = [t for t in tokens if t != '']
             if self.stopwords is not None:
                 tokens = [t for t in tokens if not (t in self.stopwords)]
-            if tokens != []:
-                docs.append(tokens) 
+            docs.append(tokens)
         return docs
         
         
