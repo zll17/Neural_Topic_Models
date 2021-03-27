@@ -10,7 +10,7 @@ import pickle
 import random
 import torch
 from tqdm import tqdm
-from tokenization import Tokenizer
+from tokenization import *
 from torch.utils.data import Dataset,DataLoader
 from collections import Counter
 from gensim.corpora import Dictionary
@@ -20,7 +20,7 @@ import sys
 sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
 
 class DocDataset(Dataset):
-    def __init__(self,taskname,txtPath=None,tokenizer=None,stopwords=None,no_below=5,no_above=0.1,hasLable=False,rebuild=False,use_tfidf=False):
+    def __init__(self,taskname,txtPath=None,lang="zh",tokenizer=None,stopwords=None,no_below=5,no_above=0.1,hasLable=False,rebuild=False,use_tfidf=False):
         cwd = os.getcwd()
         txtPath = os.path.join(cwd,'data',f'{taskname}_lines.txt') if txtPath==None else txtPath
         tmpDir = os.path.join(cwd,'data',taskname)
@@ -44,8 +44,9 @@ class DocDataset(Dataset):
             # self.txtLines is the list of string, without any preprocessing.
             # self.texts is the list of list of tokens.
             print('Tokenizing ...')
-            tokenizer = Tokenizer if tokenizer==None else tokenizer
-            self.docs = [tokenizer(txt,stopwords) for txt in tqdm(self.txtLines)]
+            if tokenizer is None:
+                tokenizer = globals()[LANG_CLS[lang]](stopwords=stopwords)
+            self.docs = tokenizer.tokenize(self.txtLines)
             self.docs = [line for line in self.docs if line!=[]]
             # build dictionary
             self.dictionary = Dictionary(self.docs)
@@ -134,7 +135,7 @@ class DocDataLoader:
 '''
 
 class TestData(Dataset):
-    def __init__(self, dictionary=None, txtPath=None,tokenizer=None,stopwords=None,no_below=5,no_above=0.1,use_tfidf=False):
+    def __init__(self, dictionary=None, txtPath=None, lang="zh", tokenizer=None,stopwords=None,no_below=5,no_above=0.1,use_tfidf=False):
         cwd = os.getcwd()
         self.txtLines = [line.strip('\n') for line in open(txtPath,'r',encoding='utf-8')]
         self.dictionary = dictionary
@@ -146,9 +147,9 @@ class TestData(Dataset):
         # self.txtLines is the list of string, without any preprocessing.
         # self.texts is the list of list of tokens.
         print('Tokenizing ...')
-        tokenizer = Tokenizer if tokenizer==None else tokenizer
-        self.docs = [tokenizer(txt,stopwords) for txt in tqdm(self.txtLines)]
-        self.docs = [line if line!=[] else None for line in self.docs]
+        if tokenizer is None:
+            tokenizer = globals()[LANG_CLS[lang]](stopwords=stopwords)
+        self.docs = tokenizer.tokenize(self.txtLines)
         # convert to BOW representation
         self.bows, _docs = [],[]
         for doc in self.docs:

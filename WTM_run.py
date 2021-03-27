@@ -36,6 +36,7 @@ parser.add_argument('--dist',type=str,default='gmm_std',help='Prior distribution
 parser.add_argument('--batch_size',type=int,default=512,help='Batch size (default=512)')
 parser.add_argument('--criterion',type=str,default='cross_entropy',help='The criterion to calculate the loss, e.g cross_entropy, bce_softmax, bce_sigmoid')
 parser.add_argument('--auto_adj',action='store_true',help='To adjust the no_above ratio automatically (default:rm top 20)')
+parser.add_argument('--ckpt',type=str,default=None,help='Checkpoint path')
 
 args = parser.parse_args()
 
@@ -55,6 +56,7 @@ def main():
     batch_size = args.batch_size
     criterion = args.criterion
     auto_adj = args.auto_adj
+    ckpt = args.ckpt
 
     device = torch.device('cuda')
     docSet = DocDataset(taskname,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=False)
@@ -64,9 +66,16 @@ def main():
     
     voc_size = docSet.vocabsize
     print('voc size:',voc_size)
-    n_topic = args.n_topic
-    model = WTM(bow_dim=voc_size,n_topic=n_topic,device=device,dist=dist,taskname=taskname,dropout=0.4)
-    model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0)
+
+    if ckpt:
+        checkpoint=torch.load(ckpt)
+        param=checkpoint["param"]
+        param.update({"device": device})
+        model = WTM(**param)
+        model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0,ckpt=checkpoint)
+    else:
+        model = WTM(bow_dim=voc_size,n_topic=n_topic,device=device,dist=dist,taskname=taskname,dropout=0.4)
+        model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0)
     model.evaluate(test_data=docSet)
     save_name = f'./ckpt/WTM_{taskname}_tp{n_topic}_{dist}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
     torch.save(model.wae.state_dict(),save_name)
@@ -77,7 +86,5 @@ def main():
     pickle.dump({'txts':txt_lst,'embeds':embeds},open('wtm_embeds.pkl','wb'))
     
     
-
-
 if __name__ == "__main__":
     main()
