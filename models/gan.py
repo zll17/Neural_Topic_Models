@@ -16,10 +16,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 def block(in_feat, out_feat, normalize=True):
-    layers = [nn.Linear(in_feat, out_feat)]
+    layers = [nn.Linear(in_feat, out_feat,bias=False)]
     if normalize:
-        layers.append(nn.BatchNorm1d(out_feat, 0.8))
-    layers.append(nn.LeakyReLU(0.2, inplace=True))
+        layers.append(nn.BatchNorm1d(out_feat))
+    layers.append(nn.LeakyReLU(0.1, inplace=True))
     return layers
 
 
@@ -28,7 +28,8 @@ class Generator(nn.Module):
         super(Generator,self).__init__()
         self.g = nn.Sequential(
             *block(n_topic,hid_dim),
-            *block(hid_dim,bow_dim,normalize=False),
+            #*block(hid_dim,bow_dim,normalize=False),
+            nn.Linear(hid_dim,bow_dim),
             nn.Softmax(dim=1)
         )
 
@@ -45,7 +46,8 @@ class Encoder(nn.Module):
         super(Encoder,self).__init__()
         self.e = nn.Sequential(
             *block(bow_dim,hid_dim),
-            *block(hid_dim,n_topic,normalize=False),
+            #*block(hid_dim,n_topic,normalize=False),
+            nn.Linear(hid_dim,n_topic,bias=True),
             nn.Softmax(dim=1)
         )
 
@@ -59,7 +61,8 @@ class Discriminator(nn.Module):
         super(Discriminator,self).__init__()
         self.d = nn.Sequential(
             *block(n_topic+bow_dim,hid_dim),
-            *block(hid_dim,1,normalize=False)
+            #*block(hid_dim,1,normalize=False)
+            nn.Linear(hid_dim,1,bias=True)
         )
 
     def forward(self,reps):
