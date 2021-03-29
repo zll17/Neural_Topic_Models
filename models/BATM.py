@@ -43,7 +43,7 @@ class BATM:
             self.encoder = self.encoder.to(device)
             self.discriminator = self.discriminator.to(device)
 
-    def train(self,train_data,batch_size=256, learning_rate=1e-4,test_data=None,num_epochs=100,is_evaluate=False,log_every=10,beta1=0.5,beta2=0.999,clip=0.01,n_critic=10):
+    def train(self,train_data,batch_size=256, learning_rate=1e-4,test_data=None,num_epochs=100,is_evaluate=False,log_every=10,beta1=0.5,beta2=0.999,clip=0.01,n_critic=5):
         self.generator.train()
         self.encoder.train()
         self.discriminator.train()
