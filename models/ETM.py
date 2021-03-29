@@ -48,6 +48,7 @@ class ETM:
     def __init__(self,bow_dim=10000,n_topic=20,taskname=None,device=None,emb_dim=300):
         self.bow_dim = bow_dim
         self.n_topic = n_topic
+        self.emb_dim = emb_dim
         #TBD_fc1
         self.vae = EVAE(encode_dims=[bow_dim,1024,512,n_topic],decode_dims=[n_topic,512,bow_dim],dropout=0.0,emb_dim=emb_dim)
         self.device = device
@@ -56,17 +57,25 @@ class ETM:
         if device!=None:
             self.vae = self.vae.to(device)
 
-    def train(self,train_data,batch_size=256,learning_rate=1e-3,test_data=None,num_epochs=100,is_evaluate=False,log_every=5,beta=1.0,criterion='cross_entropy'):
+    def train(self,train_data,batch_size=256,learning_rate=1e-3,test_data=None,num_epochs=100,is_evaluate=False,log_every=5,beta=1.0,criterion='cross_entropy',ckpt=None):
         self.vae.train()
         self.id2token = {v:k for k,v in train_data.dictionary.token2id.items()}
         data_loader = DataLoader(train_data,batch_size=batch_size,shuffle=True,num_workers=4,collate_fn=train_data.collate_fn)
 
         optimizer = torch.optim.Adam(self.vae.parameters(),lr=learning_rate)
         #scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.5)
+
+        if ckpt:
+            self.load_model(ckpt["net"])
+            optimizer.load_state_dict(ckpt["optimizer"])
+            start_epoch = ckpt["epoch"] + 1
+        else:
+            start_epoch = 0
+
         trainloss_lst, valloss_lst = [], []
         recloss_lst, klloss_lst = [],[]
         c_v_lst, c_w2v_lst, c_uci_lst, c_npmi_lst, mimno_tc_lst, td_lst = [], [], [], [], [], []
-        for epoch in range(num_epochs):
+        for epoch in range(start_epoch, num_epochs):
             epochloss_lst = []
             for iter,data in enumerate(data_loader):
                 optimizer.zero_grad()
@@ -106,6 +115,19 @@ class ETM:
                     print(f'Epoch {(epoch+1):>3d}\tIter {(iter+1):>4d}\tLoss:{loss.item()/len(bows):<.7f}\tRec Loss:{rec_loss.item()/len(bows):<.7f}\tKL Div:{kl_div.item()/len(bows):<.7f}')
             #scheduler.step()
             if (epoch+1) % log_every==0:
+                save_name = f'./ckpt/ETM_{self.taskname}_tp{self.n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}_ep{epoch+1}.ckpt'
+                checkpoint = {
+                    "net": self.vae.state_dict(),
+                    "optimizer": optimizer.state_dict(),
+                    "epoch": epoch,
+                    "param": {
+                        "bow_dim": self.bow_dim,
+                        "n_topic": self.n_topic,
+                        "taskname": self.taskname,
+                        "emb_dim": self.emb_dim
+                    }
+                }
+                torch.save(checkpoint,save_name)
                 # The code lines between this and the next comment lines are duplicated with WLDA.py, consider to simpify them.
                 print(f'Epoch {(epoch+1):>3d}\tLoss:{sum(epochloss_lst)/len(epochloss_lst):<.7f}')
                 print('\n'.join([str(lst) for lst in self.show_topic_words()]))
@@ -198,7 +220,7 @@ class ETM:
                 word_dist = F.softmax(word_dist,dim=1)
             return word_dist.detach().cpu().numpy()
 
-    def show_topic_words(self,topic_id=None,topK=15):
+    def show_topic_words(self,topic_id=None,topK=15, dictionary=None):
         topic_words = []
         idxes = torch.eye(self.n_topic).to(self.device)
         word_dist = self.vae.decode(idxes)
@@ -206,12 +228,18 @@ class ETM:
         vals,indices = torch.topk(word_dist,topK,dim=1)
         vals = vals.cpu().tolist()
         indices = indices.cpu().tolist()
+        if self.id2token==None and dictionary!=None:
+            self.id2token = {v:k for k,v in dictionary.token2id.items()}
         if topic_id==None:
             for i in range(self.n_topic):
                 topic_words.append([self.id2token[idx] for idx in indices[i]])
         else:
             topic_words.append([self.id2token[idx] for idx in indices[topic_id]])
         return topic_words
+
+    def load_model(self, model):
+        self.vae.load_state_dict(model)
+
 
 if __name__ == '__main__':
     model = EVAE(encode_dims=[1024,512,256,20],decode_dims=[20,128,768,1024],emb_dim=300)

@@ -34,20 +34,29 @@ class WTM:
         self.device = device
         self.id2token = None
         self.dist = dist
+        self.dropout = dropout
         self.taskname = taskname
         if device != None:
             self.wae = self.wae.to(device)
 
-    def train(self, train_data, batch_size=256, learning_rate=1e-3, test_data=None, num_epochs=100, is_evaluate=False, log_every=5, beta=1.0):
+    def train(self, train_data, batch_size=256, learning_rate=1e-3, test_data=None, num_epochs=100, is_evaluate=False, log_every=5, beta=1.0, ckpt=None):
         self.wae.train()
         self.id2token = {v: k for k,v in train_data.dictionary.token2id.items()}
         data_loader = DataLoader(train_data, batch_size=batch_size,shuffle=True, num_workers=4, collate_fn=train_data.collate_fn)
 
         optimizer = torch.optim.Adam(self.wae.parameters(), lr=learning_rate)
         #scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.5)
+
+        if ckpt:
+            self.load_model(ckpt["net"])
+            optimizer.load_state_dict(ckpt["optimizer"])
+            start_epoch = ckpt["epoch"] + 1
+        else:
+            start_epoch = 0
+
         trainloss_lst, valloss_lst = [], []
         c_v_lst, c_w2v_lst, c_uci_lst, c_npmi_lst, mimno_tc_lst, td_lst = [], [], [], [], [], []
-        for epoch in range(num_epochs):
+        for epoch in range(start_epoch, num_epochs):
             epochloss_lst = []
             for iter, data in enumerate(data_loader):
                 optimizer.zero_grad()
@@ -80,6 +89,20 @@ class WTM:
                     print(f'Epoch {(epoch+1):>3d}\tIter {(iter+1):>4d}\tLoss:{loss.item()/len(bows):<.7f}\tRec Loss:{rec_loss.item()/len(bows):<.7f}\tMMD:{mmd.item()/len(bows):<.7f}')
             #scheduler.step()
             if (epoch+1) % log_every == 0:
+                save_name = f'./ckpt/WTM_{self.taskname}_tp{self.n_topic}_{self.dist}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}_{epoch+1}.ckpt'
+                checkpoint = {
+                    "net": self.wae.state_dict(),
+                    "optimizer": optimizer.state_dict(),
+                    "epoch": epoch,
+                    "param": {
+                        "bow_dim": self.bow_dim,
+                        "n_topic": self.n_topic,
+                        "taskname": self.taskname,
+                        "dist": self.dist,
+                        "dropout": self.dropout
+                    }
+                }
+                torch.save(checkpoint,save_name)
                 print(f'Epoch {(epoch+1):>3d}\tLoss:{sum(epochloss_lst)/len(epochloss_lst):<.7f}')
                 print('\n'.join([str(lst) for lst in self.show_topic_words()]))
                 print('='*30)
@@ -91,8 +114,6 @@ class WTM:
                 if test_data!=None:
                     c_v,c_w2v,c_uci,c_npmi,mimno_tc, td = self.evaluate(test_data,calc4each=False)
                     c_v_lst.append(c_v), c_w2v_lst.append(c_w2v), c_uci_lst.append(c_uci),c_npmi_lst.append(c_npmi), mimno_tc_lst.append(mimno_tc), td_lst.append(td)
-                save_name = f'./ckpt/WTM_{self.taskname}_tp{self.n_topic}_{self.dist}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
-                torch.save(self.wae.state_dict(),save_name)
         scrs = {'c_v':c_v_lst,'c_w2v':c_w2v_lst,'c_uci':c_uci_lst,'c_npmi':c_npmi_lst,'mimno_tc':mimno_tc_lst,'td':td_lst}
         '''
         for scr_name,scr_lst in scrs.items():
@@ -188,8 +209,8 @@ class WTM:
             topic_words.append([self.id2token[idx] for idx in indices[topic_id]])
         return topic_words
     
-    def load_model(self, model_path):
-        self.wae.load_state_dict(torch.load(model_path))
+    def load_model(self, model):
+        self.wae.load_state_dict(model)
 
 if __name__ == '__main__':
     model = WAE(encode_dims=[1024, 512, 256, 20],

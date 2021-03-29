@@ -36,6 +36,8 @@ parser.add_argument('--batch_size',type=int,default=512,help='Batch size (defaul
 parser.add_argument('--criterion',type=str,default='cross_entropy',help='The criterion to calculate the loss, e.g cross_entropy, bce_softmax, bce_sigmoid')
 parser.add_argument('--emb_dim',type=int,default=300,help="The dimension of the latent topic vectors (default:300)")
 parser.add_argument('--auto_adj',action='store_true',help='To adjust the no_above ratio automatically (default:rm top 20)')
+parser.add_argument('--ckpt',type=str,default=None,help='Checkpoint path')
+
 args = parser.parse_args()
 
 def main():
@@ -54,6 +56,7 @@ def main():
     n_topic = args.n_topic
     emb_dim = args.emb_dim
     auto_adj = args.auto_adj
+    ckpt = args.ckpt
 
     device = torch.device('cuda')
     docSet = DocDataset(taskname,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=False)
@@ -63,8 +66,16 @@ def main():
     
     voc_size = docSet.vocabsize
     print('voc size:',voc_size)
-    model = ETM(bow_dim=voc_size,n_topic=n_topic,taskname=taskname,device=device,emb_dim=emb_dim) #TBD_fc1
-    model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0,criterion=criterion)
+
+    if ckpt:
+        checkpoint=torch.load(ckpt)
+        param=checkpoint["param"]
+        param.update({"device": device})
+        model = ETM(**param)
+        model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0,criterion=criterion,ckpt=checkpoint)
+    else:
+        model = ETM(bow_dim=voc_size,n_topic=n_topic,taskname=taskname,device=device,emb_dim=emb_dim) #TBD_fc1
+        model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0,criterion=criterion)
     model.evaluate(test_data=docSet)
     save_name = f'./ckpt/ETM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
     torch.save(model.vae.state_dict(),save_name)
