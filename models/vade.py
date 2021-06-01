@@ -25,6 +25,7 @@ class VaDE(nn.Module):
             f'enc_{i}':nn.Linear(encode_dims[i],encode_dims[i+1]) 
             for i in range(len(encode_dims)-2)
         })
+        self.fc_pi = nn.Linear(encode_dims[-2],n_clusters)
         self.fc_mu = nn.Linear(encode_dims[-2],encode_dims[-1])
         self.fc_logvar = nn.Linear(encode_dims[-2],encode_dims[-1])
 
@@ -47,16 +48,16 @@ class VaDE(nn.Module):
         hid = x
         for i,layer in self.encoder.items():
             hid = F.relu(self.dropout(layer(hid)))
-        mu, log_var = self.fc_mu(hid), self.fc_logvar(hid)
-        return mu, log_var
+        mu, log_var, qc = self.fc_mu(hid), self.fc_logvar(hid), torch.softmax(self.fc_pi(hid),dim=1)
+        return mu, log_var, qc
 
     def get_latent(self,x):
         with torch.no_grad():
-            mu, log_var = self.encode(x)
+            mu, log_var, qc = self.encode(x)
             return mu
 
     def inference(self,x):
-        mu, log_var = self.encode(x)
+        mu, log_var, qc = self.encode(x)
         theta = self.fc1(mu)
         return theta
     
@@ -142,7 +143,7 @@ class VaDE(nn.Module):
         return dist
 
     def forward(self, x, collate_fn=None, isPretrain=False):
-        mu, log_var = self.encode(x)
+        mu, log_var, qc = self.encode(x)
         if isPretrain==False:
             _z = self.reparameterize(mu, log_var)
         else:
@@ -153,12 +154,13 @@ class VaDE(nn.Module):
         else:
             theta = _theta
         x_reconst = self.decode(theta)
-        return x_reconst, mu, log_var
+        return x_reconst, mu, log_var, qc
 
 if __name__ == '__main__':
     model = VaDE(encode_dims=[1024,512,256,20],decode_dims=[20,128,768,1024],n_clusters=10)
     model = model.cuda()
     inpt = torch.randn(234,1024).cuda()
-    out,mu,log_var = model(inpt)
+    out,mu,log_var,qc = model(inpt)
     print(out.shape)
     print(mu.shape)
+    print(qc.shape)

@@ -214,7 +214,7 @@ class GMNTM:
         for token in doc_tokenized:
             try:
                 idx = dictionary.token2id[token]
-                doc_bow[0][idx] = 1.0
+                doc_bow[0][idx] += 1.0
             except:
                 print(f'{token} not in the vocabulary.')
         doc_bow = doc_bow.to(self.device)
