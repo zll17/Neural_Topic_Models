@@ -35,6 +35,7 @@ parser.add_argument('--dist',type=str,default='gmm_std',help='Prior distribution
 parser.add_argument('--batch_size',type=int,default=512,help='Batch size (default=512)')
 parser.add_argument('--criterion',type=str,default='cross_entropy',help='The criterion to calculate the loss, e.g cross_entropy, bce_softmax, bce_sigmoid')
 parser.add_argument('--auto_adj',action='store_true',help='To adjust the no_above ratio automatically (default:rm top 20)')
+parser.add_argument('--lang',type=str,default="zh",help='Language of the dataset')
 
 args = parser.parse_args()
 
@@ -54,12 +55,13 @@ def main():
     batch_size = args.batch_size
     criterion = args.criterion
     auto_adj = args.auto_adj
+    lang = args.lang
 
     device = torch.device('cuda')
-    docSet = DocDataset(taskname,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=True)
+    docSet = DocDataset(taskname,lang=lang,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=True)
     if auto_adj:
         no_above = docSet.topk_dfs(topk=20)
-        docSet = DocDataset(taskname,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=False)
+        docSet = DocDataset(taskname,lang=lang,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=False)
     voc_size = docSet.vocabsize
 
     n_topic = args.n_topic

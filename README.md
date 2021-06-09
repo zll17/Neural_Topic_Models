@@ -310,10 +310,17 @@ First, prepare the text data. One line will be taken as one document, so you nee
 
 Then **modify the name of the text file** into the format {taskname}_lines.txt, in this case, `zhddline_lines.txt`. Put the renamed file in the `data` directory.
 
-Finally, **choose the right tokenizer or create one by yourself**. The tokenizer should be customized according to text type. The default configuration utilizes HanLP as tokenizer to deal with modern Chinese sentences. If you need to process other types of text (i.e. in English or in ancient Chinese), open the file `tokenization.py` ,  modify the code in function `Tokenizer` accordingly.
+Finally, **choose the right tokenizer or create one by yourself**. The tokenizer should be customized according to text type. `tokenization.py` provides two tokenizers, HanLP for Chinese and spaCy for English. To use these tokenizers, specify the language with the command line argument:
+```shell
+$ python3 BATM_run.py --taskname zhdd --n_topic 20 --num_epochs 300 --no_above 0.039 --no_below 5 --lang zh
+```
+The default configuration utilizes HanLP as tokenizer to deal with modern Chinese sentences. If you need to process other types of text (i.e. in ancient Chinese), open the file `tokenization.py` , update `LANG_CLS` and create a new class with the method:
+```python
+def tokenize(self, lines: List[str]) -> List[List[str]]:
+```
 
 <p align="center">
-    <img src="assets/tokenizer_exp.png" width="512"\>
+    <img src="assets/tokenizer_cls.png" width="512"\>
 </p>
 
 
