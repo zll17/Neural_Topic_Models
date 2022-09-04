@@ -154,22 +154,18 @@ class DocDataset(Dataset):
 
 
 class TestDocDataset(DocDataset):
-    def __init__(self, taskname, dictPath=None, txtPath=None, lang="zh", tokenizer=None, stopwords=None, no_below=5, no_above=0.1,use_tfidf=False):
-     
-        cwd = os.getcwd()
-        txtPath = os.path.join(cwd,'data',f'{taskname}_lines.txt') if txtPath==None else txtPath
-        tmpDir = os.path.join(cwd,'data',taskname)
-        dictPath = os.path.join(tmpDir,'dict.txt') if dictPath==None else dictPath
-
+    def __init__(self, dictionary, taskname=None, txtPath=None, lang="zh", tokenizer=None, stopwords=None, use_tfidf=False):
+        
+        txtPath = os.path.join(os.getcwd(),'data',f'{taskname}_lines.txt') if taskname else txtPath
+        
         self.txtLines = None
-        self.dictionary = None
         self.bows,self.docs = None,None
         self.use_tfidf = use_tfidf
         self.tfidf,self.tfidf_model = None,None
 
         self._tokenize(txtPath, lang, stopwords, tokenizer)
 
-        self.dictionary = Dictionary.load_from_text(dictPath)
+        self.dictionary = dictionary
 
         self._convert_to_BOW(keep_empty_doc=True)
 
@@ -217,10 +213,12 @@ if __name__ == '__main__':
         print(doc)
         break
     print(docSet.topk_dfs(20))
-    
+    print(docSet.vocabsize)
+
     input("Press any key ...")
-    docSet = TestDocDataset('zhdd',dictPath=os.path.join(os.getcwd(),"data","zhdd","dict.txt"))
-    dataloader = DataLoader(docSet,batch_size=64,shuffle=True,num_workers=4,collate_fn=docSet.collate_fn)
-    print('docSet.docs[10]:',docSet.docs[10])
+    dictionary = docSet.dictionary
+    testSet = TestDocDataset(dictionary=dictionary,taskname="zhdd")
+    dataloader = DataLoader(testSet,batch_size=64,shuffle=True,num_workers=4,collate_fn=testSet.collate_fn)
+    print('testSet.docs[10]:',testSet.docs[10])
     print(next(iter(dataloader)))
 

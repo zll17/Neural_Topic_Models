@@ -59,8 +59,8 @@ def main():
     auto_adj = args.auto_adj
     ckpt = args.ckpt
     lang = args.lang
-
-    device = torch.device('cuda')
+    
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     docSet = DocDataset(taskname,lang=lang,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=False)
     if auto_adj:
         no_above = docSet.topk_dfs(topk=20)

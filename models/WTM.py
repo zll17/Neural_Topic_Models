@@ -148,6 +148,8 @@ class WTM:
 
 
     def inference(self, doc_tokenized, dictionary,normalize=True):
+        if doc_tokenized==[] or doc_tokenized is None:
+            return np.empty(0)
         doc_bow = torch.zeros(1,self.bow_dim)
         for token in doc_tokenized:
             try:

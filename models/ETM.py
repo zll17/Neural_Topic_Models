@@ -140,8 +140,6 @@ class ETM:
                 if test_data!=None:
                     c_v,c_w2v,c_uci,c_npmi,mimno_tc, td = self.evaluate(test_data,calc4each=False)
                     c_v_lst.append(c_v), c_w2v_lst.append(c_w2v), c_uci_lst.append(c_uci),c_npmi_lst.append(c_npmi), mimno_tc_lst.append(mimno_tc), td_lst.append(td)
-                save_name = f'./ckpt/ETM_{self.taskname}_tp{self.n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
-                torch.save(self.vae.state_dict(),save_name)
         scrs = {'c_v':c_v_lst,'c_w2v':c_w2v_lst,'c_uci':c_uci_lst,'c_npmi':c_npmi_lst,'mimno_tc':mimno_tc_lst,'td':td_lst}
         '''
         for scr_name,scr_lst in scrs.items():
@@ -178,6 +176,8 @@ class ETM:
 
 
     def inference(self, doc_tokenized, dictionary,normalize=True):
+        if doc_tokenized==[] or doc_tokenized is None:
+            return np.empty(0)
         doc_bow = torch.zeros(1,self.bow_dim)
         for token in doc_tokenized:
             try:

@@ -339,9 +339,20 @@ The model will evaluate the topic coherence and topic diversity every 10 epochs,
     <img src="assets/WLDA-GMM_zhddline10k.png" width="auto"\>
 </p>
 
+<h6 id="Run">4.3 Inference</h6>
 
+Run `inference.py` for a quick start. You can write your own. For example, after training an ETM on `zhdd_lines.txt`, get the topic distribution of each document (one line) in `zhdd_lines.txt` with the following command:
 
+```shell
+$ python inference.py --ckpt <ckpt_path> --model ETM --lang zh
+```
 
+Parameters:
+- `--ckpt`: Checkpoint path.
+- `--model`: Model name, choose from `ETM`, `GSM`, `BATM`, `WTM`, `GMNTM`.
+- `--test_path`: The text for inference, with the same format as the training text. If not specified, it automatically loads the file used for training from the ckeckpoint as the text for inference.
+- `--lang`: Currently support `zh` and `en`(default).
+- `--use_tfidf`: Whether to use the tfidf feature for the BOW input. Default to `False`.
 
 <h4 id="Acknowledgement">5. Acknowledgement</h4>
 
