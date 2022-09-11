@@ -11,15 +11,18 @@ from models import ETM
 text = file_tokenize("data/zhdd_lines.txt", "zh")
 dictionary = build_dictionary(text)
 bows, docs = convert_to_BOW(text, dictionary)
+# dictionary, bows, docs, tfidf = load_tmp_files("data/zhdd/")
+
 corpus = DocDataset(dictionary, bows, docs)
 
 # Train the model on the corpus
-model = ETM(bow_dim=corpus.vocabsize, n_topic=10, taskname="zhdd")
-model.train(train_data=corpus, test_data=corpus)  # to clarify: train saves ckpt and evaluates every log_every steps
-'''
+model = ETM(bow_dim=corpus.vocabsize, n_topic=10)
+model.train(train_data=corpus, test_data=corpus, num_epochs=10)  # num_epochs=10 for debug
+# to clarify: train saves ckpt and evaluates every log_every steps
+
 # Evaluate the model
 model.evaluate(test_data=corpus)
-
+'''
 # Save a model to disk, or reload a pre-trained model
 tmp_file = "model.ckpt"
 model.save_model(tmp_file)  # To add

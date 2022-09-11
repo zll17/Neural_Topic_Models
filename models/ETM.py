@@ -19,6 +19,7 @@ import torch.nn.functional as F
 from torch.utils.data import Dataset,DataLoader
 import numpy as np
 from tqdm import tqdm
+from .base_ntm import BaseNTM
 from .vae import VAE
 import matplotlib.pyplot as plt
 import sys
@@ -45,7 +46,7 @@ class EVAE(VAE):
 
 
 class ETM:
-    def __init__(self,bow_dim=10000,n_topic=20,taskname=None,device=None,emb_dim=300):
+    def __init__(self,bow_dim=10000,n_topic=20,device=None,emb_dim=300,taskname=""):
         self.bow_dim = bow_dim
         self.n_topic = n_topic
         self.emb_dim = emb_dim
@@ -53,10 +54,16 @@ class ETM:
         self.vae = EVAE(encode_dims=[bow_dim,1024,512,n_topic],decode_dims=[n_topic,512,bow_dim],dropout=0.0,emb_dim=emb_dim)
         self.device = device
         self.id2token = None
-        self.taskname = taskname
         if device!=None:
             self.vae = self.vae.to(device)
 
+        # TODO: move to BaseModel
+        save_name = f'ETM_{taskname}_tp{self.n_topic}_{time.strftime("%m-%d-%H-%M", time.localtime())}'
+        self.save_dir = os.path.join(os.getcwd(),'ckpt',save_name)
+        if not os.path.exists(self.save_dir):
+            os.mkdir(self.save_dir)
+        print("ckpt will be saved at %s"%self.save_dir)
+ 
     def train(self,train_data,batch_size=256,learning_rate=1e-3,test_data=None,num_epochs=100,is_evaluate=False,log_every=5,beta=1.0,criterion='cross_entropy',ckpt=None):
         self.vae.train()
         self.id2token = {v:k for k,v in train_data.dictionary.token2id.items()}
@@ -115,19 +122,7 @@ class ETM:
                     print(f'Epoch {(epoch+1):>3d}\tIter {(iter+1):>4d}\tLoss:{loss.item()/len(bows):<.7f}\tRec Loss:{rec_loss.item()/len(bows):<.7f}\tKL Div:{kl_div.item()/len(bows):<.7f}')
             #scheduler.step()
             if (epoch+1) % log_every==0:
-                save_name = f'./ckpt/ETM_{self.taskname}_tp{self.n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}_ep{epoch+1}.ckpt'
-                checkpoint = {
-                    "net": self.vae.state_dict(),
-                    "optimizer": optimizer.state_dict(),
-                    "epoch": epoch,
-                    "param": {
-                        "bow_dim": self.bow_dim,
-                        "n_topic": self.n_topic,
-                        "taskname": self.taskname,
-                        "emb_dim": self.emb_dim
-                    }
-                }
-                torch.save(checkpoint,save_name)
+                self.save(epoch+1, optimizer)
                 # The code lines between this and the next comment lines are duplicated with WLDA.py, consider to simpify them.
                 print(f'Epoch {(epoch+1):>3d}\tLoss:{sum(epochloss_lst)/len(epochloss_lst):<.7f}')
                 print('\n'.join([str(lst) for lst in self.show_topic_words()]))
@@ -157,11 +152,10 @@ class ETM:
         plt.savefig(f'gsm_tc_scores.png')
         # The code lines between this and the last comment lines are duplicated with WLDA.py, consider to simpify them.
 
-
     def evaluate(self,test_data,calc4each=False):
         topic_words = self.show_topic_words()
-        return evaluate_topic_quality(topic_words, test_data, taskname=self.taskname, calc4each=calc4each)
-
+        test_emb_path = os.path.join(self.save_dir, "test_w2v_weight_kv.txt")
+        return evaluate_topic_quality(topic_words, test_data, emb_path=test_emb_path, calc4each=calc4each)
 
     def inference_by_bow(self,doc_bow):
         # doc_bow: torch.tensor [vocab_size]; optional: np.array [vocab_size]
@@ -173,7 +167,6 @@ class ETM:
             mu = self.vae.fc1(mu) 
             theta = F.softmax(mu,dim=1)
             return theta.detach().cpu().squeeze(0).numpy()
-
 
     def inference(self, doc_tokenized, dictionary,normalize=True):
         if doc_tokenized==[] or doc_tokenized is None:
@@ -236,6 +229,20 @@ class ETM:
         else:
             topic_words.append([self.id2token[idx] for idx in indices[topic_id]])
         return topic_words
+
+    def save(self, epoch, optimizer):
+        checkpoint = {
+            "net": self.vae.state_dict(),
+            "optimizer": optimizer.state_dict(),
+            "epoch": epoch,
+            "param": {
+                "bow_dim": self.bow_dim,
+                "n_topic": self.n_topic,
+                "emb_dim": self.emb_dim
+            }
+        }
+        save_path = os.path.join(self.save_dir, "ep%d.ckpt"%epoch)
+        torch.save(checkpoint, save_path)
 
     def load_model(self, model):
         self.vae.load_state_dict(model)

@@ -36,7 +36,15 @@ def calc_topic_diversity(topic_words):
     topic_div = len(vocab) / n_total
     return topic_div
 
-def calc_topic_coherence(topic_words,docs,dictionary,emb_path=None,taskname=None,sents4emb=None,calc4each=False):
+def train_word2vec(sentences, save_path):
+    print('Training a word2vec model 20 epochs to evaluate topic coherence, this may take a few minutes ...')
+    w2v_model = gensim.models.Word2Vec(sentences,size=300,min_count=1,workers=6,iter=20)
+    keyed_vectors = w2v_model.wv
+    keyed_vectors.save_word2vec_format(save_path,binary=False)
+    print("Test set word2vec weights saved to %s"%save_path)
+    return keyed_vectors
+
+def calc_topic_coherence(topic_words,docs,dictionary,emb_path=None,sents4emb=None,calc4each=False):
     # emb_path: path of the pretrained word2vec weights, in text format.
     # sents4emb: list/generator of tokenized sentences.
     # Computing the C_V score
@@ -46,17 +54,11 @@ def calc_topic_coherence(topic_words,docs,dictionary,emb_path=None,taskname=None
     
     # Computing the C_W2V score
     try:
-        w2v_model_path = os.path.join(os.getcwd(),'data',f'{taskname}','w2v_weight_kv.txt')
-        # Priority order: 1) user's embed file; 2) standard path embed file; 3) train from scratch then store.
+        # Priority order: 1) user's specified embed file;  2) train from scratch then store.        
         if emb_path!=None and os.path.exists(emb_path):
             keyed_vectors = gensim.models.KeyedVectors.load_word2vec_format(emb_path,binary=False)
-        elif os.path.exists(w2v_model_path):
-            keyed_vectors = gensim.models.KeyedVectors.load_word2vec_format(w2v_model_path,binary=False)
         elif sents4emb!=None:
-            print('Training a word2vec model 20 epochs to evaluate topic coherence, this may take a few minutes ...')
-            w2v_model = gensim.models.Word2Vec(sents4emb,size=300,min_count=1,workers=6,iter=20)
-            keyed_vectors = w2v_model.wv
-            keyed_vectors.save_word2vec_format(w2v_model_path,binary=False)
+            keyed_vectors = train_word2vec(sents4emb, emb_path)
         else:
             raise Exception("C_w2v score isn't available for the missing of training corpus (sents4emb=None).")
             
@@ -101,7 +103,7 @@ def mimno_topic_coherence(topic_words,docs):
         scores.append(s)
     return np.mean(s)
 
-def evaluate_topic_quality(topic_words, test_data, taskname=None, calc4each=False):
+def evaluate_topic_quality(topic_words, test_data, emb_path=None, calc4each=False):
     
     td_score = calc_topic_diversity(topic_words)
     print(f'topic diversity:{td_score}')
@@ -109,7 +111,7 @@ def evaluate_topic_quality(topic_words, test_data, taskname=None, calc4each=Fals
     (c_v, c_w2v, c_uci, c_npmi),\
         (cv_per_topic, c_w2v_per_topic, c_uci_per_topic, c_npmi_per_topic) = \
         calc_topic_coherence(topic_words=topic_words, docs=test_data.docs, dictionary=test_data.dictionary,
-                             emb_path=None, taskname=taskname, sents4emb=test_data, calc4each=calc4each)
+                             emb_path=emb_path, sents4emb=test_data, calc4each=calc4each)
     print('c_v:{}, c_w2v:{}, c_uci:{}, c_npmi:{}'.format(
         c_v, c_w2v, c_uci, c_npmi))
     scrs = {'c_v':cv_per_topic,'c_w2v':c_w2v_per_topic,'c_uci':c_uci_per_topic,'c_npmi':c_npmi_per_topic}
