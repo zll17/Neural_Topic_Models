@@ -26,6 +26,7 @@ import sys
 import codecs
 sys.path.append('..')
 from utils import evaluate_topic_quality, smooth_curve
+from data_utils import load_dictionary
 
 class EVAE(VAE):
     def __init__(self, encode_dims=[2000,1024,512,20],decode_dims=[20,1024,2000],dropout=0.0,emb_dim=300):
@@ -45,40 +46,34 @@ class EVAE(VAE):
         return logits
 
 
-class ETM:
-    def __init__(self,bow_dim=10000,n_topic=20,device=None,emb_dim=300,taskname=""):
+class ETM(BaseNTM):
+    def __init__(self,bow_dim=10000,n_topic=20,device=None,emb_dim=300):
+        super(ETM, self).__init__(name="ETM")
         self.bow_dim = bow_dim
         self.n_topic = n_topic
         self.emb_dim = emb_dim
         #TBD_fc1
         self.vae = EVAE(encode_dims=[bow_dim,1024,512,n_topic],decode_dims=[n_topic,512,bow_dim],dropout=0.0,emb_dim=emb_dim)
-        self.device = device
+        self.device = device if device != None else torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.vae = self.vae.to(device)
         self.id2token = None
-        if device!=None:
-            self.vae = self.vae.to(device)
+        # self.dict_path = None  # for loading dictionary.id2token from checkpoint
+        self._update_param(bow_dim=bow_dim, n_topic=n_topic, emb_dim=emb_dim, device=self.device)
 
-        # TODO: move to BaseModel
-        save_name = f'ETM_{taskname}_tp{self.n_topic}_{time.strftime("%m-%d-%H-%M", time.localtime())}'
-        self.save_dir = os.path.join(os.getcwd(),'ckpt',save_name)
-        if not os.path.exists(self.save_dir):
-            os.mkdir(self.save_dir)
-        print("ckpt will be saved at %s"%self.save_dir)
- 
-    def train(self,train_data,batch_size=256,learning_rate=1e-3,test_data=None,num_epochs=100,is_evaluate=False,log_every=5,beta=1.0,criterion='cross_entropy',ckpt=None):
+    def train(self,train_data,batch_size=256,learning_rate=1e-3,test_data=None,num_epochs=100,is_evaluate=False,log_every=5,beta=1.0,criterion='cross_entropy'):
+        
         self.vae.train()
+        
         self.id2token = {v:k for k,v in train_data.dictionary.token2id.items()}
+        self.dict_path = os.path.join(train_data.save_dir,'dict.txt')
+        self._update_param(dict_path=self.dict_path)
+
         data_loader = DataLoader(train_data,batch_size=batch_size,shuffle=True,num_workers=4,collate_fn=train_data.collate_fn)
 
         optimizer = torch.optim.Adam(self.vae.parameters(),lr=learning_rate)
         #scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.5)
 
-        if ckpt:
-            self.load_model(ckpt["net"])
-            optimizer.load_state_dict(ckpt["optimizer"])
-            start_epoch = ckpt["epoch"] + 1
-        else:
-            start_epoch = 0
-
+        start_epoch = 0
         trainloss_lst, valloss_lst = [], []
         recloss_lst, klloss_lst = [],[]
         c_v_lst, c_w2v_lst, c_uci_lst, c_npmi_lst, mimno_tc_lst, td_lst = [], [], [], [], [], []
@@ -122,7 +117,8 @@ class ETM:
                     print(f'Epoch {(epoch+1):>3d}\tIter {(iter+1):>4d}\tLoss:{loss.item()/len(bows):<.7f}\tRec Loss:{rec_loss.item()/len(bows):<.7f}\tKL Div:{kl_div.item()/len(bows):<.7f}')
             #scheduler.step()
             if (epoch+1) % log_every==0:
-                self.save(epoch+1, optimizer)
+                self._update_state(epoch=epoch+1, net=self.vae.state_dict(), optimizer=optimizer.state_dict())
+                self.save()
                 # The code lines between this and the next comment lines are duplicated with WLDA.py, consider to simpify them.
                 print(f'Epoch {(epoch+1):>3d}\tLoss:{sum(epochloss_lst)/len(epochloss_lst):<.7f}')
                 print('\n'.join([str(lst) for lst in self.show_topic_words()]))
@@ -230,22 +226,20 @@ class ETM:
             topic_words.append([self.id2token[idx] for idx in indices[topic_id]])
         return topic_words
 
-    def save(self, epoch, optimizer):
-        checkpoint = {
-            "net": self.vae.state_dict(),
-            "optimizer": optimizer.state_dict(),
-            "epoch": epoch,
-            "param": {
-                "bow_dim": self.bow_dim,
-                "n_topic": self.n_topic,
-                "emb_dim": self.emb_dim
-            }
-        }
-        save_path = os.path.join(self.save_dir, "ep%d.ckpt"%epoch)
-        torch.save(checkpoint, save_path)
-
-    def load_model(self, model):
-        self.vae.load_state_dict(model)
+    def load(self, ckpt_path):
+        checkpoint = torch.load(ckpt_path)
+        param=checkpoint["param"]
+        state=checkpoint["state"]
+        self.param=param
+        self.stete=state
+        self.bow_dim = param["bow_dim"]
+        self.n_topic = param["n_topic"]
+        self.emb_dim = param["emb_dim"]
+        self.device = param["device"]
+        self.dict_path = param["dict_path"]
+        dictionary = load_dictionary(self.dict_path)
+        self.id2token = dictionary.id2token
+        self.vae.load_state_dict(state["net"])
 
 
 if __name__ == '__main__':

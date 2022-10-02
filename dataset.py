@@ -4,6 +4,7 @@
 import os
 import gensim
 import random
+import pickle
 import torch
 from tokenization import *
 from data_utils import *
@@ -14,7 +15,7 @@ import sys
 sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
 
 class DocDataset(Dataset):
-    def __init__(self,dictionary,bows,docs,tfidf=None):
+    def __init__(self,dictionary=None,bows=None,docs=None,tfidf=None):
         
         self.dictionary = dictionary
         self.bows, self.docs = bows, docs
@@ -22,6 +23,8 @@ class DocDataset(Dataset):
 
         self.vocabsize = len(self.dictionary)
         self.numDocs = len(self.bows)
+
+        self.save_dir = ""
 
     def __getitem__(self,idx):
         bow = torch.zeros(self.vocabsize)
@@ -43,6 +46,36 @@ class DocDataset(Dataset):
     def __iter__(self):
         for doc in self.docs:
             yield doc
+
+    def create(self, txt_file, lang, use_tfidf=False):
+        text = file_tokenize(txt_file, lang)
+        self.dictionary = build_dictionary(text)
+        self.bows, self.docs = convert_to_BOW(text, dictionary)
+        if use_tfidf:
+            self.tfidf, tfidf_model = compute_tfidf(self.bows)
+
+    def save(self, save_dir="./data/tmp"):
+        if not os.path.exists(save_dir):
+            os.mkdir(save_dir)
+        self.save_dir = save_dir
+        self.dictionary.save_as_text(os.path.join(save_dir,'dict.txt'))
+        print("Dictionary saved to %s"%os.path.join(save_dir,'dict.txt'))
+        gensim.corpora.MmCorpus.serialize(os.path.join(save_dir,'corpus.mm'), self.bows)
+        print("Corpus saved to %s"%os.path.join(save_dir,'corpus.mm'))
+        pickle.dump(self.docs,open(os.path.join(save_dir,'docs.pkl'),'wb'))
+        print("Docs saved to %s"%os.path.join(save_dir,'docs.pkl'))
+        if self.tfidf:
+            gensim.corpora.MmCorpus.serialize(os.path.join(save_dir,'tfidf.mm'),self.tfidf)
+            print("TF-IDF model saved to %s"%os.path.join(save_dir,'tfidf.mm'))
+
+    def load(self, load_dir):
+        print("Loading corpus from %s ..."%load_dir)
+        self.bows = gensim.corpora.MmCorpus(os.path.join(load_dir,'corpus.mm'))
+        self.dictionary = load_dictionary(os.path.join(load_dir,'dict.txt'))
+        self.docs = pickle.load(open(os.path.join(load_dir,'docs.pkl'),'rb'))
+        if os.path.exists(os.path.join(load_dir,'tfidf.mm')):
+            self.tfidf = gensim.corpora.MmCorpus(os.path.join(load_dir,'tfidf.mm'))
+            print("Using TF-IDF")
 
     def show_dfs_topk(self,topk=20):
         ndoc = len(self.docs)

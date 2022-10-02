@@ -1,7 +1,6 @@
 '''
 This is a minimal example using most of the default parameters.
 See xx.py for a full example.
-TODO: Add save_dir to save tempf files.
 '''
 from data_utils import *
 from dataset import DocDataset
@@ -11,27 +10,31 @@ from models import ETM
 text = file_tokenize("data/zhdd_lines.txt", "zh")
 dictionary = build_dictionary(text)
 bows, docs = convert_to_BOW(text, dictionary)
-# dictionary, bows, docs, tfidf = load_tmp_files("data/zhdd/")
 
 corpus = DocDataset(dictionary, bows, docs)
+corpus.save()
+
+# corpus = DocDataset()
+# corpus.load("data/zhdd/")  # for debug
 
 # Train the model on the corpus
 model = ETM(bow_dim=corpus.vocabsize, n_topic=10)
-model.train(train_data=corpus, test_data=corpus, num_epochs=10)  # num_epochs=10 for debug
+model.train(train_data=corpus, test_data=corpus, num_epochs=1, log_every=1)  # num_epochs=10, log_every=1 for debug
 # to clarify: train saves ckpt and evaluates every log_every steps
 
 # Evaluate the model
 model.evaluate(test_data=corpus)
-'''
+
 # Save a model to disk, or reload a pre-trained model
 tmp_file = "model.ckpt"
-model.save_model(tmp_file)  # To add
-model.load_model(tmp_file)
+model.save(tmp_file)
+model.load(tmp_file)
 
+'''
 # Query, the model using new, unseen documents
 other_corpus = TestDocDataset(dictionary=dictionary, txtPath="example_lines.txt", lang="zh")
 unseen_doc = other_corpus[0]
-vector = model.inference(doc_tokenized=unseen_doc, dictionary=dictionary)
+vector = model.inference(doc_tokenized=unseen_doc, dictionary=dictionary)  # remove dictionary, it is related to model
 
 # Update the model by incrementally training on the new corpus
 # TO DISCUSS
