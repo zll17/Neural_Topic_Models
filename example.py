@@ -12,30 +12,44 @@ dictionary = build_dictionary(text)
 bows, docs = convert_to_BOW(text, dictionary)
 
 corpus = DocDataset(dictionary, bows, docs)
-corpus.save()
+corpus.save("data/zhdd")
 
-# corpus = DocDataset()
-# corpus.load("data/zhdd/")  # for debug
+# Load corpus from saved files
+corpus = DocDataset()
+corpus.load("data/zhdd")
+dictionary = corpus.dictionary  # for debug
 
 # Train the model on the corpus
 model = ETM(bow_dim=corpus.vocabsize, n_topic=10)
 model.train(train_data=corpus, test_data=corpus, num_epochs=1, log_every=1)  # num_epochs=10, log_every=1 for debug
-# to clarify: train saves ckpt and evaluates every log_every steps
+# TODO: remove test_data parameter.
+# TODO: remove train with initilization - [to discuss]
 
-# Evaluate the model
+# Evaluate the model on the training corpus
 model.evaluate(test_data=corpus)
 
 # Save a model to disk, or reload a pre-trained model
-tmp_file = "model.ckpt"
-model.save(tmp_file)
-model.load(tmp_file)
+model.save("model.ckpt")
+model.load("model.ckpt")
+
+# Query, the model using new, unseen documents
+other_texts = [
+    ['晚饭', '喝点', '啤酒', '诱人'],
+    ['俯卧撑', '小菜一碟', '信不信', '分钟'],
+    ['溜冰鞋', '新的', '拿到', '社区', '联盟'],
+    [],
+    None
+]
+other_bows, other_docs = convert_to_BOW(other_texts, dictionary, keep_empty_doc=True)
+unseen_doc = other_bows[4]
+vector = model.inference(unseen_doc)  # get topic probability distribution for a document
+print(vector)
+
+# Show topics
+for i,topic in enumerate(model.show_topic_words(dictionary=dictionary)):
+    print("topic{}: {}".format(i,str(topic)))
 
 '''
-# Query, the model using new, unseen documents
-other_corpus = TestDocDataset(dictionary=dictionary, txtPath="example_lines.txt", lang="zh")
-unseen_doc = other_corpus[0]
-vector = model.inference(doc_tokenized=unseen_doc, dictionary=dictionary)  # remove dictionary, it is related to model
-
 # Update the model by incrementally training on the new corpus
 # TO DISCUSS
 model.update()
