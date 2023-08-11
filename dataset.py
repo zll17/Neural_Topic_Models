@@ -21,10 +21,13 @@ class DocDataset(Dataset):
         self.bows, self.docs = bows, docs
         self.tfidf = tfidf
 
-        self.vocabsize = len(self.dictionary)
-        self.numDocs = len(self.bows)
-
+        self.vocabsize = 0
+        self.numDocs = 0
         self.save_dir = ""
+
+        if self.dictionary and self.numDocs:
+            self.vocabsize = len(self.dictionary)
+            self.numDocs = len(self.bows)
 
     def __getitem__(self,idx):
         bow = torch.zeros(self.vocabsize)
@@ -53,6 +56,8 @@ class DocDataset(Dataset):
         self.bows, self.docs = convert_to_BOW(text, dictionary)
         if use_tfidf:
             self.tfidf, tfidf_model = compute_tfidf(self.bows)
+        self.vocabsize = len(self.dictionary)
+        self.numDocs = len(self.bows)
 
     def save(self, save_dir="./data/tmp"):
         if not os.path.exists(save_dir):
@@ -76,6 +81,9 @@ class DocDataset(Dataset):
         if os.path.exists(os.path.join(load_dir,'tfidf.mm')):
             self.tfidf = gensim.corpora.MmCorpus(os.path.join(load_dir,'tfidf.mm'))
             print("Using TF-IDF")
+        self.vocabsize = len(self.dictionary)
+        self.numDocs = len(self.bows)
+        self.save_dir=load_dir
 
     def show_dfs_topk(self,topk=20):
         ndoc = len(self.docs)
