@@ -164,6 +164,23 @@ class ETM(BaseNTM):
             theta = F.softmax(mu,dim=1)
             return theta.detach().cpu().squeeze(0).numpy()
 
+    def inference(self, bow, normalize=True):
+        if bow==[] or bow is None:
+            return np.empty(0)
+
+        doc_bow = torch.zeros(1,self.bow_dim)
+        for (token_idx, freq) in bow:
+            doc_bow[0][token_idx] += float(freq)
+
+        doc_bow = doc_bow.to(self.device)
+        with torch.no_grad():
+            mu,log_var = self.vae.encode(doc_bow)
+            mu = self.vae.fc1(mu)
+            if normalize:
+                theta = F.softmax(mu,dim=1)
+        return theta.detach().cpu().squeeze(0).numpy()
+
+    '''
     def inference(self, doc_tokenized, dictionary,normalize=True):
         if doc_tokenized==[] or doc_tokenized is None:
             return np.empty(0)
@@ -181,6 +198,7 @@ class ETM(BaseNTM):
             if normalize:
                 theta = F.softmax(mu,dim=1)
             return theta.detach().cpu().squeeze(0).numpy()
+    '''
 
     def get_embed(self,train_data, num=1000):
         self.vae.eval()

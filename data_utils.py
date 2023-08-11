@@ -43,7 +43,7 @@ def convert_to_BOW(docs, dictionary, keep_empty_doc=False):
     print("Converting to BOW ...")
     bows, _docs = [],[]
     for doc in docs:
-        if doc is None and keep_empty_doc is True:
+        if (doc is None or doc==[]) and keep_empty_doc is True:
             _docs.append(None)
             bows.append(None)     
         else:           
