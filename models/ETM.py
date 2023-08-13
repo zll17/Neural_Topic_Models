@@ -121,7 +121,7 @@ class ETM(BaseNTM):
                 self.save()
                 # The code lines between this and the next comment lines are duplicated with WLDA.py, consider to simpify them.
                 print(f'Epoch {(epoch+1):>3d}\tLoss:{sum(epochloss_lst)/len(epochloss_lst):<.7f}')
-                print('\n'.join([str(lst) for lst in self.show_topic_words()]))
+                print('\n'.join([str(lst) for i,lst in self.show_topics()]))
                 print('='*30)
                 smth_pts = smooth_curve(trainloss_lst)
                 plt.plot(np.array(range(len(smth_pts)))*log_every,smth_pts)
@@ -149,7 +149,7 @@ class ETM(BaseNTM):
         # The code lines between this and the last comment lines are duplicated with WLDA.py, consider to simpify them.
 
     def evaluate(self,test_data,calc4each=False):
-        topic_words = self.show_topic_words()
+        topic_words = [topics for i, topics in self.show_topics()]
         test_emb_path = os.path.join(self.save_dir, "test_w2v_weight_kv.txt")
         return evaluate_topic_quality(topic_words, test_data, emb_path=test_emb_path, calc4each=calc4each)
 
@@ -165,6 +165,9 @@ class ETM(BaseNTM):
             return theta.detach().cpu().squeeze(0).numpy()
 
     def inference(self, bow, normalize=True):
+        '''
+        :param bow: list in the format of [(token_idx, freq), (token_idx, freq), ...]
+        '''
         if bow==[] or bow is None:
             return np.empty(0)
 
@@ -179,26 +182,6 @@ class ETM(BaseNTM):
             if normalize:
                 theta = F.softmax(mu,dim=1)
         return theta.detach().cpu().squeeze(0).numpy()
-
-    '''
-    def inference(self, doc_tokenized, dictionary,normalize=True):
-        if doc_tokenized==[] or doc_tokenized is None:
-            return np.empty(0)
-        doc_bow = torch.zeros(1,self.bow_dim)
-        for token in doc_tokenized:
-            try:
-                idx = dictionary.token2id[token]
-                doc_bow[0][idx] += 1.0
-            except:
-                print(f'{token} not in the vocabulary.')
-        doc_bow = doc_bow.to(self.device)
-        with torch.no_grad():
-            mu,log_var = self.vae.encode(doc_bow)
-            mu = self.vae.fc1(mu)
-            if normalize:
-                theta = F.softmax(mu,dim=1)
-            return theta.detach().cpu().squeeze(0).numpy()
-    '''
 
     def get_embed(self,train_data, num=1000):
         self.vae.eval()
@@ -227,22 +210,17 @@ class ETM(BaseNTM):
                 word_dist = F.softmax(word_dist,dim=1)
             return word_dist.detach().cpu().numpy()
 
-    def show_topic_words(self,topic_id=None,topK=15, dictionary=None):
-        topic_words = []
+    def _get_topics(self, num_words=15):
+        '''Protected, only called by base model methods
+        :param num_words: show how many words for a topic
+        '''
         idxes = torch.eye(self.n_topic).to(self.device)
         word_dist = self.vae.decode(idxes)
         word_dist = torch.softmax(word_dist,dim=1)
-        vals,indices = torch.topk(word_dist,topK,dim=1)
+        vals,indices = torch.topk(word_dist,num_words,dim=1)
         vals = vals.cpu().tolist()
         indices = indices.cpu().tolist()
-        if self.id2token==None and dictionary!=None:
-            self.id2token = {v:k for k,v in dictionary.token2id.items()}
-        if topic_id==None:
-            for i in range(self.n_topic):
-                topic_words.append([self.id2token[idx] for idx in indices[i]])
-        else:
-            topic_words.append([self.id2token[idx] for idx in indices[topic_id]])
-        return topic_words
+        return indices, vals
 
     def load(self, ckpt_path):
         checkpoint = torch.load(ckpt_path)

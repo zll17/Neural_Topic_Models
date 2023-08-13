@@ -41,13 +41,22 @@ other_texts = [
     None
 ]
 other_bows, other_docs = convert_to_BOW(other_texts, dictionary, keep_empty_doc=True)
-unseen_doc = other_bows[4]
+unseen_doc = other_bows[0]
 vector = model.inference(unseen_doc)  # get topic probability distribution for a document
 print(vector)
 
-# Show topics
-for i,topic in enumerate(model.show_topic_words(dictionary=dictionary)):
-    print("topic{}: {}".format(i,str(topic)))
+#### show topics
+# Print the most significant topics
+model.print_topics(num_topics=5, num_words=10)
+
+# Print a topic (topic as words)
+topicno=0
+model.print_topic(topicno, topn=10)
+
+# Print a topic (topic as id)
+topicid=0
+print(model.get_topic_terms(topicid, topn=10))
+
 
 '''
 # Update the model by incrementally training on the new corpus
@@ -63,25 +72,8 @@ model.get_document_topics(bow, minimum_probability=None, minimum_phi_value=None,
 # Get the most relevant topics to the given word.
 model.get_term_topics(word_id, minimum_probability=None)
 
-# Get the representation for a single topic. 
-# Words the integer IDs, in constrast to show_topic() that represents words by the actual strings.
-model.get_topic_terms(topicid, topn=10)
-
 # Get the term-topic matrix learned during inference.
 get_topics()
-
-# Get a single topic as a formatted string.
-print_topic(topicno, topn=10)
-
-# Get the most significant topics (alias for show_topics() method).
-print_topics(num_topics=20, num_words=10)
-
-# Get the representation for a single topic. 
-# Words here are the actual strings, in constrast to get_topic_terms() that represents words by their vocabulary ID.
-show_topic(topicid, topn=10)
-
-# Get a representation for selected topics.
-show_topics(num_topics=10, num_words=10, log=False, formatted=True)
 
 # Get the topics with the highest coherence score the coherence for each topic.
 top_topics(corpus=None, texts=None, dictionary=None, window_size=None, coherence='u_mass', topn=20, processes=-1)
