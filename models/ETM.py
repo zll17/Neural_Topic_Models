@@ -167,6 +167,7 @@ class ETM(BaseNTM):
     def inference(self, bow, normalize=True):
         '''
         :param bow: list in the format of [(token_idx, freq), (token_idx, freq), ...]
+        :return: probability for each topics, list of float, topic id is index
         '''
         if bow==[] or bow is None:
             return np.empty(0)
@@ -181,7 +182,7 @@ class ETM(BaseNTM):
             mu = self.vae.fc1(mu)
             if normalize:
                 theta = F.softmax(mu,dim=1)
-        return theta.detach().cpu().squeeze(0).numpy()
+        return theta.detach().cpu().squeeze(0).tolist()
 
     def get_embed(self,train_data, num=1000):
         self.vae.eval()

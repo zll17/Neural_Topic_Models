@@ -4,6 +4,7 @@
 import os
 import time
 import torch
+import numpy as np
 
 class BaseNTM(object):
     def __init__(self, name: str):
@@ -13,8 +14,11 @@ class BaseNTM(object):
         self.state = {}
         self.save_dir = None
 
-    # def train(self):
-    #     pass
+    def __getitem__(self, bow):
+        return self.get_document_topics(bow)
+
+    def train(self):
+        pass
     
     # def update(self):
     #     ''' 
@@ -39,8 +43,8 @@ class BaseNTM(object):
     #     '''
     #     pass
  
-    # def evaluate(self):
-    #     pass
+    def evaluate(self):
+        pass
     
     # def diff(self):
     #     '''
@@ -49,12 +53,26 @@ class BaseNTM(object):
     #     '''
     #     pass
 
-    # def inference(self):
-    #     pass
+    def inference(self):
+        pass
     
     # def inference_by_bow(self):
     #     pass
     
+    def get_document_topics(self, bow, minimum_probability=None):
+        '''
+        :return: list of (topic id, probability)
+        '''
+        topics = self.inference(bow)  # List dim=(1,num_topics)
+        # sort descending
+        topics_sorted = sorted(topics, reverse=True)
+        id_sorted = np.argsort(-np.array(topics)).tolist()
+        if minimum_probability:
+            res = [(i, prob) for (i, prob) in zip(id_sorted, topics_sorted) if prob > minimum_probability]
+        else:
+            res = [(i, prob) for (i, prob) in zip(id_sorted, topics_sorted)]
+        return res
+
     def _get_topics(self, num_words):
         pass
 

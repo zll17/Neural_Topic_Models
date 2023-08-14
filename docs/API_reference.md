@@ -24,7 +24,12 @@
     原来的show_topic_words()用show_topics()代替。
     show_topics(show_val=False)为默认值，方便类内调用，替代以前的show_topic_words()。其他默认show_val=True。
     TODO: 函数注释放到文档，不写在代码里
-2. inference
+2. inference, get_document_topics
+   get_document_topics和原本的inference作用一样，get_document_topics调用inference，为了兼顾gensim和原版本的使用习惯才保留了两个。为了兼顾gensim接口。inference的返回值从numpy array改为list。
+   inference的返回值为list of float, get_document_topics返回值为按概率降序排列的list of (topic id, probability)。
+   为了和gensim接口保持一致，添加__get_item__()，它调用get_document_topics()。
+3. TODO: 增加一个inference_batch方法，参考get_embed
+4. TODO: 处理get_topic_word_dist
 
 ### TODO
 1. train的参数，去掉test_data

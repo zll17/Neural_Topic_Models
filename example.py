@@ -42,10 +42,22 @@ other_texts = [
 ]
 other_bows, other_docs = convert_to_BOW(other_texts, dictionary, keep_empty_doc=True)
 unseen_doc = other_bows[0]
-vector = model.inference(unseen_doc)  # get topic probability distribution for a document
-print(vector)
+# way 1
+doc_topics = model[unseen_doc]
+print(doc_topics)
+# way 2
+doc_topics = model.get_document_topics(unseen_doc, minimum_probability=0.0004)
+print(doc_topics)
+# way 3
+doc_topics = model.inference(unseen_doc)  # not recommanded, for internal use
+print(doc_topics)
 
-#### show topics
+# Get the topic distribution for the given document.
+model.get_document_topics(bow, minimum_probability=None)
+
+# Inference on a batch
+
+#### show topics of a model
 # Print the most significant topics
 model.print_topics(num_topics=5, num_words=10)
 
@@ -65,9 +77,6 @@ model.update()
 
 # Calculate the difference in topic distributions between two models
 m1.diff(m2)
-
-# Get the topic distribution for the given document.
-model.get_document_topics(bow, minimum_probability=None, minimum_phi_value=None, per_word_topics=False)
 
 # Get the most relevant topics to the given word.
 model.get_term_topics(word_id, minimum_probability=None)
