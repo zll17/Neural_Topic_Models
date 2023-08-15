@@ -25,7 +25,7 @@ class DocDataset(Dataset):
         self.numDocs = 0
         self.save_dir = ""
 
-        if self.dictionary and self.numDocs:
+        if self.dictionary and self.bows:
             self.vocabsize = len(self.dictionary)
             self.numDocs = len(self.bows)
 
@@ -53,7 +53,7 @@ class DocDataset(Dataset):
     def create(self, txt_file, lang, use_tfidf=False):
         text = file_tokenize(txt_file, lang)
         self.dictionary = build_dictionary(text)
-        self.bows, self.docs = convert_to_BOW(text, dictionary)
+        self.bows, self.docs = convert_to_BOW(text, self.dictionary)
         if use_tfidf:
             self.tfidf, tfidf_model = compute_tfidf(self.bows)
         self.vocabsize = len(self.dictionary)
