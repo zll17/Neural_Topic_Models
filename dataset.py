@@ -30,14 +30,30 @@ class DocDataset(Dataset):
             self.numDocs = len(self.bows)
 
     def __getitem__(self,idx):
-        bow = torch.zeros(self.vocabsize)
-        if self.tfidf is not None:
-            item = list(zip(*self.tfidf[idx]))
-        else:
-            item = list(zip(*self.bows[idx])) # bow = [[token_id1,token_id2,...],[freq1,freq2,...]]
-        bow[list(item[0])] = torch.tensor(list(item[1])).float()
-        txt = self.docs[idx]
-        return txt,bow
+        ''' Support integer or slice as input
+        :return: bow is torch tensor in shape (n, bow_dim) for slice, in shape (bow_dim) for int index
+        '''
+        if isinstance(idx, int):
+            bow = torch.zeros(self.vocabsize)
+            if self.tfidf is not None:
+                item = list(zip(*self.tfidf[idx]))
+            else:
+                item = list(zip(*self.bows[idx])) # bow = [[token_id1,token_id2,...],[freq1,freq2,...]]
+            bow[list(item[0])] = torch.tensor(list(item[1])).float()
+            txt = self.docs[idx]
+            return txt,bow
+
+        if isinstance(idx, slice):
+            indexes=list(range(self.numDocs))[idx]
+            bow = torch.zeros(len(indexes), self.vocabsize)
+            for i, doc_id in enumerate(indexes):
+                if self.tfidf is not None:
+                    item = list(zip(*self.tfidf[doc_id]))
+                else:
+                    item = list(zip(*self.bows[doc_id])) # bow = [[token_id1,token_id2,...],[freq1,freq2,...]]
+                bow[i, list(item[0])] = torch.tensor(list(item[1])).float()
+            txt = self.docs[idx]
+            return txt,bow
     
     def __len__(self):
         return self.numDocs

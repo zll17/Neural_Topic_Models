@@ -10,15 +10,20 @@ from models import ETM
 text = file_tokenize("data/zhdd_lines.txt", "zh")
 dictionary = build_dictionary(text)
 bows, docs = convert_to_BOW(text, dictionary)
-
 corpus = DocDataset(dictionary, bows, docs)
-corpus.save("data/zhdd")
-
-# Load corpus from saved files
+'''
+# or:
 corpus = DocDataset()
-corpus.load("data/zhdd")
-dictionary = corpus.dictionary  # for debug
+corpus.create("data/zhdd_lines.txt", "zh", use_tfidf=False)
 
+# Save corpus
+corpus.save("data/zhdd_dev")
+
+# Load corpus
+corpus = DocDataset()
+corpus.load("data/zhdd_dev")
+dictionary = corpus.dictionary  # for debug
+'''
 # Train the model on the corpus
 model = ETM(bow_dim=corpus.vocabsize, n_topic=10)
 model.train(train_data=corpus, test_data=corpus, num_epochs=1, log_every=1)  # num_epochs=10, log_every=1 for debug
@@ -42,20 +47,17 @@ other_texts = [
 ]
 other_bows, other_docs = convert_to_BOW(other_texts, dictionary, keep_empty_doc=True)
 unseen_doc = other_bows[0]
-# way 1
+
 doc_topics = model[unseen_doc]
-print(doc_topics)
-# way 2
-doc_topics = model.get_document_topics(unseen_doc, minimum_probability=0.0004)
-print(doc_topics)
-# way 3
-doc_topics = model.inference(unseen_doc)  # not recommanded, for internal use
 print(doc_topics)
 
 # Get the topic distribution for the given document.
-model.get_document_topics(bow, minimum_probability=None)
+doc_topics = model.get_document_topics(unseen_doc, minimum_probability=0.0004)
+print(doc_topics)
 
-# Inference on a batch
+# Inference for a dataset
+docs, embeds = model.inference_dataset(corpus)
+print(docs, embeds)
 
 #### show topics of a model
 # Print the most significant topics

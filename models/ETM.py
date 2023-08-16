@@ -153,54 +153,24 @@ class ETM(BaseNTM):
         test_emb_path = os.path.join(self.save_dir, "test_w2v_weight_kv.txt")
         return evaluate_topic_quality(topic_words, test_data, emb_path=test_emb_path, calc4each=calc4each)
 
-    def inference_by_bow(self,doc_bow):
-        # doc_bow: torch.tensor [vocab_size]; optional: np.array [vocab_size]
+    def inference(self, doc_bow, normalize=True):
+        '''
+        :param doc_bow: torch.tensor [vocab_size]; optional: np.array [vocab_size]
+        :param normalize: default to True
+        :return: probability for each topics, numpy array of float, topic id is index
+        '''
         if isinstance(doc_bow,np.ndarray):
             doc_bow = torch.from_numpy(doc_bow)
+
         doc_bow = doc_bow.reshape(-1,self.bow_dim).to(self.device)
-        with torch.no_grad():
-            mu,log_var = self.vae.encode(doc_bow)
-            mu = self.vae.fc1(mu) 
-            theta = F.softmax(mu,dim=1)
-            return theta.detach().cpu().squeeze(0).numpy()
 
-    def inference(self, bow, normalize=True):
-        '''
-        :param bow: list in the format of [(token_idx, freq), (token_idx, freq), ...]
-        :return: probability for each topics, list of float, topic id is index
-        '''
-        if bow==[] or bow is None:
-            return np.empty(0)
-
-        doc_bow = torch.zeros(1,self.bow_dim)
-        for (token_idx, freq) in bow:
-            doc_bow[0][token_idx] += float(freq)
-
-        doc_bow = doc_bow.to(self.device)
+        self.vae.eval()  # added from get_embed
         with torch.no_grad():
             mu,log_var = self.vae.encode(doc_bow)
             mu = self.vae.fc1(mu)
             if normalize:
                 theta = F.softmax(mu,dim=1)
-        return theta.detach().cpu().squeeze(0).tolist()
-
-    def get_embed(self,train_data, num=1000):
-        self.vae.eval()
-        data_loader = DataLoader(train_data, batch_size=512,shuffle=False, num_workers=4, collate_fn=train_data.collate_fn)
-        embed_lst = []
-        txt_lst = []
-        cnt = 0
-        for data_batch in data_loader:
-            txts, bows = data_batch
-            embed = self.inference_by_bow(bows)
-            embed_lst.append(embed)
-            txt_lst.append(txts)
-            cnt += embed.shape[0]
-            if cnt>=num:
-                break
-        embed_lst = np.concatenate(embed_lst,axis=0)[:num]
-        txt_lst = np.concatenate(txt_lst,axis=0)[:num]
-        return txt_lst, embed_lst
+        return theta.detach().cpu().squeeze(0).numpy()
 
     def get_topic_word_dist(self,normalize=True):
         self.vae.eval()

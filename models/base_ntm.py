@@ -3,8 +3,10 @@
 
 import os
 import time
-import torch
 import numpy as np
+import torch
+from torch.utils.data import DataLoader
+from utils import *
 
 class BaseNTM(object):
     def __init__(self, name: str):
@@ -56,22 +58,37 @@ class BaseNTM(object):
     def inference(self):
         pass
     
-    # def inference_by_bow(self):
-    #     pass
-    
     def get_document_topics(self, bow, minimum_probability=None):
         '''
+        :param bow: list in the format of [(token_idx, freq), (token_idx, freq), ...]
         :return: list of (topic id, probability)
         '''
-        topics = self.inference(bow)  # List dim=(1,num_topics)
-        # sort descending
-        topics_sorted = sorted(topics, reverse=True)
-        id_sorted = np.argsort(-np.array(topics)).tolist()
-        if minimum_probability:
-            res = [(i, prob) for (i, prob) in zip(id_sorted, topics_sorted) if prob > minimum_probability]
-        else:
-            res = [(i, prob) for (i, prob) in zip(id_sorted, topics_sorted)]
-        return res
+        if bow==[] or bow is None:
+            return []
+        doc_bow = expand_bow(bow, self.bow_dim)  # gensim doc bow List format -> torch tensor
+        topics = self.inference(doc_bow)  # numpy array dim=(1,num_topics)
+        topics_sorted = sort_topics(topics)[0]
+        return topics_sorted
+
+    def inference_dataset(self, train_data, num=-1, batch_size=512, shuffle=False, num_workers=4):
+        # self.vae.eval()
+        data_loader = DataLoader(train_data, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers, collate_fn=train_data.collate_fn)
+        embed_lst = []
+        txt_lst = []
+        if num==-1:
+            num=len(train_data)
+        cnt = 0
+        for data_batch in data_loader:
+            txts, bows = data_batch
+            embed = self.inference(bows)
+            embed_lst.append(embed)
+            txt_lst.append(txts)
+            cnt += embed.shape[0]
+            if cnt>=num:
+                break
+        embed_lst = np.concatenate(embed_lst,axis=0)[:num]
+        txt_lst = np.concatenate(txt_lst,axis=0)[:num]
+        return txt_lst, embed_lst
 
     def _get_topics(self, num_words):
         pass

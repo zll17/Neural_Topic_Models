@@ -14,6 +14,7 @@ import os
 import gensim
 import numpy as np
 from gensim.models.coherencemodel import CoherenceModel
+import torch
 
 def get_topic_words(model,topn=15,n_topic=10,vocab=None,fix_topic=None,showWght=False):
     topics = []
@@ -137,3 +138,39 @@ def smooth_curve(points, factor=0.9):
         else:
             smoothed_points.append(pt)
     return smoothed_points
+
+# def compress_bow(bow_np) -> List[List[(int, float)]]:
+#     pass
+
+def expand_bow(bow_li, bow_dim):
+    '''Convert bow in gensim format [(token_idx, freq), (token_idx, freq), ...] to 2-d torch tensor
+    :param bow_li: List[List[(int, float)]] for many docs, List[(int, float)] for one doc
+    :param bow_dim: int
+    '''
+    if bow_li is None or bow_li==[]:
+        return np.empty(0)
+    if not isinstance(bow_li[0], list):  # if input is bow of one doc
+        bow_li = [bow_li]
+    n=len(bow_li)
+    bow = torch.zeros(n, bow_dim)
+    for i in range(n):
+        item = list(zip(*bow_li[i])) # bow = [[token_id1,token_id2,...],[freq1,freq2,...]]
+        bow[i, list(item[0])] = torch.tensor(list(item[1])).float()
+    return bow
+
+def sort_topics(topics, minimum_probability=None):
+    '''Descending sort topics.
+    :param topics: numpy array in shape (num_doc, num_topics)
+    :return: list of [(topic id, probability),...]
+    '''
+    if topics.ndim==1:
+        topics = np.expand_dims(topics, axis=0)
+    topics_sorted = np.sort(topics, axis=1)[:, ::-1].tolist()
+    id_sorted = np.argsort(-topics, axis=1).tolist()
+    res = []
+    for i in range(topics.shape[0]):
+        if minimum_probability:
+            res.append([(topic_id, prob) for (topic_id, prob) in zip(id_sorted[i], topics_sorted[i]) if prob > minimum_probability])
+        else:
+            res.append([(topic_id, prob) for (topic_id, prob) in zip(id_sorted[i], topics_sorted[i])])
+    return res
