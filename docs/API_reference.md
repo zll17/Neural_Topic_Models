@@ -28,29 +28,34 @@
    get_document_topics和原本的inference作用一样，get_document_topics调用inference，为了兼顾gensim和原版本的使用习惯才保留了两个。为了兼顾gensim接口。inference的返回值从numpy array改为list。
    inference的返回值为list of float, get_document_topics返回值为按概率降序排列的list of (topic id, probability)。
    为了和gensim接口保持一致，添加__get_item__()，它调用get_document_topics()。
-3. TODO: 增加一个inference_batch方法，参考get_embed
-4. TODO: 处理get_topic_word_dist
+3. TODO: 处理get_topic_word_dist
 
 2023-8-15
-1. 增加inference_dataset
+1. 增加inference_dataset,几乎等于get_embed
 2. utils中增加辅助函数compress_bow和sort_topics
 3. 优化get_document_topics
-4. 想通了内在逻辑：模型相关部分全部是tensor和numpy作为输入输出，外围函数（base_model中的一些）套皮接受list参数
-5. 对于格式转换，主要是DocDataset的getitem处理了，即，涉及到需要model的函数的，都要变成DocDataset类，而尽量不要直接输入列表格式的数据。添加的compress_bow目前只在get_document_topics用到，因为一般不会只处理一个数据。
-6. getitem添加了接受切片作为参数。主要用于直接取数据来观察，在模型训练中是用不到的。collate_fn会拼合，所有还是不要改int作为输入时的返回值格式（即，没有在外面再嵌套一个维度）。
+4. getitem添加了接受切片作为参数。主要用于直接取数据来观察，在模型训练中是用不到的。collate_fn会拼合，所有还是不要改int作为输入时的返回值格式（即，没有在外面再嵌套一个维度）。并不能去掉get_embed的num参数，因为不可以把corpus的切片作为输入，他不是Dataset类，只是数据的元组。
+   
+notes:
+1. 注意bow的格式，以前的和gensim的。以前的bow是tensor\[vocab_size\], 或者numpy array，gensim的格式是list, [(token id, freq), (token id, freq), ...]，一定要注意，DocDataset的getitem对此做了转换。不要从zhdd加载以前的数据，要算一组新的，放在新文件夹zhdd_dev中。目前convert_to_BOW都是gensim格式。
+2. 想通了内在逻辑：模型相关部分全部是tensor和numpy作为输入输出，外围函数（base_model中的一些）套皮接受list参数
+3. 对于格式转换，主要是DocDataset的getitem处理了，即，涉及到需要model的函数的，都要变成DocDataset类，而尽量不要直接输入列表格式的数据。添加的compress_bow目前只在get_document_topics用到，因为一般不会只处理一个数据。
+
+2023-8-17
+1. 优化get_topic_word_dist及外围一系列和打印topic有关的函数。减少了函数数量，极致简洁。包括给utils.py中的sort_topics添加topk参数，代替原来的_get_topics()。
 
 ### TODO
 1. train的参数，去掉test_data
-2. 合并inference和inference_by_bow -> 重载
+2. 合并inference和inference_by_bow -> 重载 -> done
 3. 测试unittest: 用原是代码跑一个版本，作为对比
 4. 各个阶段的输出统一
 5. example写一个jupyter notebook展示结果
 6. 打包至pip
 7. 文档用readthedocs
-8. 注意bow的格式，以前的和gensim的。以前的bow是tensor\[vocab_size\], 或者numpy array，gensim的格式是list, [(token id, freq), (token id, freq), ...]，一定要注意，DocDataset的getitem对此做了转换。不要从zhdd加载以前的数据，要算一组新的，放在新文件夹zhdd_dev中。目前convert_to_BOW都是gensim格式。
-9. ETM_run中的topic_vec和word_vec的功能写成base_model的方法 或者函数
-10. train内部分离出一些函数
-11. DocDataset.__getitem__()添加切片，这样可以去掉get_embed()参数中的num -> 不行
+8. ETM_run中的topic_vec和word_vec的功能写成base_model的方法 或者函数
+9. train内部分离出一些函数
+10. DocDataset.__getitem__()添加切片，这样可以去掉get_embed()参数中的num -> 不行
+11. model.load之前，初始化model的时候必须有bow_dim和n_topic参数，能否改为model=ETM(ckpt_path="xxx")?不太好改。
 
 ## API Documentation
 ### DocDataset

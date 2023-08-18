@@ -143,9 +143,10 @@ def smooth_curve(points, factor=0.9):
 #     pass
 
 def expand_bow(bow_li, bow_dim):
-    '''Convert bow in gensim format [(token_idx, freq), (token_idx, freq), ...] to 2-d torch tensor
+    '''Convert list of bows in gensim format [(token_idx, freq), (token_idx, freq), ...] to 2-d torch tensor
     :param bow_li: List[List[(int, float)]] for many docs, List[(int, float)] for one doc
     :param bow_dim: int
+    :return bow: 2-d tensor in shape (num_docs, vocab_size)
     '''
     if bow_li is None or bow_li==[]:
         return np.empty(0)
@@ -158,19 +159,21 @@ def expand_bow(bow_li, bow_dim):
         bow[i, list(item[0])] = torch.tensor(list(item[1])).float()
     return bow
 
-def sort_topics(topics, minimum_probability=None):
-    '''Descending sort topics.
+def sort_topics(topics, topk=None, min_prob=None):
+    '''Descending sorting document - topic distribution and topic - word distribution.
     :param topics: numpy array in shape (num_doc, num_topics)
     :return: list of [(topic id, probability),...]
     '''
     if topics.ndim==1:
         topics = np.expand_dims(topics, axis=0)
-    topics_sorted = np.sort(topics, axis=1)[:, ::-1].tolist()
-    id_sorted = np.argsort(-topics, axis=1).tolist()
+    if topk is None:
+        topk = topics.shape[1]
+    topics_sorted = np.sort(topics, axis=1)[:, ::-1][:, :topk].tolist()  # [:, ::-1] to reverse, acsending -> descending
+    id_sorted = np.argsort(-topics, axis=1)[:, :topk].tolist()
     res = []
     for i in range(topics.shape[0]):
-        if minimum_probability:
-            res.append([(topic_id, prob) for (topic_id, prob) in zip(id_sorted[i], topics_sorted[i]) if prob > minimum_probability])
+        if min_prob:
+            res.append([(topic_id, prob) for (topic_id, prob) in zip(id_sorted[i], topics_sorted[i]) if prob > min_prob])
         else:
             res.append([(topic_id, prob) for (topic_id, prob) in zip(id_sorted[i], topics_sorted[i])])
     return res

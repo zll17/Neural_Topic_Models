@@ -173,6 +173,9 @@ class ETM(BaseNTM):
         return theta.detach().cpu().squeeze(0).numpy()
 
     def get_topic_word_dist(self,normalize=True):
+        '''Get topic word distribution, the weight of each words for all topics
+        :return: numpy array in shape (num topics, vocab size)
+        '''
         self.vae.eval()
         with torch.no_grad():
             idxes = torch.eye(self.n_topic).to(self.device)
@@ -180,18 +183,6 @@ class ETM(BaseNTM):
             if normalize:
                 word_dist = F.softmax(word_dist,dim=1)
             return word_dist.detach().cpu().numpy()
-
-    def _get_topics(self, num_words=15):
-        '''Protected, only called by base model methods
-        :param num_words: show how many words for a topic
-        '''
-        idxes = torch.eye(self.n_topic).to(self.device)
-        word_dist = self.vae.decode(idxes)
-        word_dist = torch.softmax(word_dist,dim=1)
-        vals,indices = torch.topk(word_dist,num_words,dim=1)
-        vals = vals.cpu().tolist()
-        indices = indices.cpu().tolist()
-        return indices, vals
 
     def load(self, ckpt_path):
         checkpoint = torch.load(ckpt_path)
