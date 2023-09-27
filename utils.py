@@ -15,6 +15,7 @@ import gensim
 import numpy as np
 from gensim.models.coherencemodel import CoherenceModel
 import torch
+import matplotlib.pyplot as plt
 
 def get_topic_words(model,topn=15,n_topic=10,vocab=None,fix_topic=None,showWght=False):
     topics = []
@@ -177,3 +178,28 @@ def sort_topics(topics, topk=None, min_prob=None):
         else:
             res.append([(topic_id, prob) for (topic_id, prob) in zip(id_sorted[i], topics_sorted[i])])
     return res
+
+def plot_scores(scrs, log_every, save_file):
+    '''
+    # From previous version
+    for scr_name,scr_lst in scrs.items():
+        plt.cla()
+        plt.plot(np.array(range(len(scr_lst)))*log_every,scr_lst)
+        plt.savefig(f'wlda_{scr_name}.png')
+    '''
+    plt.cla()
+    for scr_name,scr_lst in scrs.items():
+        if scr_name in ['c_v','c_w2v','td']:
+            plt.plot(np.array(range(len(scr_lst)))*log_every,scr_lst,label=scr_name)
+    plt.title('Topic Coherence')
+    plt.xlabel('epochs')
+    plt.legend()
+    plt.savefig(save_file)
+
+def plot_train_loss(trainloss_lst, log_every, save_file):
+    plt.cla()
+    smth_pts = smooth_curve(trainloss_lst)
+    plt.plot(np.array(range(len(smth_pts)))*log_every,smth_pts)
+    plt.xlabel('epochs')
+    plt.title('Train Loss')
+    plt.savefig(save_file)

@@ -25,7 +25,7 @@ import matplotlib.pyplot as plt
 import sys
 import codecs
 sys.path.append('..')
-from utils import evaluate_topic_quality, smooth_curve
+from utils import evaluate_topic_quality, plot_scores, plot_train_loss
 from data_utils import load_dictionary
 
 class EVAE(VAE):
@@ -123,29 +123,13 @@ class ETM(BaseNTM):
                 print(f'Epoch {(epoch+1):>3d}\tLoss:{sum(epochloss_lst)/len(epochloss_lst):<.7f}')
                 print('\n'.join([str(lst) for i,lst in self.show_topics()]))
                 print('='*30)
-                smth_pts = smooth_curve(trainloss_lst)
-                plt.plot(np.array(range(len(smth_pts)))*log_every,smth_pts)
-                plt.xlabel('epochs')
-                plt.title('Train Loss')
-                plt.savefig('gsm_trainloss.png')
+                plot_train_loss(trainloss_lst, log_every, os.path.join(self.save_dir, 'gsm_trainloss.png'))
                 if test_data!=None:
                     c_v,c_w2v,c_uci,c_npmi,mimno_tc, td = self.evaluate(test_data,calc4each=False)
                     c_v_lst.append(c_v), c_w2v_lst.append(c_w2v), c_uci_lst.append(c_uci),c_npmi_lst.append(c_npmi), mimno_tc_lst.append(mimno_tc), td_lst.append(td)
-        scrs = {'c_v':c_v_lst,'c_w2v':c_w2v_lst,'c_uci':c_uci_lst,'c_npmi':c_npmi_lst,'mimno_tc':mimno_tc_lst,'td':td_lst}
-        '''
-        for scr_name,scr_lst in scrs.items():
-            plt.cla()
-            plt.plot(np.array(range(len(scr_lst)))*log_every,scr_lst)
-            plt.savefig(f'wlda_{scr_name}.png')
-        '''
-        plt.cla()
-        for scr_name,scr_lst in scrs.items():
-            if scr_name in ['c_v','c_w2v','td']:
-                plt.plot(np.array(range(len(scr_lst)))*log_every,scr_lst,label=scr_name)
-        plt.title('Topic Coherence')
-        plt.xlabel('epochs')
-        plt.legend()
-        plt.savefig(f'gsm_tc_scores.png')
+                # the following two lines used to be out of epoch loop
+                scrs = {'c_v':c_v_lst,'c_w2v':c_w2v_lst,'c_uci':c_uci_lst,'c_npmi':c_npmi_lst,'mimno_tc':mimno_tc_lst,'td':td_lst}
+                plot_scores(scrs, log_every, os.path.join(self.save_dir,'gsm_tc_scores.png'))
         # The code lines between this and the last comment lines are duplicated with WLDA.py, consider to simpify them.
 
     def evaluate(self,test_data,calc4each=False):

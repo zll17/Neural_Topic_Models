@@ -44,6 +44,9 @@ notes:
 2023-8-17
 1. 优化get_topic_word_dist及外围一系列和打印topic有关的函数。减少了函数数量，极致简洁。包括给utils.py中的sort_topics添加topk参数，代替原来的_get_topics()。
 
+2023-9-26
+1. train内部分离出plot loss和plot score函数放在utils中
+
 ### TODO
 1. train的参数，去掉test_data
 2. 合并inference和inference_by_bow -> 重载 -> done
@@ -53,7 +56,7 @@ notes:
 6. 打包至pip
 7. 文档用readthedocs
 8. ETM_run中的topic_vec和word_vec的功能写成base_model的方法 或者函数
-9. train内部分离出一些函数
+9. train内部分离出一些函数 -> plot
 10. DocDataset.__getitem__()添加切片，这样可以去掉get_embed()参数中的num -> 不行
 11. model.load之前，初始化model的时候必须有bow_dim和n_topic参数，能否改为model=ETM(ckpt_path="xxx")?不太好改。
 
