@@ -66,6 +66,10 @@ def compute_tfidf(bows):
 
 
 def load_dictionary(txt_path):
-    dictionary = Dictionary.load_from_text(txt_path)
+    try:
+        dictionary = Dictionary.load_from_text(txt_path)
+    except:
+        print("ERROR: Dictionary path not found. Check again or save corpus before trainning from checkpoint.")
+        return None
     dictionary.id2token = {v:k for k,v in dictionary.token2id.items()} # because id2token is empty be default, it is a bug.
     return dictionary

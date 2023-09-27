@@ -11,22 +11,23 @@ text = file_tokenize("data/zhdd_lines.txt", "zh")
 dictionary = build_dictionary(text)
 bows, docs = convert_to_BOW(text, dictionary)
 corpus = DocDataset(dictionary, bows, docs)
-'''
-# or:
-corpus = DocDataset()
-corpus.create("data/zhdd_lines.txt", "zh", use_tfidf=False)
+
+# # or:
+# corpus = DocDataset()
+# corpus.create("data/zhdd_lines.txt", "zh", use_tfidf=False)
 
 # Save corpus
+# Need to save corpus, otherwise cannot train from checkpoint
 corpus.save("data/zhdd_dev")
 
-# Load corpus
-corpus = DocDataset()
-corpus.load("data/zhdd_dev")
-dictionary = corpus.dictionary  # for debug
-'''
+# # Load corpus
+# corpus = DocDataset()
+# corpus.load("data/zhdd_dev")
+# dictionary = corpus.dictionary  # for debug
+
 # Train the model on the corpus
 model = ETM(bow_dim=corpus.vocabsize, n_topic=10)
-model.train(train_data=corpus, test_data=corpus, num_epochs=1, log_every=1)  # num_epochs=10, log_every=1 for debug
+model.train(train_data=corpus, test_data=corpus, num_epochs=3, log_every=1)  # num_epochs=10, log_every=1 for debug
 # TODO: remove test_data parameter.
 # TODO: remove train with initilization - [to discuss]
 
