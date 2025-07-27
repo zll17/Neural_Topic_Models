@@ -68,6 +68,7 @@ def main():
 
     if ckpt:
         checkpoint=torch.load(ckpt)
+        param=checkpoint["param"]
         param.update({"device": device})
         model = GSM(**param)
         model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0,criterion=criterion,ckpt=checkpoint)
