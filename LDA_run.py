@@ -7,7 +7,6 @@ import gensim
 import pickle
 import argparse
 import logging
-import time
 from utils import *
 from gensim.models import LdaModel,TfidfModel
 from gensim.models.ldamulticore import LdaMulticore
@@ -59,26 +58,37 @@ def main():
     logging.basicConfig(level=logging.INFO,format='%(asctime)s - %(message)s',handlers=loghandler)
     logger = logging.getLogger(__name__)
 
-
-    if bkpt_continue:
-        print('loading model ckpt ...')
-        lda_model = gensim.models.ldamodel.LdaModel.load('ckpt/{}.model'.format(run_name))
-
-
-    # Training
-    print('Start Training ...')
+    # Same path used for load (continue) and save — matches run_name (task / K / bow|tfidf).
+    canonical_ckpt = os.path.join('ckpt', '{}.model'.format(run_name))
 
     if use_tfidf:
         tfidf = TfidfModel(docSet.bows)
         corpus_tfidf = tfidf[docSet.bows]
-        #lda_model = LdaMulticore(list(corpus_tfidf),num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters,workers=n_cpu,minimum_probability=0.0)
-        lda_model = LdaModel(list(corpus_tfidf),num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters)
+        train_corpus = list(corpus_tfidf)
     else:
-        #lda_model = LdaMulticore(list(docSet.bows),num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters,workers=n_cpu)
-        lda_model = LdaModel(list(docSet.bows),num_topics=n_topic,id2word=docSet.dictionary,alpha='asymmetric',passes=num_iters)
+        train_corpus = list(docSet.bows)
 
-    save_name = f'./ckpt/LDA_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
-    lda_model.save(save_name)
+    if bkpt_continue:
+        print('loading model ckpt ...')
+        if not os.path.exists(canonical_ckpt):
+            raise FileNotFoundError(
+                'No LDA checkpoint at {}. Train once without --bkpt_continue first.'.format(canonical_ckpt)
+            )
+        lda_model = LdaModel.load(canonical_ckpt)
+        print('Continue training (update) ...')
+        lda_model.update(train_corpus, passes=num_iters)
+    else:
+        print('Start Training ...')
+        lda_model = LdaModel(
+            train_corpus,
+            num_topics=n_topic,
+            id2word=docSet.dictionary,
+            alpha='asymmetric',
+            passes=num_iters,
+        )
+
+    lda_model.save(canonical_ckpt)
+    print('Saved model to', canonical_ckpt)
 
 
     # Evaluation
