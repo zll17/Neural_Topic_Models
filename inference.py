@@ -12,23 +12,20 @@
 
 
 import os
-import re
 import torch
 import argparse
 import time
 from models import BATM, ETM, GMNTM, GSM, WTM
-from utils import *
 from dataset import TestData
-from multiprocessing import cpu_count
-import numpy as np
 from tqdm import tqdm
 import json
 from gensim.corpora import Dictionary
+from device_helper import default_device
 
 parser = argparse.ArgumentParser('Topic model inference')
 parser.add_argument('--no_below',type=int,default=5,help='The lower bound of count for words to keep, e.g 10')
 parser.add_argument('--no_above',type=float,default=0.005,help='The ratio of upper bound of count for words to keep, e.g 0.3')
-parser.add_argument('--use_tfidf',type=bool,default=False,help='Whether to use the tfidf feature for the BOW input')
+parser.add_argument('--use_tfidf',action='store_true',help='Use TF-IDF features for BOW input')
 parser.add_argument('--model_path',type=str,default='',help='Load model for inference from this path')
 parser.add_argument('--save_dir',type=str,default='./',help='Save inference result')
 parser.add_argument('--model_name',type=str,default='WTM',help='Neural Topic Model name')
@@ -38,17 +35,15 @@ args = parser.parse_args()
 
 
 def main():
-    global args
     no_below = args.no_below
     no_above = args.no_above
-    n_cpu = cpu_count()-2 if cpu_count()>2 else 2
     use_tfidf = args.use_tfidf
     model_path = args.model_path
     model_name = args.model_name
     save_dir = args.save_dir
     test_path=args.test_path
 
-    device = torch.device('cuda')
+    device = default_device()
     
     # load checkpoint
     checkpoint=torch.load(model_path)

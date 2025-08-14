@@ -2,17 +2,12 @@
 # coding: utf-8
 
 import os
-import re
-import gensim
 import pickle
 import argparse
 import logging
-from utils import *
+from utils import get_topic_words, calc_topic_coherence, calc_topic_diversity
 from gensim.models import LdaModel,TfidfModel
-from gensim.models.ldamulticore import LdaMulticore
-from gensim.models.coherencemodel import CoherenceModel
 from dataset import DocDataset
-from multiprocessing import cpu_count
 
 
 parser = argparse.ArgumentParser('LDA topic model')
@@ -21,23 +16,19 @@ parser.add_argument('--no_below',type=int,default=5,help='The lower bound of cou
 parser.add_argument('--no_above',type=float,default=0.3,help='The ratio of upper bound of count for words to keep, e.g 0.3')
 parser.add_argument('--num_iters',type=int,default=100,help='Number of iterations (set to 100 as default, but 1000+ is recommended.)')
 parser.add_argument('--n_topic',type=int,default=20,help='Num of topics')
-parser.add_argument('--bkpt_continue',type=bool,default=False,help='Whether to load a trained model as initialization and continue training.')
-parser.add_argument('--use_tfidf',type=bool,default=False,help='Whether to use the tfidf feature for the BOW input')
-parser.add_argument('--rebuild',type=bool,default=False,help='Whether to rebuild the corpus, such as tokenization, build dict etc.(default True)')
+parser.add_argument('--bkpt_continue',action='store_true',help='Load canonical checkpoint and run lda.update() for more passes')
+parser.add_argument('--use_tfidf',action='store_true',help='Train LDA on TF-IDF weighted corpus')
+parser.add_argument('--rebuild',action='store_true',help='Rebuild corpus (tokenization, dict, etc.)')
 parser.add_argument('--auto_adj',action='store_true',help='To adjust the no_above ratio automatically (default:rm top 20)')
 
 args = parser.parse_args()
 
 def main():
-    global args
-    
     taskname = args.taskname
     no_below = args.no_below
     no_above = args.no_above
     num_iters = args.num_iters
     n_topic = args.n_topic
-    n_cpu = cpu_count()-2 if cpu_count()>2 else 2
-    bkpt_continue = args.bkpt_continue
     use_tfidf = args.use_tfidf
     rebuild = args.rebuild
     auto_adj = args.auto_adj
@@ -68,7 +59,7 @@ def main():
     else:
         train_corpus = list(docSet.bows)
 
-    if bkpt_continue:
+    if args.bkpt_continue:
         print('loading model ckpt ...')
         if not os.path.exists(canonical_ckpt):
             raise FileNotFoundError(
