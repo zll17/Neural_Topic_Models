@@ -10,6 +10,7 @@
 '''
 
 
+import os
 import pickle
 import argparse
 import time
@@ -25,22 +26,30 @@ parser.add_argument('--no_below',type=int,default=5,help='The lower bound of cou
 parser.add_argument('--no_above',type=float,default=0.005,help='The ratio of upper bound of count for words to keep, e.g 0.3')
 parser.add_argument('--num_epochs',type=int,default=100,help='Number of iterations (set to 100 as default, but 1000+ is recommended.)')
 parser.add_argument('--n_topic',type=int,default=20,help='Num of topics')
-parser.add_argument('--bkpt_continue',action='store_true',help='Resume from --ckpt (requires --ckpt)')
 parser.add_argument('--use_tfidf',action='store_true',help='Use TF-IDF features for BOW input')
 parser.add_argument('--no_rebuild',action='store_true',help='Use cached corpus under data/<taskname> when present (default: rebuild when needed)')
 parser.add_argument('--batch_size',type=int,default=512,help='Batch size (default=512)')
 parser.add_argument('--criterion',type=str,default='cross_entropy',help='The criterion to calculate the loss, e.g cross_entropy, bce_softmax, bce_sigmoid')
 parser.add_argument('--emb_dim',type=int,default=300,help="The dimension of the latent topic vectors (default:300)")
 parser.add_argument('--auto_adj',action='store_true',help='To adjust the no_above ratio automatically (default:rm top 20)')
-parser.add_argument('--ckpt',type=str,default=None,help='Checkpoint path')
+parser.add_argument(
+    '--ckpt',
+    type=str,
+    default=None,
+    help='Resume training: path to a training checkpoint (dict with param/net/optimizer/epoch).',
+)
 parser.add_argument('--lang',type=str,default="zh",help='Language of the dataset')
 
 args = parser.parse_args()
 
-def main():
-    if args.bkpt_continue and not args.ckpt:
-        raise SystemExit('error: --bkpt_continue requires --ckpt')
+def _keyedvector_vocab_keys(kv):
+    """gensim 4.x uses key_to_index; older versions use .vocab."""
+    if hasattr(kv, 'key_to_index'):
+        return list(kv.key_to_index.keys())
+    return list(kv.vocab.keys())
 
+
+def main():
     taskname = args.taskname
     no_below = args.no_below
     no_above = args.no_above
@@ -73,8 +82,22 @@ def main():
         model = ETM(bow_dim=voc_size,n_topic=n_topic,taskname=taskname,device=device,emb_dim=emb_dim) #TBD_fc1
         model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0,criterion=criterion)
     model.evaluate(test_data=docSet)
-    save_name = f'./ckpt/ETM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
-    torch.save(model.vae.state_dict(),save_name)
+    # Training loop in models/ETM.py also saves periodic checkpoints; this final file matches
+    # inference.py expectation: dict with "param" + "net" (not a bare state_dict).
+    ts = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
+    save_name = f'./ckpt/ETM_{taskname}_tp{n_topic}_{ts}.ckpt'
+    torch.save(
+        {
+            'net': model.vae.state_dict(),
+            'param': {
+                'bow_dim': model.bow_dim,
+                'n_topic': model.n_topic,
+                'taskname': taskname,
+                'emb_dim': model.emb_dim,
+            },
+        },
+        save_name,
+    )
     topic_vecs = model.vae.alpha.weight.detach().cpu().numpy()
     word_vecs = model.vae.rho.weight.detach().cpu().numpy()
     print('topic_vecs.shape:',topic_vecs.shape)
@@ -91,8 +114,9 @@ def main():
         wfp.write('\n'.join([' '.join(e) for e in word_vecs]+[' '.join(e) for e in topic_vecs]))
     from gensim.models import KeyedVectors
     w2v = KeyedVectors.load_word2vec_format(save_name_wd,binary=False)
-    w2v.save(save_name.split('.')[0]+'.w2v')
-    print(w2v.vocab.keys())
+    w2v_out = os.path.splitext(save_name)[0] + '.w2v'
+    w2v.save(w2v_out)
+    print(_keyedvector_vocab_keys(w2v))
     #w2v.most_similar('你好')
     for i in range(n_topic):
         print(f'Most similar to Topic {i}')
