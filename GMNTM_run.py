@@ -23,22 +23,23 @@ parser.add_argument('--no_below',type=int,default=5,help='The lower bound of cou
 parser.add_argument('--no_above',type=float,default=0.005,help='The ratio of upper bound of count for words to keep, e.g 0.3')
 parser.add_argument('--num_epochs',type=int,default=100,help='Number of iterations (set to 100 as default, but 1000+ is recommended.)')
 parser.add_argument('--n_topic',type=int,default=20,help='Num of topics')
-parser.add_argument('--bkpt_continue',action='store_true',help='Resume from --ckpt (requires --ckpt)')
 parser.add_argument('--use_tfidf',action='store_true',help='Use TF-IDF features for BOW input')
 parser.add_argument('--no_rebuild',action='store_true',help='Use cached corpus under data/<taskname> when present (default: rebuild when needed)')
 parser.add_argument('--batch_size',type=int,default=512,help='Batch size (default=512)')
-parser.add_argument('--criterion',type=str,default='cross_entropy',help='The criterion to calculate the loss, e.g cross_entropy, bce_softmax, bce_sigmoid')
+parser.add_argument('--criterion',type=str,default='bce_softmax',help='Loss for GMNTM training: cross_entropy, bce_softmax, bce_sigmoid')
 parser.add_argument('--auto_adj',action='store_true',help='To adjust the no_above ratio automatically (default:rm top 20)')
-parser.add_argument('--ckpt',type=str,default=None,help='Checkpoint path')
+parser.add_argument(
+    '--ckpt',
+    type=str,
+    default=None,
+    help='Resume training: path to a training checkpoint (dict with param/net/optimizer/epoch).',
+)
 parser.add_argument('--lang',type=str,default="zh",help='Language of the dataset')
 
 args = parser.parse_args()
 
 
 def main():
-    if args.bkpt_continue and not args.ckpt:
-        raise SystemExit('error: --bkpt_continue requires --ckpt')
-
     taskname = args.taskname
     no_below = args.no_below
     no_above = args.no_above
@@ -46,6 +47,7 @@ def main():
     n_topic = args.n_topic
     rebuild = not args.no_rebuild
     batch_size = args.batch_size
+    criterion = args.criterion
     auto_adj = args.auto_adj
     ckpt = args.ckpt
     lang = args.lang
@@ -64,13 +66,26 @@ def main():
         param=checkpoint["param"]
         param.update({"device": device})
         model = GMNTM(**param)
-        model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0,criterion='bce_softmax',ckpt=checkpoint)
+        model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0,criterion=criterion,ckpt=checkpoint)
     else:
         model = GMNTM(bow_dim=voc_size,n_topic=n_topic,device=device,taskname=taskname,dropout=0.2)
-        model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0,criterion='bce_softmax')
+        model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0,criterion=criterion)
     model.evaluate(test_data=docSet)
-    save_name = f'./ckpt/GMNTM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
-    torch.save(model.vade.state_dict(),save_name)
+    ts = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
+    save_name = f'./ckpt/GMNTM_{taskname}_tp{n_topic}_{ts}.ckpt'
+    torch.save(
+        {
+            'net': model.vade.state_dict(),
+            'param': {
+                'bow_dim': model.bow_dim,
+                'n_topic': model.n_topic,
+                'taskname': taskname,
+                'dropout': 0.2,
+            },
+        },
+        save_name,
+    )
+    print('Saved inference-ready checkpoint to', save_name)
     txt_lst, embeds = model.get_embed(train_data=docSet, num=1000)
     with open('topic_dist_gmntm.txt','w',encoding='utf-8') as wfp:
         for t,e in zip(txt_lst,embeds):

@@ -119,8 +119,10 @@ class BATM:
         topic_words = self.show_topic_words()
         return evaluate_topic_quality(topic_words, test_data, taskname=self.taskname,calc4each=calc4each)
 
-    def show_topic_words(self, topic_id=None, topK=15):
+    def show_topic_words(self, topic_id=None, topK=15, dictionary=None):
         with torch.no_grad():
+            if self.id2token is None and dictionary is not None:
+                self.id2token = {v: k for k, v in dictionary.token2id.items()}
             topic_words = []
             idxes = torch.eye(self.n_topic).to(self.device)
             word_dist = self.generator.inference(idxes)
@@ -133,3 +135,27 @@ class BATM:
             else:
                 topic_words.append([self.id2token[idx] for idx in indices[topic_id]])
             return topic_words
+
+    def load_model(self, net_state):
+        if isinstance(net_state, dict) and 'generator' in net_state:
+            self.generator.load_state_dict(net_state['generator'])
+            self.encoder.load_state_dict(net_state['encoder'])
+            self.discriminator.load_state_dict(net_state['discriminator'])
+        else:
+            raise ValueError('BATM.load_model expects a dict with generator, encoder, discriminator keys')
+
+    def inference(self, doc_tokenized, dictionary, normalize=True):
+        doc_bow = torch.zeros(1, self.bow_dim)
+        for token in doc_tokenized:
+            try:
+                idx = dictionary.token2id[token]
+                doc_bow[0][idx] += 1.0
+            except KeyError:
+                pass
+        doc_bow = doc_bow.to(self.device)
+        doc_bow = doc_bow / doc_bow.sum(dim=1, keepdim=True).clamp(min=1e-12)
+        with torch.no_grad():
+            self.generator.eval()
+            self.encoder.eval()
+            theta = self.encoder.e(doc_bow)
+        return theta.detach().cpu().squeeze(0).numpy()

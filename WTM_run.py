@@ -74,8 +74,22 @@ def main():
         model = WTM(bow_dim=voc_size,n_topic=n_topic,device=device,dist=dist,taskname=taskname,dropout=dropout)
         model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,beta=1.0)
     model.evaluate(test_data=docSet)
-    save_name = f'./ckpt/WTM_{taskname}_tp{n_topic}_{dist}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
-    torch.save(model.wae.state_dict(),save_name)
+    ts = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
+    save_name = f'./ckpt/WTM_{taskname}_tp{n_topic}_{dist}_{ts}.ckpt'
+    torch.save(
+        {
+            'net': model.wae.state_dict(),
+            'param': {
+                'bow_dim': model.bow_dim,
+                'n_topic': model.n_topic,
+                'taskname': taskname,
+                'dist': model.dist,
+                'dropout': model.dropout,
+            },
+        },
+        save_name,
+    )
+    print('Saved inference-ready checkpoint to', save_name)
     txt_lst, embeds = model.get_embed(train_data=docSet, num=1000)
     with open('topic_dist_wtm.txt','w',encoding='utf-8') as wfp:
         for t,e in zip(txt_lst,embeds):

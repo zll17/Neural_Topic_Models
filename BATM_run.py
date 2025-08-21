@@ -48,14 +48,32 @@ def main():
     docSet = DocDataset(taskname,lang=lang,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=use_tfidf_first)
     if auto_adj:
         no_above = docSet.topk_dfs(topk=20)
-        docSet = DocDataset(taskname,lang=lang,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=False)
+        docSet = DocDataset(taskname,lang=lang,no_below=no_below,no_above=no_above,rebuild=rebuild,use_tfidf=use_tfidf_first)
     voc_size = docSet.vocabsize
 
-    model = BATM(bow_dim=voc_size,n_topic=n_topic,device=device, taskname=taskname)
+    hid_dim = 1024
+    model = BATM(bow_dim=voc_size,n_topic=n_topic,hid_dim=hid_dim,device=device, taskname=taskname)
     model.train(train_data=docSet,batch_size=batch_size,test_data=docSet,num_epochs=num_epochs,log_every=10,n_critic=10)
     model.evaluate(test_data=docSet)
-    save_name = f'./ckpt/BATM_{taskname}_tp{n_topic}_{time.strftime("%Y-%m-%d-%H-%M", time.localtime())}.ckpt'
-    torch.save({'generator':model.generator.state_dict(),'encoder':model.encoder.state_dict(),'discriminator':model.discriminator.state_dict()},save_name)
+    ts = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
+    save_name = f'./ckpt/BATM_{taskname}_tp{n_topic}_{ts}.ckpt'
+    torch.save(
+        {
+            'net': {
+                'generator': model.generator.state_dict(),
+                'encoder': model.encoder.state_dict(),
+                'discriminator': model.discriminator.state_dict(),
+            },
+            'param': {
+                'bow_dim': voc_size,
+                'n_topic': n_topic,
+                'hid_dim': hid_dim,
+                'taskname': taskname,
+            },
+        },
+        save_name,
+    )
+    print('Saved inference-ready checkpoint to', save_name)
 
 if __name__ == "__main__":
     main()
