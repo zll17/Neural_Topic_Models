@@ -6,19 +6,30 @@ import torch
 from gensim.corpora import Dictionary
 
 from ntm.adapters.checkpoint_adapter import load_checkpoint, parse_checkpoint
+from ntm.adapters.model_adapter import resolve_device
 from ntm.config import DataConfig, InferConfig, TrainConfig
 from ntm.errors import UnsupportedModelError
 from ntm.types import TopicPrediction, TrainResult
 
 
 class TopicModel:
-    def __init__(self, model_name, model_obj, dictionary=None, device=None, taskname=None, n_topic=None):
+    def __init__(
+        self,
+        model_name,
+        model_obj,
+        dictionary=None,
+        device=None,
+        taskname=None,
+        n_topic=None,
+        save_param_extra=None,
+    ):
         self.model_name = model_name.lower()
         self.model = model_obj
         self.dictionary = dictionary
-        self.device = device
+        self.device = device if isinstance(device, torch.device) else resolve_device(device or "cpu")
         self.taskname = taskname
         self.n_topic = n_topic
+        self._save_param_extra = dict(save_param_extra or {})
 
     @classmethod
     def from_config(cls, train_cfg: TrainConfig, data_cfg: DataConfig):
@@ -27,6 +38,12 @@ class TopicModel:
 
         train_data = build_train_dataset(data_cfg)
         model_obj, device = build_model(train_cfg, train_data.vocabsize, data_cfg.taskname)
+        save_extra = {}
+        mn = train_cfg.model.lower()
+        if mn == "batm":
+            save_extra["hid_dim"] = train_cfg.hid_dim
+        if mn == "gmntm":
+            save_extra["dropout"] = train_cfg.dropout
         topic_model = cls(
             model_name=train_cfg.model,
             model_obj=model_obj,
@@ -34,6 +51,7 @@ class TopicModel:
             device=device,
             taskname=data_cfg.taskname,
             n_topic=train_cfg.n_topic,
+            save_param_extra=save_extra,
         )
         return topic_model, train_data
 
@@ -46,10 +64,18 @@ class TopicModel:
             "log_every": train_cfg.log_every,
         }
 
-        if self.model_name in ("gsm", "etm", "gmntm"):
+        if self.model_name in ("gsm", "etm"):
+            kwargs["criterion"] = train_cfg.criterion
+        if self.model_name == "gmntm":
             kwargs["criterion"] = train_cfg.criterion
         if self.model_name == "batm":
             kwargs.pop("test_data")
+
+        if train_cfg.ckpt_path:
+            kwargs["ckpt"] = torch.load(
+                train_cfg.ckpt_path,
+                map_location=self.device,
+            )
 
         self.model.train(**kwargs)
         metrics = self._evaluate(train_data)
@@ -74,8 +100,6 @@ class TopicModel:
         }
 
     def infer(self, texts, infer_cfg: InferConfig = None):
-        if self.model_name == "batm":
-            raise UnsupportedModelError("BATM inference is not available in current implementation.")
         if self.dictionary is None:
             raise ValueError("Dictionary is required for text inference.")
         if infer_cfg is None:
@@ -96,23 +120,25 @@ class TopicModel:
         return preds
 
     def save(self, path):
-        payload = {
-            "format_version": 1,
-            "model_name": self.model_name,
-            "model_state": _extract_state_dict(self.model_name, self.model),
-            "train_config": {
-                "bow_dim": getattr(self.model, "bow_dim", None),
-                "n_topic": self.n_topic,
-                "taskname": self.taskname,
-                "dist": getattr(self.model, "dist", None),
-                "dropout": getattr(self.model, "dropout", None),
-                "emb_dim": getattr(self.model, "emb_dim", None),
-            },
-            "data_config": {
-                "taskname": self.taskname,
-            },
+        """Same layout as CLI *_run.py: ``{\"param\": ..., \"net\": ...}`` for inference.py."""
+        param = {
+            "bow_dim": self.model.bow_dim,
+            "n_topic": self.model.n_topic,
+            "taskname": self.taskname,
         }
-        torch.save(payload, path)
+        param.update(self._save_param_extra)
+        if self.model_name == "wtm":
+            param["dist"] = self.model.dist
+            param["dropout"] = self.model.dropout
+        elif self.model_name == "etm":
+            param["emb_dim"] = self.model.emb_dim
+        torch.save(
+            {
+                "net": _extract_state_dict(self.model_name, self.model),
+                "param": param,
+            },
+            path,
+        )
 
     def get_topic_words(self, topk=15):
         if self.dictionary is None:
@@ -121,12 +147,23 @@ class TopicModel:
 
 
 def train_model(model, taskname, n_topic=20, num_epochs=100, **kwargs):
+    ml = (model or "").lower()
+    default_dropout = 0.0
+    if ml == "wtm":
+        default_dropout = 0.4
+    elif ml == "gmntm":
+        default_dropout = 0.2
+    default_criterion = "cross_entropy"
+    if ml == "gmntm":
+        default_criterion = "bce_softmax"
+
     data_cfg = DataConfig(
         taskname=taskname,
         lang=kwargs.pop("lang", "zh"),
         no_below=kwargs.pop("no_below", 5),
         no_above=kwargs.pop("no_above", 0.005),
         rebuild=kwargs.pop("rebuild", False),
+        no_rebuild=kwargs.pop("no_rebuild", False),
         auto_adj=kwargs.pop("auto_adj", False),
         use_tfidf=kwargs.pop("use_tfidf", False),
     )
@@ -135,12 +172,14 @@ def train_model(model, taskname, n_topic=20, num_epochs=100, **kwargs):
         n_topic=n_topic,
         num_epochs=num_epochs,
         batch_size=kwargs.pop("batch_size", 512),
-        criterion=kwargs.pop("criterion", "cross_entropy"),
+        criterion=kwargs.pop("criterion", default_criterion),
         device=kwargs.pop("device", "auto"),
         dist=kwargs.pop("dist", "gmm_std"),
         emb_dim=kwargs.pop("emb_dim", 300),
-        dropout=kwargs.pop("dropout", 0.0),
+        dropout=kwargs.pop("dropout", default_dropout),
+        hid_dim=kwargs.pop("hid_dim", 1024),
         log_every=kwargs.pop("log_every", 10),
+        ckpt_path=kwargs.pop("ckpt", None) or kwargs.pop("ckpt_path", None),
     )
 
     topic_model, train_data = TopicModel.from_config(train_cfg, data_cfg)
@@ -163,14 +202,15 @@ def train_model(model, taskname, n_topic=20, num_epochs=100, **kwargs):
 def load_model(ckpt_path, model_name=None, device="auto", taskname=None):
     from ntm.adapters.model_adapter import build_model_from_params, load_model_state
 
-    ckpt = load_checkpoint(ckpt_path, map_location="cpu")
+    map_dev = resolve_device(device)
+    ckpt = load_checkpoint(ckpt_path, map_location=map_dev)
     parsed = parse_checkpoint(ckpt)
 
     if model_name is None:
-        if parsed["format"] == "v1":
+        if isinstance(ckpt, dict) and ckpt.get("format_version") == 1:
             model_name = ckpt.get("model_name")
         else:
-            raise ValueError("model_name is required for legacy checkpoints.")
+            raise ValueError("model_name is required unless checkpoint contains model_name (ntm v1 format).")
 
     params = dict(parsed["params"])
     if "bow_dim" not in params or "n_topic" not in params:
@@ -181,13 +221,20 @@ def load_model(ckpt_path, model_name=None, device="auto", taskname=None):
 
     model_taskname = params.get("taskname", taskname)
     dictionary = _load_dictionary(model_taskname) if model_taskname else None
+    save_extra = {}
+    mn = (model_name or "").lower()
+    if mn == "batm" and "hid_dim" in params:
+        save_extra["hid_dim"] = params["hid_dim"]
+    if mn == "gmntm" and "dropout" in params:
+        save_extra["dropout"] = params["dropout"]
     return TopicModel(
         model_name=model_name,
         model_obj=model_obj,
         dictionary=dictionary,
-        device=device,
+        device=map_dev,
         taskname=model_taskname,
         n_topic=params.get("n_topic"),
+        save_param_extra=save_extra,
     )
 
 

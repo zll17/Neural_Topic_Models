@@ -9,6 +9,8 @@ class DataConfig:
     no_below: int = 5
     no_above: float = 0.005
     rebuild: bool = False
+    # If True: same as CLI --no_rebuild (use cached corpus when present; rebuild_eff = not no_rebuild)
+    no_rebuild: bool = False
     auto_adj: bool = False
     use_tfidf: bool = False
 
@@ -27,6 +29,7 @@ class TrainConfig:
     dist: str = "gmm_std"
     emb_dim: int = 300
     dropout: float = 0.0
+    hid_dim: int = 1024  # BATM GAN hidden width (matches models/BATM default)
 
 
 @dataclass

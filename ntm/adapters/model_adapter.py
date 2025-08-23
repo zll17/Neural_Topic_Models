@@ -27,6 +27,8 @@ def build_model(train_cfg, bow_dim, taskname):
         kwargs.update({"emb_dim": train_cfg.emb_dim})
     elif model_name == "gmntm":
         kwargs.update({"dropout": train_cfg.dropout})
+    elif model_name == "batm":
+        kwargs.update({"hid_dim": train_cfg.hid_dim})
 
     return model_cls(**kwargs), device
 
@@ -44,12 +46,12 @@ def load_model_state(model_name, model_obj, parsed_ckpt):
     state = parsed_ckpt["model_state"]
 
     if name == "batm":
-        if fmt != "legacy_batm_submodules":
-            raise UnsupportedModelError("BATM load is only supported for BATM submodule checkpoints.")
-        model_obj.generator.load_state_dict(state["generator"])
-        model_obj.encoder.load_state_dict(state["encoder"])
-        model_obj.discriminator.load_state_dict(state["discriminator"])
-        return
+        if isinstance(state, dict) and "generator" in state:
+            model_obj.generator.load_state_dict(state["generator"])
+            model_obj.encoder.load_state_dict(state["encoder"])
+            model_obj.discriminator.load_state_dict(state["discriminator"])
+            return
+        raise UnsupportedModelError("BATM checkpoint 'net' must contain generator, encoder, discriminator.")
 
     model_obj.load_model(state)
 
@@ -63,6 +65,8 @@ def _filter_init_params(model_name, params):
         allow = common.union({"emb_dim"})
     elif name == "gmntm":
         allow = common.union({"dropout"})
+    elif name == "batm":
+        allow = common.union({"hid_dim"})
     else:
         allow = common
 
