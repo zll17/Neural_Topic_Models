@@ -8,8 +8,17 @@ from gensim.corpora import Dictionary
 from ntm.adapters.checkpoint_adapter import load_checkpoint, parse_checkpoint
 from ntm.adapters.model_adapter import resolve_device
 from ntm.config import DataConfig, InferConfig, TrainConfig
-from ntm.errors import UnsupportedModelError
+from ntm.errors import CheckpointFormatError, ConfigValidationError, UnsupportedModelError
 from ntm.types import TopicPrediction, TrainResult
+from ntm.validation import (
+    reformat_checkpoint_error,
+    validate_data_config,
+    validate_infer_config,
+    validate_load_model_args,
+    validate_model_name,
+    validate_parsed_checkpoint_for_load,
+    validate_train_config,
+)
 
 
 class TopicModel:
@@ -36,6 +45,8 @@ class TopicModel:
         from ntm.adapters.dataset_adapter import build_train_dataset
         from ntm.adapters.model_adapter import build_model
 
+        validate_data_config(data_cfg)
+        validate_train_config(train_cfg)
         train_data = build_train_dataset(data_cfg)
         model_obj, device = build_model(train_cfg, train_data.vocabsize, data_cfg.taskname)
         save_extra = {}
@@ -56,6 +67,7 @@ class TopicModel:
         return topic_model, train_data
 
     def fit(self, train_data, train_cfg: TrainConfig):
+        validate_train_config(train_cfg)
         kwargs = {
             "train_data": train_data,
             "batch_size": train_cfg.batch_size,
@@ -100,10 +112,13 @@ class TopicModel:
         }
 
     def infer(self, texts, infer_cfg: InferConfig = None):
-        if self.dictionary is None:
-            raise ValueError("Dictionary is required for text inference.")
         if infer_cfg is None:
             infer_cfg = InferConfig()
+        validate_infer_config(infer_cfg)
+        if self.dictionary is None:
+            raise ConfigValidationError(
+                "[ntm] Dictionary is required for text inference (load a checkpoint with taskname or train with data)."
+            )
 
         preds = []
         for text in texts:
@@ -202,20 +217,29 @@ def train_model(model, taskname, n_topic=20, num_epochs=100, **kwargs):
 def load_model(ckpt_path, model_name=None, device="auto", taskname=None):
     from ntm.adapters.model_adapter import build_model_from_params, load_model_state
 
+    validate_load_model_args(ckpt_path, model_name, device, taskname)
     map_dev = resolve_device(device)
-    ckpt = load_checkpoint(ckpt_path, map_location=map_dev)
-    parsed = parse_checkpoint(ckpt)
+    try:
+        ckpt = load_checkpoint(ckpt_path, map_location=map_dev)
+    except Exception as exc:
+        raise reformat_checkpoint_error(exc, operation="load_model (read checkpoint)") from exc
+    try:
+        parsed = parse_checkpoint(ckpt)
+    except CheckpointFormatError as exc:
+        raise CheckpointFormatError("[ntm] load_model: {}".format(exc)) from exc
 
     if model_name is None:
         if isinstance(ckpt, dict) and ckpt.get("format_version") == 1:
             model_name = ckpt.get("model_name")
         else:
-            raise ValueError("model_name is required unless checkpoint contains model_name (ntm v1 format).")
+            raise ConfigValidationError(
+                "[ntm] load_model: model_name is required unless checkpoint contains model_name (ntm v1 format)."
+            )
+
+    model_name = validate_model_name(model_name, context="load_model model_name")
+    validate_parsed_checkpoint_for_load(parsed, model_name)
 
     params = dict(parsed["params"])
-    if "bow_dim" not in params or "n_topic" not in params:
-        raise ValueError("Checkpoint missing required model params: bow_dim and n_topic.")
-
     model_obj = build_model_from_params(model_name, params, device)
     load_model_state(model_name, model_obj, parsed)
 
@@ -240,6 +264,7 @@ def load_model(ckpt_path, model_name=None, device="auto", taskname=None):
 
 def infer_topics(topic_model, texts, topk=3):
     infer_cfg = InferConfig(topk=topk)
+    validate_infer_config(infer_cfg)
     return topic_model.infer(texts, infer_cfg=infer_cfg)
 
 

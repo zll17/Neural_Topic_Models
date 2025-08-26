@@ -8,3 +8,7 @@ class UnsupportedModelError(NTMError):
 
 class CheckpointFormatError(NTMError):
     """Raised when checkpoint format cannot be parsed."""
+
+
+class ConfigValidationError(NTMError):
+    """Raised when DataConfig, TrainConfig, InferConfig, or load paths are invalid."""
