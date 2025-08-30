@@ -43,6 +43,14 @@ $ cd Neural_Topic_Models/
 $ sudo pip install -r requirements.txt
 ```
 
+To install the **`ntm`** package from this repo (declared in `pyproject.toml`, PyPI distribution name **`neural-topic-models`**), you can use an editable install after the clone:
+
+```shell
+$ pip install -e .
+```
+
+See [ntm_usage.md](ntm_usage.md) for API usage and optional extras (e.g. `pip install -e ".[full]"`).
+
 
 
 <h2 id="Models">2. Models</h2>
@@ -455,6 +463,14 @@ $ git clone https://github.com/zll17/Neural_Topic_Models
 $ cd Neural_Topic_Models/
 $ sudo pip install -r requirements.txt
 ```
+
+若要在本仓库中安装可导入的 **`ntm`** 包（包元数据见 `pyproject.toml`，PyPI 发行名为 **`neural-topic-models`**），可在克隆后使用可编辑安装：
+
+``` shell
+$ pip install -e .
+```
+
+用法与可选依赖说明见 [ntm_usage.md](ntm_usage.md)（例如 `pip install -e ".[full]"`）。
 
 
 
