@@ -1,5 +1,9 @@
 <p align="center" id="title_en"><img src="assets/logo.png" width="480"\></p>
 
+> **New:** This package has been published on PyPI. Install with `pip install neural-topic-models`, then `import ntm` in Python to use it.
+
+> **Update:** The neural topic models in this project are also packaged as the **`ntm`** Python module so you can `import ntm` and call the APIs from code. The original command-line scripts are still supported. For details, see [ntm_usage.md](ntm_usage.md).
+
 [English](#title_en) | [中文](#title_zh)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -10,7 +14,6 @@ Empirically, NTM is superior to classical statistical topic models ,especially o
 
 If you have any question or suggestion about this implementation, please do not hesitate to contact me.   **To make it better, welcome to join me.** ;)
 
-> **Update:** The neural topic models in this project are also packaged as the **`ntm`** Python module so you can `import ntm` and call the APIs from code. The original command-line scripts are still supported. For details, see [ntm_usage.md](ntm_usage.md).
 
 *Note*: If you find it's slow to load the pictures of this readme file, you can read this [article](https://zll17.github.io/2020/11/17/Introduction-to-Neural-Topic-Models/) at my blog.
 
@@ -403,6 +406,10 @@ Apache License 2.0
 
 <p align="center" id="title_zh"><img src="assets/logo.png" width="480"\></p>
 
+> **最新发布：** 本包已发布到 PyPI，可通过 `pip install neural-topic-models` 安装，并在 Python 中通过 `import ntm` 导入使用。
+
+> **更新说明：** 本仓库中的神经主题模型已封装为 **`ntm`** Python 包，可在代码中 `import ntm` 使用；原有命令行脚本仍保留。具体用法见 [ntm_usage.md](ntm_usage.md)。
+
 [English](#title_en) | [中文](#title_zh)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -412,8 +419,6 @@ Apache License 2.0
 近年来基于VAE和GAN的神经主题模型的各类变种，相比于经典的统计主题模型（如LDA等），能提取到更一致的主题。NTM在稀疏性十分严重的场景下所提取到的主题，其一致性和多样性都优于LDA，是一种强大（且有意思）的模型。此项目的初衷是提供一组方便、实用的神经主题模型实现，包括部分论文的复现及我自己的改进模型。项目中的模型配置与原论文未必完全一致，但保留了原论文中心思想。
 
 此项目提供有三个中文短文本数据集——新闻标题数据集（[cnews10k](data/cnews10k_lines.txt)）和对话数据集（[zhdd](data/zhdd_lines.txt) 和 [zhddline](data/zhddline_lines.txt)），作评测之用。作为对比，提供了基于gensim编写的LDA脚本，开箱即用，且接口与NTM保持一致。
-
-> **更新说明：** 本仓库中的神经主题模型已封装为 **`ntm`** Python 包，可在代码中 `import ntm` 使用；原有命令行脚本仍保留。具体用法见 [ntm_usage.md](ntm_usage.md)。
 
 **如果你对某些实现有疑问或者有更好的想法，欢迎加入我。**
 
