@@ -21,7 +21,6 @@ keywords = [
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
@@ -40,6 +39,7 @@ dependencies = [
 hanlp = ["pyhanlp"]
 full = ["pyhanlp"]
 dev = ["pytest>=6.0"]
+release = ["build>=1.0.0", "twine>=4.0"]
 
 [project.urls]
 Homepage = "https://github.com/zll17/Neural_Topic_Models"

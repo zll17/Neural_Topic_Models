@@ -179,4 +179,6 @@ pytest
 
 ## 版本说明
 
-当前库版本与 `pyproject.toml` 中 `[project] version` 一致；发布到 PyPI 时使用发行名 **`neural-topic-models`**，导入名仍为 **`ntm`**。
+当前库版本与 `pyproject.toml` 中 `[project] version` 一致（需与 `setup.cfg` 中 `version` 保持同步）；发布到 PyPI 时使用发行名 **`neural-topic-models`**，导入名仍为 **`ntm`**。
+
+发版流程（TestPyPI → PyPI、`build` / `twine`、可选 GitHub Actions）：见仓库根目录 **[RELEASING.md](RELEASING.md)**。安装发布工具：`pip install -e ".[release]"`。
