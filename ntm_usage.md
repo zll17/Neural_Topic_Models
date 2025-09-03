@@ -164,6 +164,19 @@ validate_train_config(TrainConfig(model="wtm"))
 
 ---
 
+## 开发与测试
+
+在仓库根目录安装开发依赖后运行：
+
+```shell
+pip install -e ".[dev]"
+pytest
+```
+
+`pytest` 配置在 `pyproject.toml` 的 `[tool.pytest.ini_options]`（`pythonpath` 包含仓库根目录，以便导入 `models` 与 `ntm`）。测试位于 `tests/`：校验逻辑单元测试、`parse_checkpoint` 单元测试、以及最小 **`load_model` 集成测试**（构造小型 GSM checkpoint）。
+
+---
+
 ## 版本说明
 
 当前库版本与 `pyproject.toml` 中 `[project] version` 一致；发布到 PyPI 时使用发行名 **`neural-topic-models`**，导入名仍为 **`ntm`**。
