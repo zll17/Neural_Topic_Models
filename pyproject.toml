@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+# PEP 621 metadata (keep in sync with setup.cfg for setuptools < 61 / legacy installers).
+[project]
+name = "neural-topic-models"
+version = "0.1.0"
+description = "PyTorch neural topic models (GSM, WTM, ETM, GMNTM, BATM) with an importable ntm API."
+readme = "README.md"
+requires-python = ">=3.6"
+license = "Apache-2.0"
+authors = [{ name = "ZhangLeilan" }]
+keywords = [
+    "topic-model",
+    "neural-topic-model",
+    "pytorch",
+    "gensim",
+    "ntm",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "torch>=1.6.0",
+    "gensim>=4.2.0",
+    "tqdm>=4.64.0",
+    "numpy>=1.19.5",
+    "matplotlib>=3.3.4",
+    "scikit-learn>=0.24.2",
+    "jieba>=0.42.1",
+]
+
+[project.optional-dependencies]
+hanlp = ["pyhanlp"]
+full = ["pyhanlp"]
+dev = ["pytest>=6.0"]
+release = ["build>=1.0.0", "twine>=4.0"]
+
+[project.urls]
+Homepage = "https://github.com/zll17/Neural_Topic_Models"
+Repository = "https://github.com/zll17/Neural_Topic_Models"
+Documentation = "https://github.com/zll17/Neural_Topic_Models/blob/master/ntm_usage.md"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-ra"

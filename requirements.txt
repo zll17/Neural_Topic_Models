@@ -1,9 +1,11 @@
 torch>=1.6.0
-gensim
-tqdm
-numpy
-matplotlib
-sklearn
+gensim>=4.2.0
+tqdm>=4.64.0
+numpy>=1.19.5
+matplotlib>=3.3.4
+#sklearn>=0.24.2
+scikit-learn>=0.24.2
 pyhanlp
-spacy=3.0.1
+jieba>=0.42.1
+#spacy==3.0.1
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz

@@ -15,6 +15,22 @@ import gensim
 import numpy as np
 from gensim.models.coherencemodel import CoherenceModel
 
+
+def _train_word2vec_scratch(sents4emb, w2v_model_path):
+    """Train a small Word2Vec for c_w2v; supports gensim 3 (size/iter) and 4+ (vector_size/epochs)."""
+    print('Training a word2vec model (20 epochs) to evaluate topic coherence, this may take a few minutes ...')
+    try:
+        w2v_model = gensim.models.Word2Vec(
+            sents4emb, vector_size=300, min_count=1, workers=6, epochs=20,
+        )
+    except TypeError:
+        w2v_model = gensim.models.Word2Vec(
+            sents4emb, size=300, min_count=1, workers=6, iter=20,
+        )
+    keyed_vectors = w2v_model.wv
+    keyed_vectors.save_word2vec_format(w2v_model_path, binary=False)
+    return keyed_vectors
+
 def get_topic_words(model,topn=15,n_topic=10,vocab=None,fix_topic=None,showWght=False):
     topics = []
     def show_one_tp(tp_idx):
@@ -31,8 +47,12 @@ def get_topic_words(model,topn=15,n_topic=10,vocab=None,fix_topic=None,showWght=
 
 def calc_topic_diversity(topic_words):
     '''topic_words is in the form of [[w11,w12,...],[w21,w22,...]]'''
+    if not topic_words or not topic_words[0]:
+        return 0.0
     vocab = set(sum(topic_words,[]))
     n_total = len(topic_words) * len(topic_words[0])
+    if n_total == 0:
+        return 0.0
     topic_div = len(vocab) / n_total
     return topic_div
 
@@ -45,30 +65,41 @@ def calc_topic_coherence(topic_words,docs,dictionary,emb_path=None,taskname=None
     cv_score = cv_coherence_model.get_coherence()
     
     # Computing the C_W2V score
+    w2v_per_topic = [None for _ in range(len(topic_words))]
+    w2v_score = None
+    w2v_model_path = os.path.join(os.getcwd(),'data',f'{taskname}','w2v_weight_kv.txt') if taskname else None
+    keyed_vectors = None
     try:
-        w2v_model_path = os.path.join(os.getcwd(),'data',f'{taskname}','w2v_weight_kv.txt')
         # Priority order: 1) user's embed file; 2) standard path embed file; 3) train from scratch then store.
-        if emb_path!=None and os.path.exists(emb_path):
+        if emb_path is not None and os.path.exists(emb_path):
             keyed_vectors = gensim.models.KeyedVectors.load_word2vec_format(emb_path,binary=False)
-        elif os.path.exists(w2v_model_path):
+        elif w2v_model_path and os.path.exists(w2v_model_path):
             keyed_vectors = gensim.models.KeyedVectors.load_word2vec_format(w2v_model_path,binary=False)
-        elif sents4emb!=None:
-            print('Training a word2vec model 20 epochs to evaluate topic coherence, this may take a few minutes ...')
-            w2v_model = gensim.models.Word2Vec(sents4emb,size=300,min_count=1,workers=6,iter=20)
-            keyed_vectors = w2v_model.wv
-            keyed_vectors.save_word2vec_format(w2v_model_path,binary=False)
+        elif sents4emb is not None:
+            train_path = w2v_model_path if w2v_model_path is not None else os.path.join(
+                os.getcwd(), 'data', 'w2v_coherence_scratch.txt'
+            )
+            parent = os.path.dirname(train_path)
+            if parent and not os.path.exists(parent):
+                os.makedirs(parent, exist_ok=True)
+            keyed_vectors = _train_word2vec_scratch(sents4emb, train_path)
         else:
-            raise Exception("C_w2v score isn't available for the missing of training corpus (sents4emb=None).")
-            
-        w2v_coherence_model = CoherenceModel(topics=topic_words,texts=docs,dictionary=dictionary,coherence='c_w2v',keyed_vectors=keyed_vectors)
+            print("C_w2v skipped: no embedding file and no tokenized corpus (sents4emb) to train from.")
+    except (OSError, IOError, ValueError) as e:
+        print('C_w2v skipped (could not load/train embeddings): {!r}'.format(e))
 
-        w2v_per_topic = w2v_coherence_model.get_coherence_per_topic() if calc4each else None
-        w2v_score = w2v_coherence_model.get_coherence()
-    except Exception as e:
-        print(e)
-        #In case of OOV Error
-        w2v_per_topic = [None for _ in range(len(topic_words))]
-        w2v_score = None
+    if keyed_vectors is not None:
+        try:
+            w2v_coherence_model = CoherenceModel(
+                topics=topic_words, texts=docs, dictionary=dictionary,
+                coherence='c_w2v', keyed_vectors=keyed_vectors,
+            )
+            w2v_per_topic = w2v_coherence_model.get_coherence_per_topic() if calc4each else None
+            w2v_score = w2v_coherence_model.get_coherence()
+        except Exception as e:
+            print('C_w2v coherence computation failed ({}): {}'.format(type(e).__name__, e))
+            w2v_per_topic = [None for _ in range(len(topic_words))]
+            w2v_score = None
     
     # Computing the C_UCI score
     c_uci_coherence_model = CoherenceModel(topics=topic_words,texts=docs,dictionary=dictionary,coherence='c_uci')
@@ -97,9 +128,14 @@ def mimno_topic_coherence(topic_words,docs):
         s = 0
         for i in range(1,len(wlst)):
             for j in range(0,i):
-                s += np.log((co_occur(wlst[i],wlst[j])+1.0)/len(word2docs[wlst[j]]))
+                den = len(word2docs[wlst[j]])
+                if den < 1:
+                    continue
+                s += np.log((co_occur(wlst[i],wlst[j])+1.0)/den)
         scores.append(s)
-    return np.mean(s)
+    if not scores:
+        return 0.0
+    return np.mean(scores)
 
 def evaluate_topic_quality(topic_words, test_data, taskname=None, calc4each=False):
     

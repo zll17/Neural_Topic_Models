@@ -5,8 +5,25 @@ import multiprocessing
 
 from tqdm import tqdm
 
-from pyhanlp import *
 import spacy
+
+_HanLP = None
+
+
+def _lazy_import_hanlp():
+    """Load pyhanlp only when Chinese tokenization is used (avoids hard dep at import time)."""
+    global _HanLP
+    if _HanLP is not None:
+        return _HanLP
+    try:
+        from pyhanlp import HanLP
+        _HanLP = HanLP
+    except ImportError as e:
+        raise ImportError(
+            "Chinese tokenization requires the 'pyhanlp' package. "
+            "Install it or use lang='en' (SpaCy) for English."
+        ) from e
+    return _HanLP
 
 LANG_CLS = defaultdict(lambda:"SpacyTokenizer")
 LANG_CLS.update({
@@ -24,12 +41,13 @@ class HanLPTokenizer(object):
     def __init__(self, stopwords=None):
         self.pat = re.compile(r'[0-9!"#$%&\'()*+,-./:;<=>?@—，。：★、￥…【】（）《》？“”‘’！\[\\\]^_`{|}~\u3000]+')
         self.stopwords = stopwords
+        self._hanlp = _lazy_import_hanlp()
         print("Using HanLP tokenizer")
         
     def tokenize(self, lines: List[str]) -> List[List[str]]:
         docs = []
         for line in tqdm(lines):
-            tokens = [t.word for t in HanLP.segment(line)]
+            tokens = [t.word for t in self._hanlp.segment(line)]
             tokens = [re.sub(self.pat, r'', t).strip() for t in tokens]
             tokens = [t for t in tokens if t != '']
             if self.stopwords is not None:
